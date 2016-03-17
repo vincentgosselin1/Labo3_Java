@@ -8,9 +8,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 /**
  * Classe <b><i>Vue</i></b> <br><br>
@@ -19,18 +16,18 @@ import javax.swing.event.MenuListener;
  * dans une fenêtre selon une certaine mise en page. 
  */
 @SuppressWarnings("serial")
-public abstract class Vue extends JFrame implements MenuListener, ActionListener, ObserverIF {
+public abstract class Vue extends JFrame implements  ActionListener, ObserverIF {
 	//Objets nécessaires à l'affichage
-	protected JPanel pane = new JPanel();
+	private Controller controller = Controller.getInstance();
+	protected ModelImage model = ModelImage.getInstance();
+	protected JPanel panel;
+	
 	private JMenuBar menuBar = new JMenuBar();
-	private JScrollPane scroll = new JScrollPane(pane);
 
 	private Actions actions = Actions.getinstance();
 	private Command Do = new Do();
 	private Command reDo = new reDo();
 	private Command unDo = new unDo();
-	private Controller controller = Controller.getInstance();
-	protected ModelImage model = ModelImage.getInstance();
 
 	//Boutons principaux du menu
 	private JMenu Fichier = new JMenu("Fichier"), 
@@ -41,19 +38,15 @@ public abstract class Vue extends JFrame implements MenuListener, ActionListener
 			BoutonSave   = new JMenuItem("Sauvegarder"), 
 			BoutonUnDo   = new JMenuItem("Annuler"),
 			BoutonReDo   = new JMenuItem("Restaurer");
-
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
 	 * initialise tout notre fenêtre.
 	 */
-	public Vue(){
+	public Vue(){		
 		BoutonOuvrir.addActionListener(this);
 		BoutonSave.addActionListener(this);
 		BoutonUnDo.addActionListener(this);
 		BoutonReDo.addActionListener(this);
-
-		Fichier.addMenuListener(this);
-		Edition.addMenuListener(this);
 
 		this.setSize(600, 600);
 
@@ -61,14 +54,12 @@ public abstract class Vue extends JFrame implements MenuListener, ActionListener
 		Fichier.add(BoutonSave);
 		Edition.add(BoutonUnDo);
 		Edition.add(BoutonReDo);
-
+		
 		menuBar.add(Fichier);
 		menuBar.add(Edition);
 		this.setJMenuBar(menuBar);
-
-		this.add(scroll);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
 		model.addObserver(this);
 	}
 
@@ -101,19 +92,7 @@ public abstract class Vue extends JFrame implements MenuListener, ActionListener
 
 	@Override
 	public abstract void update();
-
-
-
-	@Override
-	public void menuCanceled(MenuEvent e) {
-
-	}
-
-	public abstract void menuDeselected(MenuEvent e);
-
-	@Override
-	public void menuSelected(MenuEvent e) {
-
-	}
+	
+	
 }
 

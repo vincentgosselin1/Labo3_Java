@@ -1,41 +1,36 @@
 package Patrons;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.swing.event.MenuEvent;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class VueImage extends Vue{
-	private BufferedImage image;
 
 	public VueImage(){
 		super();
 		super.setLocation(0, 0);
-	}
-
-	public BufferedImage getImage() {
-		return image;
-	}
-
-	public void setImage(BufferedImage image) {
-		this.image = image;
-	}
-
-	public void paintComponent(Graphics g){
-		super.paintComponents(g);
-		g.drawImage(model.getImage(), 0, 0, this);
+		panel = new MonPanel();
+		this.add(panel);
 	}
 
 	@Override
 	public void update() {
-		this.paintComponent(this.pane.getGraphics());
+		repaint();
 	}
-
-	@Override
-	public void menuDeselected(MenuEvent e) {
-		if (model.getImage() != null)
-			update();
+	
+	protected class MonPanel extends JPanel{
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			BufferedImage image = model.getImage();
+			
+			if (image != null) {
+				Graphics2D g2d = (Graphics2D) g.create();
+				g2d.drawImage(image, 0, 0, 600, 600, this);
+				g2d.dispose();
+			}
+		}
 	}
-
 }
