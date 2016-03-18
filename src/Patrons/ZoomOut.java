@@ -2,11 +2,15 @@ package Patrons;
 
 public class ZoomOut implements Command {
 	
-	private double zoomValue;
-	
-	public ZoomOut(double zoomValue){
-		this.zoomValue = zoomValue;
+	private static ZoomOut instance = new ZoomOut();
+
+	public ZoomOut(){}
+
+	public static ZoomOut getInstance(){
+		return instance;
 	}
+	
+	private double zoomValue;
 	
 	@Override
 	public void execute() {
