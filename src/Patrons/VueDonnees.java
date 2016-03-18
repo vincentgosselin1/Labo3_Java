@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 public class VueDonnees extends Vue {
 	public VueDonnees(){
 		super();
+		this.setJMenuBar(menuBar);
 		super.setLocation(700, 0);
 		panel = new MonPanel();
 		this.add(panel);
@@ -22,7 +23,7 @@ public class VueDonnees extends Vue {
 	protected class MonPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-
+			
 			if (null != null) {
 				Graphics2D g2d = (Graphics2D) g.create();
 
