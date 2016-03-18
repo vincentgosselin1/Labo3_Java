@@ -15,8 +15,10 @@ public class ModelImage {
 	}
 
 	private BufferedImage image;
-	private int zoom;
-	private Point origine;
+	private double zoom = 1.0;
+	private int height = 600;
+	private int width = 600;
+	private Point origine = new Point();
 	private List<ObserverIF> observers = new ArrayList<ObserverIF>();
 
 	public void setImage(BufferedImage image){
@@ -28,11 +30,11 @@ public class ModelImage {
 
 	}
 
-	public void setZoom(int zoom){
+	public void setZoom(double zoom){
 		this.zoom = zoom;
 	}
 
-	public int getZoom(){
+	public double getZoom(){
 		return zoom;
 
 	}
@@ -62,6 +64,22 @@ public class ModelImage {
 		for (ObserverIF observer : observers) {
 	         observer.update();
 	    }
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 

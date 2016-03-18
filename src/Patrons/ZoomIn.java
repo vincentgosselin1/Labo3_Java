@@ -2,26 +2,18 @@ package Patrons;
 
 
 public class ZoomIn implements Command {
-
-	private static ZoomIn instance = new ZoomIn();
-
-	public ZoomIn(){}
-
-	public static ZoomIn getInstance(){
-		return instance;
-	}
 	
+	private static final double DEFAULT_ZOOM = 0.25;
 	private double zoomValue;
 
 	@Override
 	public void execute() {
-
+		model.setZoom(model.getZoom()+DEFAULT_ZOOM);
 	}
 
 	@Override
 	public void reDo() {
-
-
+		
 	}
 
 	@Override

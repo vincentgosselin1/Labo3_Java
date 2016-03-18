@@ -8,6 +8,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.Scrollable;
 
 /**
  * Classe <b><i>Vue</i></b> <br><br>
@@ -20,7 +22,7 @@ public abstract class Vue extends JFrame implements ObserverIF {
 	//Objets nécessaires à l'affichage
 	protected ModelImage model = ModelImage.getInstance();
 	protected JPanel panel;
-	
+	protected JScrollPane scrollPane;
 	protected JMenuBar menuBar = new JMenuBar();
 
 	//Boutons principaux du menu

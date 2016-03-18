@@ -2,20 +2,12 @@ package Patrons;
 
 public class ZoomOut implements Command {
 	
-	private static ZoomOut instance = new ZoomOut();
-
-	public ZoomOut(){}
-
-	public static ZoomOut getInstance(){
-		return instance;
-	}
-	
+	private static final double DEFAULT_ZOOM = 0.5;
 	private double zoomValue;
 	
 	@Override
 	public void execute() {
-		
-		
+		model.setZoom(model.getZoom()-DEFAULT_ZOOM);
 	}
 
 	@Override
@@ -28,6 +20,10 @@ public class ZoomOut implements Command {
 	public void unDo() {
 		
 		
+	}
+
+	public void setZoomValue(double zoomValue) {
+		this.zoomValue = zoomValue;
 	}
 	
 }

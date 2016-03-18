@@ -1,5 +1,7 @@
 package Patrons;
 
+import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,6 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Ouvrir implements Command{
 	
 	private Path workingDirectory = Paths.get("").toAbsolutePath();
+	private BufferedImage image;
 	
 	private static Ouvrir instance = new Ouvrir();
 	
@@ -31,11 +34,16 @@ public class Ouvrir implements Command{
 
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
 			try {
-			    model.setImage(ImageIO.read(chooser.getSelectedFile()));
-			    model.notifyAllObservers();
+				image = ImageIO.read(chooser.getSelectedFile());	    
+			    
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 			}
+			model.setImage(image);
+			model.setOrigine(new Point(image.getMinX(),image.getMinY()));
+			model.setZoom(1.0);
+			model.setHeight(image.getHeight());
+			model.setWidth(image.getWidth());
 		}else{
 
 		}
