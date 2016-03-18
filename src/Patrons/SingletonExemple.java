@@ -16,7 +16,8 @@ public class SingletonExemple {
 		      return instance;
 		   }
 
-		   public void Méthode(){
+		   public void Methode(){
+			   //Github successful push!
 		      //Ce qu'on peut faire avec l'objet
 		   }
 		}
