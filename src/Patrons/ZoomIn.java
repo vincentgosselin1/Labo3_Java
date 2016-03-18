@@ -2,8 +2,7 @@ package Patrons;
 
 
 public class ZoomIn implements Command {
-	
-	private static final double DEFAULT_ZOOM = 0.25;
+
 	private double zoomValue;
 
 	@Override
