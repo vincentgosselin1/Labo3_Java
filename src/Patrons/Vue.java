@@ -1,6 +1,6 @@
 package Patrons;
 
-import java.awt.event.ActionEvent;
+import java.awt.Cursor;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -16,83 +16,61 @@ import javax.swing.JPanel;
  * dans une fenêtre selon une certaine mise en page. 
  */
 @SuppressWarnings("serial")
-public abstract class Vue extends JFrame implements  ActionListener, ObserverIF {
+public abstract class Vue extends JFrame implements ObserverIF {
 	//Objets nécessaires à l'affichage
-	private Controller controller = Controller.getInstance();
 	protected ModelImage model = ModelImage.getInstance();
 	protected JPanel panel;
 	
-	private JMenuBar menuBar = new JMenuBar();
-
-	private Actions actions = Actions.getinstance();
-	private Command Do = new Do();
-	private Command reDo = new reDo();
-	private Command unDo = new unDo();
+	protected JMenuBar menuBar = new JMenuBar();
 
 	//Boutons principaux du menu
-	private JMenu Fichier = new JMenu("Fichier"), 
-			Edition = new JMenu("Édition");
+	protected JMenu Fichier = new JMenu("Fichier"), 
+				  Edition = new JMenu("Édition"),
+				  Zoom	  = new JMenu("Zoom");
 
 	//Sous-Boutons du menu
-	private JMenuItem BoutonOuvrir = new JMenuItem("Ouvrir image"), 
-			BoutonSave   = new JMenuItem("Sauvegarder"), 
-			BoutonUnDo   = new JMenuItem("Annuler"),
-			BoutonReDo   = new JMenuItem("Restaurer");
+	protected JMenuItem BoutonOuvrir = new JMenuItem("Ouvrir image"), 
+					  BoutonSave   = new JMenuItem("Sauvegarder"), 
+					  BoutonUnDo   = new JMenuItem("Annuler"),
+					  BoutonReDo   = new JMenuItem("Restaurer"),
+					  ZoomIn	   = new JMenuItem("Zoom in"),
+					  ZoomOut	   = new JMenuItem("Zoom out");
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
 	 * initialise tout notre fenêtre.
 	 */
 	public Vue(){		
-		BoutonOuvrir.addActionListener(this);
-		BoutonSave.addActionListener(this);
-		BoutonUnDo.addActionListener(this);
-		BoutonReDo.addActionListener(this);
-
 		this.setSize(600, 600);
 
 		Fichier.add(BoutonOuvrir);
 		Fichier.add(BoutonSave);
 		Edition.add(BoutonUnDo);
 		Edition.add(BoutonReDo);
+		Zoom.add(ZoomIn);
+		Zoom.add(ZoomOut);
 		
 		menuBar.add(Fichier);
 		menuBar.add(Edition);
-		this.setJMenuBar(menuBar);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		model.addObserver(this);
 	}
 
-	/**
-	 * <b><i>actionPerformed</i></b> 
-	 * permet de récupérer l'action produite par l'utilisateur et la traiter.
-	 * 
-	 * @param action l'action produite par l'utilisateur
-	 */
-	public void actionPerformed(ActionEvent action) {
-		//L'utilisateur a appuyé sur Ouvrir image
-		if(action.getSource().equals(BoutonOuvrir)){
-			controller.ouvrirFichier();
-			actions.storeAndExecute(Do);
-
-			//L'utilisateur a appuyé sur Sauvegarder
-		}else if(action.getSource().equals(BoutonSave)){
-			controller.saveImage();
-			actions.storeAndExecute(Do);
-
-			//L'utilisateur a appuyé sur Annuler
-		}else if(action.getSource().equals(BoutonUnDo)){
-			actions.storeAndExecute(unDo);
-
-			//L'utilisateur a appuyé sur Restaurer
-		}else if(action.getSource().equals(BoutonReDo)){
-			actions.storeAndExecute(reDo);	
-		}
+	void addButtonListener(ActionListener listenerButton){
+		BoutonOuvrir.addActionListener(listenerButton);
+		BoutonSave.addActionListener(listenerButton);
+		BoutonUnDo.addActionListener(listenerButton);
+		BoutonReDo.addActionListener(listenerButton);
+		ZoomIn.addActionListener(listenerButton);
+		ZoomOut.addActionListener(listenerButton);
 	}
-
+	
 	@Override
 	public abstract void update();
 	
+	public void setCursor(Cursor cursor){
+		panel.setCursor(cursor);
+	}
 	
 }
 

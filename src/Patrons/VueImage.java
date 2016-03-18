@@ -11,8 +11,10 @@ public class VueImage extends Vue{
 
 	public VueImage(){
 		super();
+		super.menuBar.add(Zoom);
+		this.setJMenuBar(menuBar);
 		super.setLocation(0, 0);
-		panel = new MonPanel();
+		panel = new MonPanel();		
 		this.add(panel);
 	}
 
