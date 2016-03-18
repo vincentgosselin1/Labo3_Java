@@ -22,7 +22,7 @@ public abstract class Vue extends JFrame implements ObserverIF {
 	//Objets nécessaires à l'affichage
 	protected ModelImage model = ModelImage.getInstance();
 	protected JPanel panel;
-	protected JScrollPane scrollPane;
+	protected JScrollPane scrollPanel;
 	protected JMenuBar menuBar = new JMenuBar();
 
 	//Boutons principaux du menu
