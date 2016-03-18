@@ -1,10 +1,14 @@
 package Patrons;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -13,13 +17,18 @@ public class VueImage extends Vue{
 
 	public VueImage(){
 		super();
-		super.menuBar.add(Zoom);
+		this.menuBar.add(Zoom);
 		this.setJMenuBar(menuBar);
-		super.setLocation(0, 0);
+		this.setLocation(0, 0);
 		panel = new MonPanel();		
-		scrollPane = new JScrollPane(panel);
-		scrollPane.setPreferredSize(new Dimension(600,600));
-		this.add(scrollPane);
+		panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel.setPreferredSize(new Dimension(600, 600));
+
+        scrollPanel = new JScrollPane(panel);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        add(scrollPanel, BorderLayout.CENTER);
 	}
 
 	@Override
@@ -36,7 +45,7 @@ public class VueImage extends Vue{
 			if (image != null) {
 				Graphics2D g2d = (Graphics2D) g.create();
 				g2d.drawImage(image, model.getOrigine().x, model.getOrigine().y, (int)(model.getZoom()*model.getWidth()), (int)(model.getZoom()*model.getHeight()), this);
-				g2d.dispose();
+				panel.setPreferredSize(new Dimension((int)(model.getZoom()*model.getWidth()), (int)(model.getZoom()*model.getHeight())));
 			}
 		}
 	}
