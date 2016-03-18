@@ -1,34 +1,38 @@
 package Patrons;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class VueDonnees extends Vue {
+	
+	private JLabel imageName = new JLabel(); 
+	private JPanel panel = new JPanel();
+	
 	public VueDonnees(){
 		super();
-		this.setJMenuBar(menuBar);
+		this.setSize(300, 300);
+		this.setTitle("Vue du Model");
 		super.setLocation(700, 0);
-		panel = new MonPanel();
+		imageName.setText("Veuillez ouvrir une image!");
+		panel.add(imageName);
 		this.add(panel);
 	}
 
 	@Override
 	public void update() {
-		repaint();
+		// TODO Auto-generated method stub
+		
 	}
 	
-	protected class MonPanel extends JPanel{
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			
-			if (null != null) {
-				Graphics2D g2d = (Graphics2D) g.create();
-
-				g2d.dispose();
-			}
-		}
+	public void setImageName(String imageName){
+		this.imageName.setText(imageName);
 	}
+
+
+
+	
 }

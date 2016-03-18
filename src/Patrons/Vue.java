@@ -15,11 +15,11 @@ import javax.swing.Scrollable;
  * Classe <b><i>Vue</i></b> <br><br>
  * 
  * Affichage est une classe qui permet d'afficher le contenu d'un fichier XML
- * dans une fenêtre selon une certaine mise en page. 
+ * dans une fenetre selon une certaine mise en page. 
  */
 @SuppressWarnings("serial")
 public abstract class Vue extends JFrame implements ObserverIF {
-	//Objets nécessaires à l'affichage
+	//Objets necessaires a l'affichage
 	protected ModelImage model = ModelImage.getInstance();
 	protected JPanel panel;
 	protected JScrollPane scrollPane;
@@ -27,7 +27,7 @@ public abstract class Vue extends JFrame implements ObserverIF {
 
 	//Boutons principaux du menu
 	protected JMenu Fichier = new JMenu("Fichier"), 
-				  Edition = new JMenu("Édition"),
+				  Edition = new JMenu("Edition"),
 				  Zoom	  = new JMenu("Zoom");
 
 	//Sous-Boutons du menu
@@ -39,10 +39,9 @@ public abstract class Vue extends JFrame implements ObserverIF {
 					  ZoomOut	   = new JMenuItem("Zoom out");
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
-	 * initialise tout notre fenêtre.
+	 * initialise tout notre fenï¿½tre.
 	 */
 	public Vue(){		
-		this.setSize(600, 600);
 
 		Fichier.add(BoutonOuvrir);
 		Fichier.add(BoutonSave);

@@ -13,6 +13,8 @@ public class VueImage extends Vue{
 
 	public VueImage(){
 		super();
+		this.setSize(600, 600);
+		this.setTitle("Vue du Image");
 		super.menuBar.add(Zoom);
 		this.setJMenuBar(menuBar);
 		super.setLocation(0, 0);
