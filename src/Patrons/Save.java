@@ -1,18 +1,30 @@
 package Patrons;
 
+import java.io.File;
+
+import javax.swing.JFileChooser;
+
 public class Save implements Command{
 	
 	private static Save instance = new Save();
 	
 	public Save(){}
 	
-	public Save getInstance(){
+	public static Save getInstance(){
 		return instance;
 	}
 	
 	@Override
 	public void execute() {
-		controller.saveImage();
+		JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.home") + File.separator + "Downloads"));
+
+		int returnVal = chooser.showSaveDialog(null);
+
+		if(returnVal == JFileChooser.APPROVE_OPTION) {
+			
+		}else{
+
+		}
 	}
 
 	@Override

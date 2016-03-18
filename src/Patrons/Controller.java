@@ -17,56 +17,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Controller {
 	private static Controller instance = new Controller();
 	private static List<Vue> vue = new ArrayList<Vue>();
-	private ModelImage model = ModelImage.getInstance();
-	private Path workingDirectory = Paths.get("").toAbsolutePath();
-	private ActionsList actions = ActionsList.getinstance();
-	private Command ouvrir = new Ouvrir();
-	private Command sauvegarder = new Save();
-	private String typeZoom = "";
-	private Cursor crossHair = new Cursor(Cursor.MOVE_CURSOR);
-	private Cursor arrow = new Cursor(Cursor.DEFAULT_CURSOR);
 	
 	private Controller(){}
 	
 	public static Controller getInstance(){
 		return instance;
-	}
-	
-	/**
-	 * <b><i>ouvrirFichier</i></b> 
-	 * permet d'ouvrir une boîte de dialogue dans le dossier Downloads de l'ordinateur 
-	 * et filtrer tous les fichiers sauf les XML.
-	 * 
-	 */
-	public void ouvrirFichier(){
-		JFileChooser chooser = new JFileChooser(new File(workingDirectory.toString()) + File.separator + "Images");
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Extensions", "jpg", "png", "bmp");
-		chooser.setFileFilter(filter);
-
-		int returnVal = chooser.showOpenDialog(null);
-
-		if(returnVal == JFileChooser.APPROVE_OPTION) {
-			try {
-			    model.setImage(ImageIO.read(chooser.getSelectedFile()));
-			    model.notifyAllObservers();
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			}
-		}else{
-
-		}
-	}
-	
-	public void saveImage(){
-		JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.home") + File.separator + "Downloads"));
-
-		int returnVal = chooser.showSaveDialog(null);
-
-		if(returnVal == JFileChooser.APPROVE_OPTION) {
-			
-		}else{
-
-		}
 	}
 	
 	public static void start(){
@@ -80,9 +35,16 @@ public class Controller {
 	}
 	
 	private class ButtonListener implements ActionListener{
+		private ActionsList actions = ActionsList.getinstance();
+		private Cursor crossHair = new Cursor(Cursor.MOVE_CURSOR);
+		private Cursor arrow = new Cursor(Cursor.DEFAULT_CURSOR);
 		
 		private static final double DEFAULT_ZOOM = 0.25;
-		private ZoomIn zoomIn;
+		private ZoomIn zoomIn  = ZoomIn.getInstance();
+		private ZoomIn zoomOut = ZoomIn.getInstance();;
+		private Command ouvrir = Ouvrir.getInstance();
+		private Command sauvegarder = Save.getInstance();
+		private String typeZoom = "";
 		
 		/**
 		 * <b><i>actionPerformed</i></b> 
@@ -95,12 +57,12 @@ public class Controller {
 			
 			//L'utilisateur a appuyé sur Ouvrir imag
 			if(event.getActionCommand().equals("Ouvrir image")){
-				ouvrirFichier();
+				actions.storeAndExecute(ouvrir);
 				actions.clearRecord();
 
 				//L'utilisateur a appuyé sur Sauvegarder
 			}else if(event.getActionCommand().equals("Sauvegarder")){
-				saveImage();
+				actions.storeAndExecute(ouvrir);
 				actions.clearRecord();
 
 				//L'utilisateur a appuyé sur Annuler
@@ -113,14 +75,17 @@ public class Controller {
 				
 				//L'utilisateur a appuyé sur Zoom in
 			}else if(event.getActionCommand().equals("Zoom in")){
-				zoomIn = new ZoomIn(DEFAULT_ZOOM);
+				zoomIn.setZoomValue(DEFAULT_ZOOM);
 				typeZoom = "in";
 				vue.get(0).setCursor(crossHair);
+				actions.storeAndExecute(zoomIn);
 				
 				//L'utilisateur a appuyé sur Zoom out
 			}else if(event.getActionCommand().equals("Zoom out")){
-				typeZoom = "ou";
+				zoomOut.setZoomValue(DEFAULT_ZOOM);
+				typeZoom = "out";
 				vue.get(0).setCursor(crossHair);
+				actions.storeAndExecute(zoomOut);
 			}
 		}
 	}
