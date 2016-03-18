@@ -49,13 +49,15 @@ public class ActionsList {
 	
 	public void reDo(){
 		if(canReDo()){
-			
+			record.get(index + 1).reDo();;
+			index++;
 		}
 	}
 	
 	public void unDo(){
 		if(canUnDo()){
-			
+			record.get(index - 1).unDo();;
+			index--;
 		}
 	}
 }

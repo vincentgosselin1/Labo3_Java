@@ -17,6 +17,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Controller {
 	private static Controller instance = new Controller();
 	private static List<Vue> vue = new ArrayList<Vue>();
+	private static ModelImage model = ModelImage.getInstance();
 	
 	private Controller(){}
 	
@@ -39,9 +40,8 @@ public class Controller {
 		private Cursor crossHair = new Cursor(Cursor.MOVE_CURSOR);
 		private Cursor arrow = new Cursor(Cursor.DEFAULT_CURSOR);
 		
-		private static final double DEFAULT_ZOOM = 0.25;
-		private ZoomIn zoomIn  = ZoomIn.getInstance();
-		private ZoomIn zoomOut = ZoomIn.getInstance();;
+		private ZoomIn zoomIn;
+		private ZoomOut zoomOut;
 		private Command ouvrir = Ouvrir.getInstance();
 		private Command sauvegarder = Save.getInstance();
 		private String typeZoom = "";
@@ -75,18 +75,20 @@ public class Controller {
 				
 				//L'utilisateur a appuyé sur Zoom in
 			}else if(event.getActionCommand().equals("Zoom in")){
-				zoomIn.setZoomValue(DEFAULT_ZOOM);
+				zoomIn = new ZoomIn();
 				typeZoom = "in";
 				vue.get(0).setCursor(crossHair);
 				actions.storeAndExecute(zoomIn);
 				
 				//L'utilisateur a appuyé sur Zoom out
 			}else if(event.getActionCommand().equals("Zoom out")){
-				zoomOut.setZoomValue(DEFAULT_ZOOM);
+				zoomOut = new ZoomOut();
 				typeZoom = "out";
 				vue.get(0).setCursor(crossHair);
 				actions.storeAndExecute(zoomOut);
 			}
+			
+			model.notifyAllObservers();
 		}
 	}
 }
