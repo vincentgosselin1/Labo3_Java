@@ -14,21 +14,26 @@ public class ActionsList {
 	}
 
 	private List<Command> record = new ArrayList<Command>();
-	private int index = 0;
+	private int index = -1;
 	
 	public List<Command> getRecord(){
 		return this.record;
 	}
 	
-	public void storeAndExecute(Command command){
-		record.add(command);
-		command.execute();
-		setIndex(getIndex() + 1);
+	public void storeAndExecute(Command command){		
+		if(record.size() - index > 1)
+			clearRecord();
+		
+		
+		if(command.execute()){
+			setIndex(getIndex() + 1);
+			record.add(command);
+		}
 	}
 	
 	public void clearRecord(){
 		record.clear();
-		setIndex(0);
+		setIndex(-1);
 	}
 
 	public int getIndex() {
@@ -40,24 +45,26 @@ public class ActionsList {
 	}
 	
 	public boolean canReDo(){
-		return record.size() > index;
+		return record.size() > index + 1;
 	}
 	
 	public boolean canUnDo(){
-		return record.size() > 0;
+		return index + 1 > 0;
 	}
 	
 	public void reDo(){
-		if(canReDo()){
-			record.get(index + 1).reDo();;
-			index++;
+		if(canReDo()){	
+			setIndex(getIndex() + 1);
+			record.get(index).reDo();
+			
 		}
 	}
 	
 	public void unDo(){
 		if(canUnDo()){
-			record.get(index - 1).unDo();;
-			index--;
+			
+			record.get(index).unDo();
+			setIndex(getIndex() - 1);
 		}
 	}
 }

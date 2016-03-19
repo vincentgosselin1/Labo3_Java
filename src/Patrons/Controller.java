@@ -3,49 +3,89 @@ package Patrons;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Controller {
 	private static Controller instance = new Controller();
 	private static List<Vue> vue = new ArrayList<Vue>();
 	private static ModelImage model = ModelImage.getInstance();
-	
+	private String typeZoom = "";
+	private ZoomIn zoomIn;
+	private ZoomOut zoomOut;
+	private Drag drag;
+	private Cursor crossHair = new Cursor(Cursor.MOVE_CURSOR);
+	private Cursor arrow = new Cursor(Cursor.HAND_CURSOR);
+	private Command ouvrir = Ouvrir.getInstance();
+	private Command sauvegarder = Save.getInstance();
+	private ActionsList actions = ActionsList.getinstance();
+	private double dragXStart;
+	private double dragYStart;
+
 	private Controller(){}
-	
+
 	public static Controller getInstance(){
 		return instance;
 	}
-	
+
 	public static void start(){
 		vue.add(new VueImage());
 		vue.add(new VueDonnees());
-		
+
 		for(Vue vue : vue){
-			vue.addButtonListener(getInstance().new ButtonListener());
+			vue.addWindowListener(getInstance().new ManageWindows());
+			vue.addButtonListener(getInstance().new ManageButtons());
+			if(vue.panel !=null) {
+				vue.panel.addMouseListener(getInstance().new ManageMouse());
+				vue.panel.addMouseMotionListener(getInstance().new ManageMouse());
+			}
 			vue.setVisible(true);
 		}
 	}
-	
-	private class ButtonListener implements ActionListener{
-		private ActionsList actions = ActionsList.getinstance();
-		private Cursor crossHair = new Cursor(Cursor.MOVE_CURSOR);
-		private Cursor arrow = new Cursor(Cursor.DEFAULT_CURSOR);
-		
-		private ZoomIn zoomIn;
-		private ZoomOut zoomOut;
-		private Command ouvrir = Ouvrir.getInstance();
-		private Command sauvegarder = Save.getInstance();
-		private String typeZoom = "";
-		
+
+	private class ManageWindows extends WindowAdapter{
+
+		@Override
+		public void windowClosing(WindowEvent e) {
+
+		}
+
+	}
+
+	private class ManageMouse extends MouseAdapter{
+
+		public void mouseClicked(MouseEvent event){
+			if(typeZoom == "in"){
+				zoomIn = new ZoomIn(event.getPoint());
+				actions.storeAndExecute(zoomIn);
+			}else if(typeZoom == "out"){
+				zoomOut = new ZoomOut(event.getPoint());
+				actions.storeAndExecute(zoomOut);
+			}else{
+				typeZoom = "";
+			}
+
+			model.notifyAllObservers();
+		}
+
+		public void mousePressed(MouseEvent event){
+			dragXStart = event.getX();
+			dragYStart = event.getY();
+
+		}
+
+		public void mouseDragged(MouseEvent event){
+			drag = new Drag(event.getX() - dragXStart, event.getY() - dragYStart);
+			actions.storeAndExecute(drag);
+			model.notifyAllObservers();
+		}
+	}
+
+	private class ManageButtons implements ActionListener{
 		/**
 		 * <b><i>actionPerformed</i></b> 
 		 * permet de récupérer l'action produite par l'utilisateur et la traiter.
@@ -54,7 +94,7 @@ public class Controller {
 		 */
 		public void actionPerformed(ActionEvent event) {
 			vue.get(0).setCursor(arrow);
-			
+
 			//L'utilisateur a appuyé sur Ouvrir imag
 			if(event.getActionCommand().equals("Ouvrir image")){
 				actions.storeAndExecute(ouvrir);
@@ -62,7 +102,7 @@ public class Controller {
 
 				//L'utilisateur a appuyé sur Sauvegarder
 			}else if(event.getActionCommand().equals("Sauvegarder")){
-				actions.storeAndExecute(ouvrir);
+				actions.storeAndExecute(sauvegarder);
 				actions.clearRecord();
 
 				//L'utilisateur a appuyé sur Annuler
@@ -72,22 +112,18 @@ public class Controller {
 				//L'utilisateur a appuyé sur Restaurer
 			}else if(event.getActionCommand().equals("Restaurer")){
 				actions.reDo();	
-				
+
 				//L'utilisateur a appuyé sur Zoom in
 			}else if(event.getActionCommand().equals("Zoom in")){
-				zoomIn = new ZoomIn();
 				typeZoom = "in";
 				vue.get(0).setCursor(crossHair);
-				actions.storeAndExecute(zoomIn);
-				
+
 				//L'utilisateur a appuyé sur Zoom out
 			}else if(event.getActionCommand().equals("Zoom out")){
-				zoomOut = new ZoomOut();
 				typeZoom = "out";
 				vue.get(0).setCursor(crossHair);
-				actions.storeAndExecute(zoomOut);
 			}
-			
+
 			model.notifyAllObservers();
 		}
 	}

@@ -1,6 +1,5 @@
 package Patrons;
 
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +24,7 @@ public class Ouvrir implements Command{
 	}
 	
 	@Override
-	public void execute() {
+	public boolean execute() {
 		JFileChooser chooser = new JFileChooser(new File(workingDirectory.toString()) + File.separator + "Images");
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Extensions", "jpg", "png", "bmp");
 		chooser.setFileFilter(filter);
@@ -40,13 +39,15 @@ public class Ouvrir implements Command{
 				System.out.println(e.getMessage());
 			}
 			model.setImage(image);
-			model.setOrigine(new Point(image.getMinX(),image.getMinY()));
+			model.setX(0);
+			model.setY(0);
 			model.setZoom(1.0);
 			model.setHeight(image.getHeight());
 			model.setWidth(image.getWidth());
 		}else{
 
 		}
+		return true;
 	}
 
 	@Override
