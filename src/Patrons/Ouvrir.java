@@ -40,6 +40,7 @@ public class Ouvrir implements Command{
 				System.out.println(e.getMessage());
 			}
 			model.setImage(image);
+			model.setImageName(chooser.getSelectedFile().getName());
 			model.setOrigine(new Point(image.getMinX(),image.getMinY()));
 			model.setZoom(1.0);
 			model.setHeight(image.getHeight());

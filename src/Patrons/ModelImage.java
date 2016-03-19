@@ -15,6 +15,7 @@ public class ModelImage {
 	}
 
 	private BufferedImage image;
+	private String imageName;
 	private double zoom = 1.0;
 	private int height = 600;
 	private int width = 600;
@@ -80,6 +81,14 @@ public class ModelImage {
 
 	public void setWidth(int width) {
 		this.width = width;
+	}
+	
+	public void setImageName(String imageName){
+		this.imageName=imageName;
+	}
+	
+	public String getImageName(){
+		return this.imageName;
 	}
 
 

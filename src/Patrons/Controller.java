@@ -57,33 +57,34 @@ public class Controller {
 		public void actionPerformed(ActionEvent event) {
 			vueImage.setCursor(arrow);
 
-			//L'utilisateur a appuy� sur Ouvrir imag
+			//L'utilisateur a appuye sur Ouvrir image
 			if(event.getActionCommand().equals("Ouvrir image")){
 				actions.storeAndExecute(ouvrir);
 				actions.clearRecord();
-				vueDonnees.setImageName("Le nom du fichier va etre ici");
+				vueDonnees.setImageName(model.getImageName());
+				vueDonnees.setImageDimensions(model.getWidth(), model.getHeight());
 
-				//L'utilisateur a appuy� sur Sauvegarder
+				//L'utilisateur a appuye sur Sauvegarder
 			}else if(event.getActionCommand().equals("Sauvegarder")){
 				actions.storeAndExecute(ouvrir);
 				actions.clearRecord();
 
-				//L'utilisateur a appuy� sur Annuler
+				//L'utilisateur a appuye sur Annuler
 			}else if(event.getActionCommand().equals("Annuler")){
 				actions.unDo();
 
-				//L'utilisateur a appuy� sur Restaurer
+				//L'utilisateur a appuye sur Restaurer
 			}else if(event.getActionCommand().equals("Restaurer")){
 				actions.reDo();	
 
-				//L'utilisateur a appuy� sur Zoom in
+				//L'utilisateur a appuye sur Zoom in
 			}else if(event.getActionCommand().equals("Zoom in")){
 				zoomIn = new ZoomIn();
 				typeZoom = "in";
 				vueImage.setCursor(crossHair);
 				actions.storeAndExecute(zoomIn);
 
-				//L'utilisateur a appuy� sur Zoom out
+				//L'utilisateur a appuye sur Zoom out
 			}else if(event.getActionCommand().equals("Zoom out")){
 				zoomOut = new ZoomOut();
 				typeZoom = "out";
