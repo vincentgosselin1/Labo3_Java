@@ -15,7 +15,7 @@ public class Save implements Command{
 	}
 	
 	@Override
-	public void execute() {
+	public boolean execute() {
 		JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.home") + File.separator + "Downloads"));
 
 		int returnVal = chooser.showSaveDialog(null);
@@ -25,6 +25,7 @@ public class Save implements Command{
 		}else{
 
 		}
+		return true;
 	}
 
 	@Override
