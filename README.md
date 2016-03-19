@@ -1,8 +1,11 @@
 # Labo3
 
-Un patron MVC fonctionnel
+Un patron MVC fonctionnel 
+
 Un patron Command fonctionnel
+
 Plusieurs patron Singleton fonctionnel
+
 Un patron Observer fonctionnel 
 
 Donc actuellement, on respecte les spécifications du labo pour les patrons ! 
@@ -23,10 +26,16 @@ VueImage = Affiche les données du model de facon graphique.
 
 La méthode update appelle juste repaint qui permet de repeindre l'interface au complet. Nos éléments graphiques sont tous contenus dans un JPanel dont on a édité la méthode paintComponent qui sera appelée au moment du repaint. Ainsi, l'interface se remet à jour automatiquement avec les données actuelles peu importe ce qui arrive sur l'interface.
 
-Il reste à faire : 
-Sauvegarde de l'image : il y a tout à faire ou presque (voir patron mémento)
+Il reste à faire :
+
+Sauvegarde de l'image : il y a tout à faire ou presque (voir patron mémento).
+
 Drag : il faut revoir la logique du drag
+
 Nettoyer les incohérences (telles que le notifyAllObservers appelé par le Controller)
+
 La VueDonnée est commencé mais il reste à faire. Je suis ouvert à afficher toutes données pertinentes dans cette page.
+
 Le KeyBoardListener : il n'a pas été du tout fait.
+
 Similarité dans les commandes : différentes écoutes pour une seule commande, donc un patron adapter serait bon)
