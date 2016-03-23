@@ -38,12 +38,8 @@ public class Ouvrir implements Command{
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 			}
-			model.setImage(image);
-			model.setX(0);
-			model.setY(0);
-			model.setZoom(1.0);
-			model.setHeight(image.getHeight());
-			model.setWidth(image.getWidth());
+			
+			model.setModelImage(image, 1.0, image.getHeight(), image.getWidth(), 0, 0, 0, 0);
 		}else{
 
 		}

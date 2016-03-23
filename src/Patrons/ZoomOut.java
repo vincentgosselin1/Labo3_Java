@@ -3,8 +3,11 @@ package Patrons;
 import java.awt.Point;
 
 public class ZoomOut implements Command {
-	double zoomValue;
+	private double zoomValue;
 	private Point mousePosition;
+	private double nZoom;
+	private int nHeight;
+	private int nWidth;
 	
 	public ZoomOut (Point point, double zoomValue){
 		setMousePosition(point);
@@ -18,13 +21,12 @@ public class ZoomOut implements Command {
 
 	@Override
 	public boolean execute() {
-		if(model.setZoom(model.getZoom()-zoomValue)){
-			model.setHeight((int) (model.getImage().getHeight()*model.getZoom()));
-			model.setWidth((int) (model.getImage().getWidth()*model.getZoom()));
-			return true;
-		}else{
-			return false;
-		}
+		
+		nZoom = model.getZoom()-zoomValue;
+		nHeight = (int) (model.getImage().getHeight()*nZoom);
+		nWidth = (int) (model.getImage().getWidth()*nZoom);
+		
+		return model.setModelImage(model.getImage(),nZoom, nHeight, nWidth, model.getX(), model.getY(), model.getDragX(), model.getDragY());
 	}
 
 	@Override
@@ -34,9 +36,11 @@ public class ZoomOut implements Command {
 
 	@Override
 	public void unDo() {
-		model.setZoom(model.getZoom()+zoomValue);
-		model.setHeight((int) (model.getImage().getHeight()*model.getZoom()));
-		model.setWidth((int) (model.getImage().getWidth()*model.getZoom()));
+		nZoom = model.getZoom()+zoomValue;
+		nHeight = (int) (model.getImage().getHeight()*nZoom);
+		nWidth = (int) (model.getImage().getWidth()*nZoom);
+		
+		model.setModelImage(model.getImage(),nZoom, nHeight, nWidth, model.getX(), model.getY(), model.getDragX(), model.getDragY());
 	}
 
 	public void setZoomValue(double zoomValue) {

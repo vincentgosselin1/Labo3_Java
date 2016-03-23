@@ -1,14 +1,12 @@
 package Patrons;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImageOp;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -22,11 +20,9 @@ public class VueImage extends Vue{
 		menuBar.add(Zoom);
 		setJMenuBar(menuBar);
 		setLocation(0, 0);
-		panel = new MonPanel1();		
-		panel.setBorder(BorderFactory.createLineBorder(Color.black));
-        panel.setPreferredSize(new Dimension(700, 700));
+		panel = new MonPanel1();
+		panel.setPreferredSize(new Dimension(900,900));
         scrollPanel = new JScrollPane(panel);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         add(scrollPanel, BorderLayout.CENTER);
         setSize(600, 600);
@@ -39,19 +35,20 @@ public class VueImage extends Vue{
 	
 	public class MonPanel1 extends JPanel{
 		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
 			
-			super.getHeight();
+			super.paintComponent(g);
 
 			if (model.getImage() != null) {
-				Graphics2D g2d = (Graphics2D) g.create();
+				Graphics2D g2d = (Graphics2D) g;
 				AffineTransform affineTransform = new AffineTransform(); 
 				affineTransform.scale(model.getZoom(),model.getZoom());
-				affineTransform.translate((int)(model.getDragX()), (int)(model.getDragY()));
-				g2d.drawImage(model.getImage(), affineTransform, this);
-				setPreferredSize(new Dimension(model.getHeight(),model.getWidth()));
+				affineTransform.translate(model.getDragX(), model.getDragY());
+				g2d.drawImage(model.getImage(),  affineTransform, this);
+
 				revalidate();
+				
 			}
+			
 		}
 	}
 }
