@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -40,7 +39,6 @@ public class VueDonnees extends Vue {
 
 		textZoom = new JTextField();
 		textZoom.setBounds(105, 36, 86, 20);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 		textZoom.setColumns(10);
 		panel.add(textZoom);
@@ -68,8 +66,6 @@ public class VueDonnees extends Vue {
 		public void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g.create();
 			textZoom.setText(String.valueOf(model.getZoom()));
-			g2d.dispose();
-			
 		}
 	}
 }

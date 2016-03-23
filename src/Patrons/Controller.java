@@ -1,5 +1,7 @@
 package Patrons;
 
+//import ModelImage;
+
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +15,6 @@ import java.util.List;
 public class Controller {
 	private static Controller instance = new Controller();
 	private static List<Vue> vue = new ArrayList<Vue>();
-	private static ModelImage model = ModelImage.getInstance();
 	private String typeZoom = "";
 	private ZoomIn zoomIn;
 	private ZoomOut zoomOut;
@@ -23,8 +24,12 @@ public class Controller {
 	private Command ouvrir = Ouvrir.getInstance();
 	private Command sauvegarder = Save.getInstance();
 	private ActionsList actions = ActionsList.getinstance();
-	private double dragXStart;
-	private double dragYStart;
+	private int dragXStart;
+	private int dragYStart;
+	private int oldDragX;
+	private int oldDragY;
+	private int newDragX;
+	private int newDragY;
 
 	private Controller(){}
 
@@ -39,21 +44,25 @@ public class Controller {
 		for(Vue vue : vue){
 			vue.addWindowListener(getInstance().new ManageWindows());
 			vue.addButtonListener(getInstance().new ManageButtons());
-			if(vue.panel !=null) {
+			if(vue.panel != null) {
 				vue.panel.addMouseListener(getInstance().new ManageMouse());
 				vue.panel.addMouseMotionListener(getInstance().new ManageMouse());
 			}
+
 			vue.setVisible(true);
 		}
 	}
-
+	
 	private class ManageWindows extends WindowAdapter{
 
 		@Override
 		public void windowClosing(WindowEvent e) {
-
+			for(Vue window : vue){
+				if(e.getSource().equals(window)){
+					window.closing();
+				}
+			}
 		}
-
 	}
 
 	private class ManageMouse extends MouseAdapter{
@@ -68,20 +77,25 @@ public class Controller {
 			}else{
 				typeZoom = "";
 			}
-
-			model.notifyAllObservers();
 		}
 
 		public void mousePressed(MouseEvent event){
 			dragXStart = event.getX();
 			dragYStart = event.getY();
-
+		}
+		
+		public void mouseReleased(MouseEvent event){
+			newDragX = event.getX() - dragXStart;
+			newDragY = event.getY() - dragYStart;
+			drag = new Drag(newDragX, newDragY);
+			actions.store(drag);
 		}
 
 		public void mouseDragged(MouseEvent event){
-			drag = new Drag(event.getX() - dragXStart, event.getY() - dragYStart);
-			actions.storeAndExecute(drag);
-			model.notifyAllObservers();
+			newDragX = event.getX() - oldDragX;
+			newDragY = event.getY() - oldDragY;
+			drag = new Drag(newDragX, newDragY);
+			actions.execute(drag);
 		}
 	}
 
@@ -123,8 +137,6 @@ public class Controller {
 				typeZoom = "out";
 				vue.get(0).setCursor(crossHair);
 			}
-
-			model.notifyAllObservers();
 		}
 	}
 }
