@@ -9,6 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+
 /**
  * Classe <b><i>Vue</i></b> <br><br>
  * 
@@ -18,7 +19,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public abstract class Vue extends JFrame implements ObserverIF {
 	//Objets nécessaires à l'affichage
-	protected ModelImage model = ModelImage.getInstance();
+	protected Observable model = ModelImage.getInstance();
 	protected JPanel panel;
 	protected JMenuBar menuBar = new JMenuBar();
 
@@ -45,11 +46,9 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		Edition.add(BoutonReDo);
 		Zoom.add(ZoomIn);
 		Zoom.add(ZoomOut);
-		
 		menuBar.add(Fichier);
 		menuBar.add(Edition);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		model.addObserver(this);
 	}
 
@@ -67,6 +66,10 @@ public abstract class Vue extends JFrame implements ObserverIF {
 	
 	public void setCursor(Cursor cursor){
 		panel.setCursor(cursor);
+	}
+	
+	public void closing(){
+		model.deleteObserver(this);
 	}
 	
 }

@@ -1,41 +1,35 @@
 # Labo3
 
-Un patron MVC fonctionnel 
+Un patron MVC fonctionnel
 
 Un patron Command fonctionnel
 
 Plusieurs patron Singleton fonctionnel
 
-Un patron Observer fonctionnel 
+Un patron Observer fonctionnel
 
-Donc actuellement, on respecte les spécifications du labo pour les patrons ! 
+Donc actuellement, on respecte les spÃ©cifications du labo pour les patrons !
+La logique implÃ©mentÃ©e selon les patrons :
+Controller = Brain il ne fait pas grand chose lui mÃªme mais il sait ce qu'il se passe sur la vue et il sait ce qu'il faut faire en consÃ©quence.
 
-La logique implémentée selon les patrons : 
+Actions via Command = Execute les instructions demandÃ©es par le Controller sur le Model et les enregistrent dans le record.
+Les commandes sont sÃ©parÃ©es en plusieurs classes par actions respectives avec la configuration de chaque actions Ã  faire selon l'opÃ©ration (execute, undo, redo).
 
-Controller = Brain il ne fait pas grand chose lui même mais il sait ce qu'il se passe sur la vue et il sait ce 			 qu'il faut faire en conséquence. 
+Model = Conserve toutes les infos de notre application (c'est cette classe qu'il faudra sÃ©rialisÃ© pour l'enregistrement de l'image : voir patron MÃ©mento). Il doit avertir les vues de se mettre Ã  jour (mÃ©thode notifyAllObserver). Il ne le fait pas prÃ©sentement, c'est le Controller qui lance la mÃ©thode, il faudrait mettre le lancement de la mÃ©thode dans les mÃ©thodes set du model ou faire une fonction plus globale de la mis Ã  jour des donnÃ©es et lancer la mise Ã  jour des vues Ã  la fin de cette mÃ©thode (c'est clairement la solution la plus optimale pour Ã©viter trop de redondance.
 
-Actions via Command  = Execute les instructions demandées par le Controller sur le Model et les enregistrent 					  					   dans le record. 
+VueDonnes = Affiche les donnÃ©es du model au format "brut".
 
-Les commandes sont séparées en plusieurs classes par actions respectives avec la configuration de chaque actions à faire selon l'opération (execute, undo, redo).
+VueImage = Affiche les donnÃ©es du model de facon graphique.
 
-Model = Conserve toutes les infos de notre application (c'est cette classe qu'il faudra sérialisé pour 		l'enregistrement de l'image : voir patron Mémento). Il doit avertir les vues de se mettre à jour 		(méthode notifyAllObserver). Il ne le fait pas présentement, c'est le Controller qui lance la méthode, 		il faudrait mettre le lancement de la méthode dans les méthodes set du model ou faire une fonction 		plus globale de la mis à jour des données et lancer la mise à jour des vues à la fin de cette méthode 		(c'est clairement la solution la plus optimale pour éviter trop de redondance.
+La mÃ©thode update appelle juste repaint qui permet de repeindre l'interface au complet. Nos Ã©lÃ©ments graphiques sont tous contenus dans un JPanel dont on a Ã©ditÃ© la mÃ©thode paintComponent qui sera appelÃ©e au moment du repaint. Ainsi, l'interface se remet Ã  jour automatiquement avec les donnÃ©es actuelles peu importe ce qui arrive sur l'interface.
 
-VueDonnes = Affiche les données du model au format "brut".
+Il reste Ã  faire :
 
-VueImage = Affiche les données du model de facon graphique.
-
-La méthode update appelle juste repaint qui permet de repeindre l'interface au complet. Nos éléments graphiques sont tous contenus dans un JPanel dont on a édité la méthode paintComponent qui sera appelée au moment du repaint. Ainsi, l'interface se remet à jour automatiquement avec les données actuelles peu importe ce qui arrive sur l'interface.
-
-Il reste à faire :
-
-Sauvegarde de l'image : il y a tout à faire ou presque (voir patron mémento).
-
+Sauvegarde de l'image : il y a tout Ã  faire ou presque (voir patron mÃ©mento).
 Drag : il faut revoir la logique du drag
+Nettoyer les incohÃ©rences (telles que le notifyAllObservers appelÃ© par le Controller)
+La VueDonnÃ©e est commencÃ© mais il reste Ã  faire. Je suis ouvert Ã  afficher toutes donnÃ©es pertinentes dans cette page.
+Le KeyBoardListener : il n'a pas Ã©tÃ© du tout fait.
+SimilaritÃ© dans les commandes : diffÃ©rentes Ã©coutes pour une seule commande, donc un patron adapter serait bon)
 
-Nettoyer les incohérences (telles que le notifyAllObservers appelé par le Controller)
 
-La VueDonnée est commencé mais il reste à faire. Je suis ouvert à afficher toutes données pertinentes dans cette page.
-
-Le KeyBoardListener : il n'a pas été du tout fait.
-
-Similarité dans les commandes : différentes écoutes pour une seule commande, donc un patron adapter serait bon)
