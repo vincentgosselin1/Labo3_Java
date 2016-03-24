@@ -14,41 +14,38 @@ import javax.swing.JPanel;
  * Classe <b><i>Vue</i></b> <br><br>
  * 
  * Affichage est une classe qui permet d'afficher le contenu d'un fichier XML
- * dans une fenêtre selon une certaine mise en page. 
+ * dans une fenï¿½tre selon une certaine mise en page. 
  */
 @SuppressWarnings("serial")
 public abstract class Vue extends JFrame implements ObserverIF {
-	//Objets nécessaires à l'affichage
+	//Objets nï¿½cessaires ï¿½ l'affichage
 	protected Observable model = ModelImage.getInstance();
 	protected JPanel panel;
 	protected JMenuBar menuBar = new JMenuBar();
 
 	//Boutons principaux du menu
 	protected JMenu Fichier = new JMenu("Fichier"), 
-				  Edition = new JMenu("Édition"),
-				  Zoom	  = new JMenu("Zoom");
+				  Edition = new JMenu("ï¿½dition");
+
 
 	//Sous-Boutons du menu
 	protected JMenuItem BoutonOuvrir = new JMenuItem("Ouvrir image"), 
 					  BoutonSave   = new JMenuItem("Sauvegarder"), 
 					  BoutonUnDo   = new JMenuItem("Annuler"),
-					  BoutonReDo   = new JMenuItem("Restaurer"),
-					  ZoomIn	   = new JMenuItem("Zoom in"),
-					  ZoomOut	   = new JMenuItem("Zoom out");
+					  BoutonReDo   = new JMenuItem("Restaurer");
+
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
-	 * initialise tout notre fenêtre.
+	 * initialise tout notre fenï¿½tre.
 	 */
 	public Vue(){	
 		Fichier.add(BoutonOuvrir);
 		Fichier.add(BoutonSave);
 		Edition.add(BoutonUnDo);
 		Edition.add(BoutonReDo);
-		Zoom.add(ZoomIn);
-		Zoom.add(ZoomOut);
 		menuBar.add(Fichier);
 		menuBar.add(Edition);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		model.addObserver(this);
 	}
 
@@ -57,8 +54,6 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		BoutonSave.addActionListener(listenerButton);
 		BoutonUnDo.addActionListener(listenerButton);
 		BoutonReDo.addActionListener(listenerButton);
-		ZoomIn.addActionListener(listenerButton);
-		ZoomOut.addActionListener(listenerButton);
 	}
 	
 	@Override

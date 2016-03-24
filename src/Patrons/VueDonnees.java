@@ -19,7 +19,6 @@ public class VueDonnees extends Vue {
 	
 	public VueDonnees(){
 		super();
-		this.setJMenuBar(menuBar);
 		panel = new MonPanel2();
 		panel.setLayout(null);
 		
