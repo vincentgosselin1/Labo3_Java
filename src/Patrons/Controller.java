@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -15,7 +16,6 @@ import java.util.List;
 public class Controller {
 	private static Controller instance = new Controller();
 	private static List<Vue> vue = new ArrayList<Vue>();
-	private String typeZoom = "";
 	private ZoomIn zoomIn;
 	private ZoomOut zoomOut;
 	private Drag drag;
@@ -43,9 +43,10 @@ public class Controller {
 		
 		//Seulement sur VueImage.
 		vue.get(0).addButtonListener(getInstance().new ManageButtons());
-		//le panel doit etre listenable.
+		//le panel de vueImage doit etre listenable.
 		vue.get(0).panel.addMouseListener(getInstance().new ManageMouse());
 		vue.get(0).panel.addMouseMotionListener(getInstance().new ManageMouse());
+		vue.get(0).panel.addMouseWheelListener(getInstance().new ManageMouse());
 		
 		for(Vue vue : vue){
 			vue.addWindowListener(getInstance().new ManageWindows());
@@ -67,16 +68,18 @@ public class Controller {
 
 	private class ManageMouse extends MouseAdapter{
 
-		public void mouseClicked(MouseEvent event){
-			if(typeZoom == "in"){
-				zoomIn = new ZoomIn(event.getPoint());
-				actions.storeAndExecute(zoomIn);
-			}else if(typeZoom == "out"){
+		public void mouseWheelMoved(MouseWheelEvent event){
+			//On scrool le mouseWheel vers nous.
+			if(event.getWheelRotation()>-1)
+			{
 				zoomOut = new ZoomOut(event.getPoint());
 				actions.storeAndExecute(zoomOut);
-			}else{
-				typeZoom = "";
 			}
+			else{
+				zoomIn = new ZoomIn(event.getPoint());
+				actions.storeAndExecute(zoomIn);
+			}
+
 		}
 
 		public void mousePressed(MouseEvent event){
@@ -127,16 +130,7 @@ public class Controller {
 			}else if(event.getActionCommand().equals("Restaurer")){
 				actions.reDo();	
 
-				//L'utilisateur a appuy� sur Zoom in
-			}else if(event.getActionCommand().equals("Zoom in")){
-				typeZoom = "in";
-				vue.get(0).setCursor(crossHair);
-
-				//L'utilisateur a appuy� sur Zoom out
-			}else if(event.getActionCommand().equals("Zoom out")){
-				typeZoom = "out";
-				vue.get(0).setCursor(crossHair);
-			}
 		}
 	}
+}
 }

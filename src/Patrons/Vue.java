@@ -25,16 +25,15 @@ public abstract class Vue extends JFrame implements ObserverIF {
 
 	//Boutons principaux du menu
 	protected JMenu Fichier = new JMenu("Fichier"), 
-				  Edition = new JMenu("�dition"),
-				  Zoom	  = new JMenu("Zoom");
+				  Edition = new JMenu("�dition");
+
 
 	//Sous-Boutons du menu
 	protected JMenuItem BoutonOuvrir = new JMenuItem("Ouvrir image"), 
 					  BoutonSave   = new JMenuItem("Sauvegarder"), 
 					  BoutonUnDo   = new JMenuItem("Annuler"),
-					  BoutonReDo   = new JMenuItem("Restaurer"),
-					  ZoomIn	   = new JMenuItem("Zoom in"),
-					  ZoomOut	   = new JMenuItem("Zoom out");
+					  BoutonReDo   = new JMenuItem("Restaurer");
+
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
 	 * initialise tout notre fen�tre.
@@ -44,8 +43,6 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		Fichier.add(BoutonSave);
 		Edition.add(BoutonUnDo);
 		Edition.add(BoutonReDo);
-		Zoom.add(ZoomIn);
-		Zoom.add(ZoomOut);
 		menuBar.add(Fichier);
 		menuBar.add(Edition);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,8 +54,6 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		BoutonSave.addActionListener(listenerButton);
 		BoutonUnDo.addActionListener(listenerButton);
 		BoutonReDo.addActionListener(listenerButton);
-		ZoomIn.addActionListener(listenerButton);
-		ZoomOut.addActionListener(listenerButton);
 	}
 	
 	@Override
