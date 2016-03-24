@@ -1,6 +1,6 @@
 package Patrons;
 
-//import ModelImage;
+
 
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
@@ -47,6 +47,7 @@ public class Controller {
 			if(vue.panel != null) {
 				vue.panel.addMouseListener(getInstance().new ManageMouse());
 				vue.panel.addMouseMotionListener(getInstance().new ManageMouse());
+				
 			}
 
 			vue.setVisible(true);
@@ -102,37 +103,37 @@ public class Controller {
 	private class ManageButtons implements ActionListener{
 		/**
 		 * <b><i>actionPerformed</i></b> 
-		 * permet de récupérer l'action produite par l'utilisateur et la traiter.
+		 * permet de rï¿½cupï¿½rer l'action produite par l'utilisateur et la traiter.
 		 * 
 		 * @param action l'action produite par l'utilisateur
 		 */
 		public void actionPerformed(ActionEvent event) {
 			vue.get(0).setCursor(arrow);
 
-			//L'utilisateur a appuyé sur Ouvrir imag
+			//L'utilisateur a appuyï¿½ sur Ouvrir imag
 			if(event.getActionCommand().equals("Ouvrir image")){
 				actions.storeAndExecute(ouvrir);
 				actions.clearRecord();
 
-				//L'utilisateur a appuyé sur Sauvegarder
+				//L'utilisateur a appuyï¿½ sur Sauvegarder
 			}else if(event.getActionCommand().equals("Sauvegarder")){
 				actions.storeAndExecute(sauvegarder);
 				actions.clearRecord();
 
-				//L'utilisateur a appuyé sur Annuler
+				//L'utilisateur a appuyï¿½ sur Annuler
 			}else if(event.getActionCommand().equals("Annuler")){
 				actions.unDo();
 
-				//L'utilisateur a appuyé sur Restaurer
+				//L'utilisateur a appuyï¿½ sur Restaurer
 			}else if(event.getActionCommand().equals("Restaurer")){
 				actions.reDo();	
 
-				//L'utilisateur a appuyé sur Zoom in
+				//L'utilisateur a appuyï¿½ sur Zoom in
 			}else if(event.getActionCommand().equals("Zoom in")){
 				typeZoom = "in";
 				vue.get(0).setCursor(crossHair);
 
-				//L'utilisateur a appuyé sur Zoom out
+				//L'utilisateur a appuyï¿½ sur Zoom out
 			}else if(event.getActionCommand().equals("Zoom out")){
 				typeZoom = "out";
 				vue.get(0).setCursor(crossHair);
