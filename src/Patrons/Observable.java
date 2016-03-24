@@ -17,4 +17,5 @@ public interface Observable {
 	public int getY();
 	public int getDragX();
 	public int getDragY();
+	public	String getImageDatapath();
 }

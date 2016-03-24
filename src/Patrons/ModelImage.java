@@ -113,7 +113,13 @@ public class ModelImage implements Observable, Commandable{
 	public void setDragY(int dragY) {
 		this.dragY = dragY;
 	}
-
+	public void setImageDatapath(String imageDatapath){
+		this.imageDatapath=imageDatapath;
+	}
+	public	String getImageDatapath(){
+		return this.imageDatapath;
+	}
+	
 	public boolean setModelImage(BufferedImage image, double zoom, int height, int width, int x, int y, int dragX, int dragY){
 		if(setZoom(zoom)){
 			setImage(image);
