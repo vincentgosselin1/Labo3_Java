@@ -38,7 +38,7 @@ public class Ouvrir implements Command{
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 			}
-			
+			model.setImageDatapath(chooser.getSelectedFile().getName());
 			model.setModelImage(image, 1.0, image.getHeight(), image.getWidth(), 0, 0, 0, 0);
 		}else{
 

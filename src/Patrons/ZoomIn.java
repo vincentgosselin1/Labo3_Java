@@ -24,12 +24,16 @@ public class ZoomIn implements Command {
 
 	@Override
 	public boolean execute() {
+		if(model.getImage()!=null)//si il y a une image en memoire.
+		{
 		nZoom = model.getZoom()+zoomValue;
 		nHeight = (int) (model.getImage().getHeight()*nZoom);
 		nWidth = (int) (model.getImage().getWidth()*nZoom);
 		
 		return model.setModelImage(model.getImage(),nZoom, nHeight, nWidth, model.getX(), model.getY(), model.getDragX(), model.getDragY());
-		
+		}
+		else
+			return false;
 	}
 
 	@Override

@@ -1,19 +1,14 @@
 package Patrons;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImageOp;
-
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class VueImage extends Vue{
 	
-	protected JScrollPane scrollPanel;
 
 	public VueImage(){
 		super();
@@ -21,9 +16,7 @@ public class VueImage extends Vue{
 		setLocation(0, 0);
 		panel = new MonPanel1();
 		panel.setPreferredSize(new Dimension(900,900));
-        scrollPanel = new JScrollPane(panel);
-        setLayout(new BorderLayout());
-        add(scrollPanel, BorderLayout.CENTER);
+		setContentPane(panel);
         setSize(600, 600);
 	}
 

@@ -15,6 +15,7 @@ public class ModelImage implements Observable, Commandable{
 		return instance;
 	}
 
+	private String imageDatapath;//Se fait Set seulement a l'ouverture du fichier.
 	private BufferedImage image;
 	private double zoom = 1.0;
 	private int height = 600;
@@ -112,7 +113,13 @@ public class ModelImage implements Observable, Commandable{
 	public void setDragY(int dragY) {
 		this.dragY = dragY;
 	}
-
+	public void setImageDatapath(String imageDatapath){
+		this.imageDatapath=imageDatapath;
+	}
+	public	String getImageDatapath(){
+		return this.imageDatapath;
+	}
+	
 	public boolean setModelImage(BufferedImage image, double zoom, int height, int width, int x, int y, int dragX, int dragY){
 		if(setZoom(zoom)){
 			setImage(image);

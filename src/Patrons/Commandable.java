@@ -6,6 +6,8 @@ public interface Commandable {
 
 	public boolean setModelImage(BufferedImage image, double zoom, int height, 
 							  int width, int x, int y, int dragX, int dragY);
+	public void setImageDatapath(String imageDatapath);
+	public	String getImageDatapath();
 	public double getZoom();
 	public BufferedImage getImage();
 	public int getHeight();
