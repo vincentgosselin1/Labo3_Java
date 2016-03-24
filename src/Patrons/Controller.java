@@ -69,6 +69,7 @@ public class Controller {
 	private class ManageMouse extends MouseAdapter{
 
 		public void mouseWheelMoved(MouseWheelEvent event){
+			
 			//On scrool le mouseWheel vers nous.
 			if(event.getWheelRotation()>-1)
 			{
