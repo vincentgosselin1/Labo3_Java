@@ -40,16 +40,15 @@ public class Controller {
 	public static void start(){
 		vue.add(new VueImage());
 		vue.add(new VueDonnees());
-
+		
+		//Seulement sur VueImage.
+		vue.get(0).addButtonListener(getInstance().new ManageButtons());
+		//le panel doit etre listenable.
+		vue.get(0).panel.addMouseListener(getInstance().new ManageMouse());
+		vue.get(0).panel.addMouseMotionListener(getInstance().new ManageMouse());
+		
 		for(Vue vue : vue){
 			vue.addWindowListener(getInstance().new ManageWindows());
-			vue.addButtonListener(getInstance().new ManageButtons());
-			if(vue.panel != null) {
-				vue.panel.addMouseListener(getInstance().new ManageMouse());
-				vue.panel.addMouseMotionListener(getInstance().new ManageMouse());
-				
-			}
-
 			vue.setVisible(true);
 		}
 	}

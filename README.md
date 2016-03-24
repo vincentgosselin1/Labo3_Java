@@ -3,7 +3,8 @@
 TO DO
 
 - VueDonnees n'a pas besoin de MENUBAR (DONE)
-- MouseListener seulement sur VueImage
+- MouseListener seulement sur VueImage (DONE)
+- Exit du programme si une fenetre se ferme, j'en peux plus de cliquer sur close 2 fois... (DONE)
 - MouseWheelListener pour ZoomIn & ZoomOUT
 - KeyboardListerner pour les touches.
 - Sauvegarde de l'image (Check le patron Memento)

@@ -14,18 +14,18 @@ import javax.swing.JPanel;
  * Classe <b><i>Vue</i></b> <br><br>
  * 
  * Affichage est une classe qui permet d'afficher le contenu d'un fichier XML
- * dans une fenêtre selon une certaine mise en page. 
+ * dans une fenï¿½tre selon une certaine mise en page. 
  */
 @SuppressWarnings("serial")
 public abstract class Vue extends JFrame implements ObserverIF {
-	//Objets nécessaires à l'affichage
+	//Objets nï¿½cessaires ï¿½ l'affichage
 	protected Observable model = ModelImage.getInstance();
 	protected JPanel panel;
 	protected JMenuBar menuBar = new JMenuBar();
 
 	//Boutons principaux du menu
 	protected JMenu Fichier = new JMenu("Fichier"), 
-				  Edition = new JMenu("Édition"),
+				  Edition = new JMenu("ï¿½dition"),
 				  Zoom	  = new JMenu("Zoom");
 
 	//Sous-Boutons du menu
@@ -37,7 +37,7 @@ public abstract class Vue extends JFrame implements ObserverIF {
 					  ZoomOut	   = new JMenuItem("Zoom out");
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
-	 * initialise tout notre fenêtre.
+	 * initialise tout notre fenï¿½tre.
 	 */
 	public Vue(){	
 		Fichier.add(BoutonOuvrir);
@@ -48,7 +48,7 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		Zoom.add(ZoomOut);
 		menuBar.add(Fichier);
 		menuBar.add(Edition);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		model.addObserver(this);
 	}
 
