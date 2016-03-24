@@ -15,8 +15,8 @@ import javax.swing.SwingConstants;
 public class VueDonnees extends Vue {
 	//JTextField + JLabel.
 	private JTextField textImage = new JTextField();
-	private JTextField textZoom = new JTextField();;
-	private JTextField textCommand = new JTextField();;
+	private JTextField textZoom = new JTextField();
+	private JTextField textCommand = new JTextField();
 	private JLabel labelImageDatapath = new JLabel("Image Datapath : ");
 	private JLabel labelZoom = new JLabel("Zoom : ");
 	private JLabel labelCommand = new JLabel("Command count : ");
@@ -26,7 +26,7 @@ public class VueDonnees extends Vue {
 	public VueDonnees(){
 		super();
 		panel = new MonPanel2();
-
+		setJMenuBar(menuBar);//Et voila c'est remis.
 		//Alignement des JLabels avec JTextField avec le GroupLayout.
 		//voir https://docs.oracle.com/javase/7/docs/api/javax/swing/GroupLayout.html
 		GroupLayout layout = new GroupLayout(panel);
@@ -83,6 +83,7 @@ public class VueDonnees extends Vue {
 			Graphics2D g2d = (Graphics2D) g.create();
 			textZoom.setText(String.valueOf(model.getZoom()));
 			textImage.setText(model.getImageDatapath());
+			//textCommand.setText(t);
 		}
 	}
 }
