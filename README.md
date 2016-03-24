@@ -7,6 +7,7 @@ TO DO
 - MouseWheelListener pour ZoomIn & ZoomOUT
 - KeyboardListerner pour les touches.
 - Sauvegarde de l'image (Check le patron Memento)
-- Factory pour les commandes.
+- Factory pour les commandes
+- Alignement a revoir pour enlever les constantes dans la VueDonees ;)
 
 
