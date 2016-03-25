@@ -2,7 +2,6 @@ package Patrons;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,6 +54,7 @@ public class VueDonnees extends Vue {
 		setContentPane(panel);
 		setLocation(700, 0);
 		setSize(481, 193);
+		setTitle("Vue des données");
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class VueDonnees extends Vue {
 
 	public class MonPanel2 extends JPanel{
 		public void paintComponent(Graphics g) {
-			Graphics2D g2d = (Graphics2D) g.create();
+			//Graphics2D g2d = (Graphics2D) g.create();
 			textZoom.setText(String.valueOf(model.getZoom()));
 		}
 	}

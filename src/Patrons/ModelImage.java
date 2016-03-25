@@ -17,12 +17,8 @@ public class ModelImage implements Observable, Commandable{
 
 	private BufferedImage image;
 	private double zoom = 1.0;
-	private int height = 600;
-	private int width = 600;
-	private int X = 0;
-	private int Y = 0;
-	private int dragX = 0;
-	private int dragY = 0;
+	private double X = 0;
+	private double Y = 0;
 	private List<ObserverIF> observers = new ArrayList<ObserverIF>();
 
 	public void setImage(BufferedImage image){
@@ -65,63 +61,27 @@ public class ModelImage implements Observable, Commandable{
 		}
 	}
 
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public int getX() {
+	public double getX() {
 		return X;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		X = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return Y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		Y = y;
 	}
 
-	public int getDragX() {
-		return dragX;
-	}
-
-	public void setDragX(int dragX) {
-		this.dragX = dragX;
-	}
-
-	public int getDragY() {
-		return dragY;
-	}
-
-	public void setDragY(int dragY) {
-		this.dragY = dragY;
-	}
-
-	public boolean setModelImage(BufferedImage image, double zoom, int height, int width, int x, int y, int dragX, int dragY){
+	public boolean setModelImage(BufferedImage image, double zoom, double x, double y){
 		if(setZoom(zoom)){
 			setImage(image);
-			setHeight(height);
-			setWidth(width);
 			setX(x);
 			setY(y);
-			setDragX(dragX);
-			setDragY(dragY);
 			notifyAllObservers();
 			return true;
 		}else{

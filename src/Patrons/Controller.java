@@ -1,16 +1,20 @@
 package Patrons;
 
-//import ModelImage;
-
 import java.awt.Cursor;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JFrame;
 
 public class Controller {
 	private static Controller instance = new Controller();
@@ -24,12 +28,12 @@ public class Controller {
 	private Command ouvrir = Ouvrir.getInstance();
 	private Command sauvegarder = Save.getInstance();
 	private ActionsList actions = ActionsList.getinstance();
-	private int dragXStart;
-	private int dragYStart;
-	private int oldDragX;
-	private int oldDragY;
-	private int newDragX;
-	private int newDragY;
+	private Observable model = ModelImage.getInstance();
+	private double currentX;
+	private double currentY;
+	private double previousX;
+	private double previousY;
+	private int nbVueCachee=0;
 
 	private Controller(){}
 
@@ -53,15 +57,30 @@ public class Controller {
 		}
 	}
 	
+	public void displaying(String vueString){
+		for(Vue vue : this.vue){
+			if(vue.getTitle().equals(vueString)){
+				if(vue.isVisible()){
+					vue.setVisible(false);
+					nbVueCachee++;
+				}else{
+					vue.setVisible(true);
+					nbVueCachee--;
+				}
+				if(nbVueCachee == this.vue.size()){
+					vue.dispose();
+					System.exit(0);
+				}
+			}
+		}
+	}
+	
 	private class ManageWindows extends WindowAdapter{
 
 		@Override
 		public void windowClosing(WindowEvent e) {
-			for(Vue window : vue){
-				if(e.getSource().equals(window)){
-					window.closing();
-				}
-			}
+			JFrame jFrame = (JFrame)(e.getSource());
+			displaying(jFrame.getTitle());
 		}
 	}
 
@@ -80,22 +99,51 @@ public class Controller {
 		}
 
 		public void mousePressed(MouseEvent event){
-			dragXStart = event.getX();
-			dragYStart = event.getY();
+			previousX = event.getX();
+			previousY = event.getY();
 		}
 		
 		public void mouseReleased(MouseEvent event){
-			newDragX = event.getX() - dragXStart;
-			newDragY = event.getY() - dragYStart;
-			drag = new Drag(newDragX, newDragY);
-			actions.store(drag);
+//			newDragX = event.getX() - dragXStart - oldDragX;
+//			newDragY = event.getY() - dragYStart - oldDragY;
+//			drag = new Drag(newDragX, newDragY);
+//			actions.store(drag);
 		}
 
 		public void mouseDragged(MouseEvent event){
-			newDragX = event.getX() - oldDragX;
-			newDragY = event.getY() - oldDragY;
-			drag = new Drag(newDragX, newDragY);
+			vue.get(0).removeMouseMotionListener(null);
+			Point2D adjPreviousPoint = getTranslatedPoint(previousX, previousY);
+			Point2D adjNewPoint = getTranslatedPoint(event.getX(), event.getY());
+
+			double newX = adjNewPoint.getX() - adjPreviousPoint.getX();
+			double newY = adjNewPoint.getY() - adjPreviousPoint.getY();
+
+			previousX = event.getX();
+			previousY = event.getY();
+
+			currentX += newX;
+			currentY += newY;
+			
+			drag = new Drag(newX, newY);
 			actions.execute(drag);
+		}
+		
+		// Convert the panel coordinates into the cooresponding coordinates on the translated image.
+		private Point2D getTranslatedPoint(double panelX, double panelY) {
+
+			AffineTransform affineTransform = new AffineTransform();
+			double centerX = (double)vue.get(0).panel.getWidth() / 2;
+			double centerY = (double)vue.get(0).panel.getHeight() / 2;
+			affineTransform.translate(centerX, centerY);
+			affineTransform.scale(model.getZoom(),model.getZoom());
+			affineTransform.translate(model.getX(), model.getY());
+			Point2D point2d = new Point2D.Double(panelX, panelY);
+			try {
+				return affineTransform.inverseTransform(point2d, null);
+			} catch (NoninvertibleTransformException ex) {
+				ex.printStackTrace();
+				return null;
+			}
 		}
 	}
 
@@ -136,6 +184,12 @@ public class Controller {
 			}else if(event.getActionCommand().equals("Zoom out")){
 				typeZoom = "out";
 				vue.get(0).setCursor(crossHair);
+				
+			}else if(event.getActionCommand().equals("Toggle la vue de l'image")){
+				displaying("Vue de l'image");
+				
+			}else if(event.getActionCommand().equals("Toggle la vue des données")){
+				displaying("Vue des données");
 			}
 		}
 	}

@@ -6,8 +6,6 @@ public class ZoomOut implements Command {
 	private double zoomValue;
 	private Point mousePosition;
 	private double nZoom;
-	private int nHeight;
-	private int nWidth;
 	
 	public ZoomOut (Point point, double zoomValue){
 		setMousePosition(point);
@@ -20,13 +18,10 @@ public class ZoomOut implements Command {
 	}
 
 	@Override
-	public boolean execute() {
-		
+	public boolean execute() {	
 		nZoom = model.getZoom()-zoomValue;
-		nHeight = (int) (model.getImage().getHeight()*nZoom);
-		nWidth = (int) (model.getImage().getWidth()*nZoom);
 		
-		return model.setModelImage(model.getImage(),nZoom, nHeight, nWidth, model.getX(), model.getY(), model.getDragX(), model.getDragY());
+		return model.setModelImage(model.getImage(),nZoom, model.getX(), model.getY());
 	}
 
 	@Override
@@ -37,10 +32,8 @@ public class ZoomOut implements Command {
 	@Override
 	public void unDo() {
 		nZoom = model.getZoom()+zoomValue;
-		nHeight = (int) (model.getImage().getHeight()*nZoom);
-		nWidth = (int) (model.getImage().getWidth()*nZoom);
 		
-		model.setModelImage(model.getImage(),nZoom, nHeight, nWidth, model.getX(), model.getY(), model.getDragX(), model.getDragY());
+		model.setModelImage(model.getImage(),nZoom, model.getX(), model.getY());
 	}
 
 	public void setZoomValue(double zoomValue) {

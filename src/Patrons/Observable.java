@@ -11,10 +11,6 @@ public interface Observable {
 	public List<ObserverIF> getObservers();
 	public double getZoom();
 	public BufferedImage getImage();
-	public int getHeight();
-	public int getWidth();
-	public int getX();
-	public int getY();
-	public int getDragX();
-	public int getDragY();
+	public double getX();
+	public double getY();
 }

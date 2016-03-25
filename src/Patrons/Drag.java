@@ -1,61 +1,52 @@
 package Patrons;
 
-import java.awt.Point;
-
 public class Drag implements Command {
-
-	private int dragX;
-	private int dragY;
-	private int dragXStart;
-	private int dragYStart;
+	private double newX;
+	private double newY;
 	
-	public Drag (int dragX, int dragY){
-		this.dragX = dragX;
-		this.dragY = dragY;
+	public Drag (double newX, double newY){
+		this.newX = newX;
+		this.newY = newY;
 	}
 	
-	public Drag (int dragX, int dragY, int dragXStart, int dragYStart){
-		this.dragX = dragX;
-		this.dragY = dragY;
-		this.dragXStart = dragXStart;
-		this.dragYStart = dragYStart;
-	}
+//	public Drag (double newX, double newY, double newXStart, double newYStart){
+//		this.newX = newX;
+//		this.newY = newY;
+//		this.newXStart = newXStart;
+//		this.newYStart = newYStart;
+//	}
 
 	@Override
 	public boolean execute() {
-		return model.setModelImage(model.getImage(), model.getZoom(), model.getHeight(), model.getWidth(), dragXStart - model.getX(), dragYStart - model.getY(), dragX, dragY);
+		return model.setModelImage(model.getImage(), model.getZoom(), newX, newY);
 	}
 
 	@Override
 	public void reDo() {
-		
+		execute();
 	}
 
 	@Override
 	public void unDo() {
-
-
+		model.setModelImage(model.getImage(), model.getZoom(), newX, newY);
 	}
 
-	public double getDragY() {
-		return dragY;
+	public double getY() {
+		return newY;
 	}
 
-
-	public void setDragY(int dragY) {
-		this.dragY = dragY;
-	}
-
-
-	public double getDragX() {
-		return dragX;
+	public void setY(double newY) {
+		this.newY = newY;
 	}
 
 
-	public void setDragX(int dragX) {
-		this.dragX = dragX;
+	public double getX() {
+		return newX;
 	}
 
+	public void setX(double newX) {
+		this.newX = newX;
+	}
 }
 
 

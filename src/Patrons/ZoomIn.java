@@ -2,15 +2,12 @@ package Patrons;
 
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 
 public class ZoomIn implements Command {
 
 	private double zoomValue;
 	private Point mousePosition;
 	private double nZoom;
-	private int nHeight;
-	private int nWidth;
 
 	public ZoomIn (Point point, double zoomValue){
 		setMousePosition(MouseInfo.getPointerInfo().getLocation());
@@ -25,10 +22,8 @@ public class ZoomIn implements Command {
 	@Override
 	public boolean execute() {
 		nZoom = model.getZoom()+zoomValue;
-		nHeight = (int) (model.getImage().getHeight()*nZoom);
-		nWidth = (int) (model.getImage().getWidth()*nZoom);
 		
-		return model.setModelImage(model.getImage(),nZoom, nHeight, nWidth, model.getX(), model.getY(), model.getDragX(), model.getDragY());
+		return model.setModelImage(model.getImage(),nZoom, model.getX(), model.getY());
 		
 	}
 
@@ -40,10 +35,8 @@ public class ZoomIn implements Command {
 	@Override
 	public void unDo() {
 		nZoom = model.getZoom()-zoomValue;
-		nHeight = (int) (model.getImage().getHeight()*nZoom);
-		nWidth = (int) (model.getImage().getWidth()*nZoom);
 		
-		model.setModelImage(model.getImage(),nZoom, nHeight, nWidth, model.getX(), model.getY(), model.getDragX(), model.getDragY());
+		model.setModelImage(model.getImage(),nZoom, model.getX(), model.getY());
 	}
 
 	public void setZoomValue(double zoomValue) {

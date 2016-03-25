@@ -2,12 +2,14 @@ package Patrons;
 
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 
 /**
@@ -23,54 +25,70 @@ public abstract class Vue extends JFrame implements ObserverIF {
 	protected JPanel panel;
 	protected JMenuBar menuBar = new JMenuBar();
 
-	//Boutons principaux du menu
+	//s principaux du menu
 	protected JMenu Fichier = new JMenu("Fichier"), 
-				  Edition = new JMenu("Édition"),
-				  Zoom	  = new JMenu("Zoom");
+			Edition = new JMenu("Édition"),
+			Affichage = new JMenu("Affichage"),
+			Zoom	  = new JMenu("Zoom");
 
-	//Sous-Boutons du menu
-	protected JMenuItem BoutonOuvrir = new JMenuItem("Ouvrir image"), 
-					  BoutonSave   = new JMenuItem("Sauvegarder"), 
-					  BoutonUnDo   = new JMenuItem("Annuler"),
-					  BoutonReDo   = new JMenuItem("Restaurer"),
-					  ZoomIn	   = new JMenuItem("Zoom in"),
-					  ZoomOut	   = new JMenuItem("Zoom out");
+	//Sous-s du menu
+	protected JMenuItem Ouvrir = new JMenuItem("Ouvrir image"), 
+			Save   = new JMenuItem("Sauvegarder"), 
+			UnDo   = new JMenuItem("Annuler"),
+			ReDo   = new JMenuItem("Restaurer"),
+			ToggleVueImage = new JMenuItem("Toggle la vue de l'image"),
+			ToggleVueDonnees = new JMenuItem("Toggle la vue des données"),
+			ZoomIn	   = new JMenuItem("Zoom in"),
+			ZoomOut	   = new JMenuItem("Zoom out");
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
 	 * initialise tout notre fenêtre.
 	 */
 	public Vue(){	
-		Fichier.add(BoutonOuvrir);
-		Fichier.add(BoutonSave);
-		Edition.add(BoutonUnDo);
-		Edition.add(BoutonReDo);
+		Ouvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+		Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+		UnDo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
+		ReDo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
+		ToggleVueImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
+		ToggleVueDonnees.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
+		Fichier.add(Ouvrir);
+		Fichier.add(Save);
+		Edition.add(UnDo);
+		Edition.add(ReDo);
 		Zoom.add(ZoomIn);
 		Zoom.add(ZoomOut);
+		Affichage.add(ToggleVueDonnees);
+		Affichage.add(ToggleVueImage);
+
 		menuBar.add(Fichier);
 		menuBar.add(Edition);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		menuBar.add(Affichage);
+		Zoom.add(ZoomIn);
+		Zoom.add(ZoomOut);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		model.addObserver(this);
 	}
 
 	void addButtonListener(ActionListener listenerButton){
-		BoutonOuvrir.addActionListener(listenerButton);
-		BoutonSave.addActionListener(listenerButton);
-		BoutonUnDo.addActionListener(listenerButton);
-		BoutonReDo.addActionListener(listenerButton);
+		Ouvrir.addActionListener(listenerButton);
+		Save.addActionListener(listenerButton);
+		UnDo.addActionListener(listenerButton);
+		ReDo.addActionListener(listenerButton);
 		ZoomIn.addActionListener(listenerButton);
 		ZoomOut.addActionListener(listenerButton);
+		ToggleVueImage.addActionListener(listenerButton);
+		ToggleVueDonnees.addActionListener(listenerButton);
 	}
-	
+
 	@Override
 	public abstract void update();
-	
+
 	public void setCursor(Cursor cursor){
 		panel.setCursor(cursor);
 	}
-	
+
 	public void closing(){
 		model.deleteObserver(this);
 	}
-	
 }
 

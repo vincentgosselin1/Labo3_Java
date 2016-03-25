@@ -39,7 +39,7 @@ public class Ouvrir implements Command{
 				System.out.println(e.getMessage());
 			}
 			
-			model.setModelImage(image, 1.0, image.getHeight(), image.getWidth(), 0, 0, 0, 0);
+			model.setModelImage(image, 1.0, -300, -300);
 		}else{
 
 		}
