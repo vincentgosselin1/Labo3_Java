@@ -55,7 +55,7 @@ public class Ouvrir implements Command{
 				//On ouvre un JPG normal.
 				else{
 					image = ImageIO.read(chooser.getSelectedFile());
-					model.setModelImage(image, chooser.getSelectedFile().getName(), 1.0, -300, -300);
+					model.setModelImage(image, chooser.getSelectedFile().getName(), 1.0, 0, 0);
 				}
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
