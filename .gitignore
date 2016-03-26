@@ -1,1 +1,3 @@
-/bin/
+*.java
+*.md
+src/Patrons/PVue/VueDonnees.java
