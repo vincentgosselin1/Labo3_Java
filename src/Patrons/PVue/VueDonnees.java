@@ -88,8 +88,8 @@ public class VueDonnees extends Vue {
 		scroll = new JScrollPane(panel);	
 		add(scroll, BorderLayout.CENTER);
 		setLocation(700, 0);
-		setTitle("Vue des données");
-		setSize(400, 240);
+		setTitle("Vue des donnï¿½es");
+		setSize(400, 270);
 	}
 
 	@Override

@@ -1,15 +1,14 @@
 package Patrons.PController;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import javax.imageio.ImageIO;
+
 
 import Patrons.PModel.DataPacket;
+import Patrons.PModel.DataPacketFactory;
 import Patrons.PModel.ModelImage;
 
 public class Save implements Command{
@@ -39,13 +38,11 @@ public class Save implements Command{
 
 	public void Serialize(ModelImage model) throws IOException
 	{
-		DataPacket dataPacket = new DataPacket(model);//To send.
-		//Pour image
-		BufferedImage image = model.getImage();
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		ImageIO.write(image, "jpg", os);
-		os.flush();
-		dataPacket.setImageInByte(os.toByteArray());
+		//On cree le factory
+		DataPacketFactory dataPacketFactory = new DataPacketFactory();
+		//On cree un datapacket a partir du model.
+		DataPacket dataPacket = dataPacketFactory.CreateFrom(model);
+		
 
 		FileOutputStream fileOut = new FileOutputStream(workingDirectory.toString() + File.separator
 														+ "Images" + File.separator + dataPacket.getImageName() + ".ser");

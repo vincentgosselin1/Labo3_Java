@@ -12,7 +12,7 @@ public class ZoomIn implements Command {
 		setZoomValue(zoomValue);
 	}
 
-	public ZoomIn(Point point) {
+	public ZoomIn() {
 		setZoomValue(DEFAULT_ZOOM);
 	}
 

@@ -3,6 +3,7 @@ package Patrons.PController;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -91,10 +92,10 @@ public class Controller implements ControllerIF{
 
 		public void mouseClicked(MouseEvent event){
 			if(typeZoom == "in"){
-				zoomIn = new ZoomIn(event.getPoint());
+				zoomIn = new ZoomIn();
 				actions.storeAndExecute(zoomIn);
 			}else if(typeZoom == "out"){
-				zoomOut = new ZoomOut(event.getPoint());
+				zoomOut = new ZoomOut();
 				actions.storeAndExecute(zoomOut);
 			}else{
 				typeZoom = "";
@@ -120,10 +121,10 @@ public class Controller implements ControllerIF{
 			if(event.isControlDown()){
 				if(event.getWheelRotation()>-1)
 				{
-					zoomOut = new ZoomOut(event.getPoint());
+					zoomOut = new ZoomOut();
 					actions.storeAndExecute(zoomOut);
 				}else{
-					zoomIn = new ZoomIn(event.getPoint());
+					zoomIn = new ZoomIn();
 					actions.storeAndExecute(zoomIn);
 				}
 			}else
@@ -209,7 +210,7 @@ public class Controller implements ControllerIF{
 					displaying("Vue des données");
 				}
 			}else if(event.getSource() instanceof JTextField){
-
+				System.out.println(event.getSource().toString());
 			}
 		}
 	}

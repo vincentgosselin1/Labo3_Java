@@ -13,16 +13,17 @@ public class DataPacket implements Serializable{
 	private double dragY;
 	private byte[] imageInByte;
 	private String imageName;
-	//New stuffff
 	
+<<<<<<< HEAD
 	public DataPacket(ModelImage model){
 		this.setZoom(model.getZoom());
 		this.setDragX(model.getDragX());
 		this.setDragY(model.getDragY());
-		
 		String[] imageNameWithOutExt = model.getImageName().split("[.]");
-		
 		this.setImageName(imageNameWithOutExt[0]);
+=======
+	public DataPacket(){
+>>>>>>> refs/remotes/origin/master
 	}
 
 	public byte[] getImageInByte() {
