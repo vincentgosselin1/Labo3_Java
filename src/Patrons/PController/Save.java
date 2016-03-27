@@ -38,10 +38,8 @@ public class Save implements Command{
 
 	public void Serialize(ModelImage model) throws IOException
 	{
-		//On cree le factory
-		DataPacketFactory dataPacketFactory = new DataPacketFactory();
 		//On cree un datapacket a partir du model.
-		DataPacket dataPacket = dataPacketFactory.CreateFrom(model);
+		DataPacket dataPacket = DataPacketFactory.createFrom(model);
 		
 
 		FileOutputStream fileOut = new FileOutputStream(workingDirectory.toString() + File.separator

@@ -15,7 +15,7 @@ public class ActionsList {
 
 	private List<Command> record = new ArrayList<Command>();
 	private int index = -1;
-	private ControllerIF notified;
+	private DownLoadDataFromList notified;
 
 	public List<Command> getRecord(){
 		return this.record;
@@ -37,9 +37,12 @@ public class ActionsList {
 	public void store(Command command) {
 		if(haveToClear())
 			clearRecord();
-
+		
 		setIndex(getIndex() + 1);
 		record.add(command);
+		if(notified == null)
+			notified = Controller.getInstance();
+		notified.notifyRecordSize(index, record.size());
 	}
 
 	public void execute(Command command) {

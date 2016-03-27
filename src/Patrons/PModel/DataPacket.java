@@ -14,17 +14,7 @@ public class DataPacket implements Serializable{
 	private byte[] imageInByte;
 	private String imageName;
 	
-<<<<<<< HEAD
-	public DataPacket(ModelImage model){
-		this.setZoom(model.getZoom());
-		this.setDragX(model.getDragX());
-		this.setDragY(model.getDragY());
-		String[] imageNameWithOutExt = model.getImageName().split("[.]");
-		this.setImageName(imageNameWithOutExt[0]);
-=======
-	public DataPacket(){
->>>>>>> refs/remotes/origin/master
-	}
+	public DataPacket(){}
 
 	public byte[] getImageInByte() {
 		return imageInByte;

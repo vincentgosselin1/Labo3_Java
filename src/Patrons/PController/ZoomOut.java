@@ -1,14 +1,12 @@
 package Patrons.PController;
 
-import java.awt.Point;
-
 public class ZoomOut implements Command {
 	private double zoomValue;
 	private double nZoom;
 	private double oDragX;
 	private double oDragY;
 
-	public ZoomOut (Point point, double zoomValue){
+	public ZoomOut(double zoomValue){
 		setZoomValue(zoomValue);
 	}
 

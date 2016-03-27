@@ -23,23 +23,20 @@ import Patrons.PVue.Vue;
 import Patrons.PVue.VueDonnees;
 import Patrons.PVue.VueImage;
 
-public class Controller implements ControllerIF{
+public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private static Controller instance = new Controller();
 	private static List<Vue> vue = new ArrayList<Vue>();
+	private static ActionsList actions = ActionsList.getinstance();
 	private String typeZoom = "";
-	private ZoomIn zoomIn;
-	private ZoomOut zoomOut;
 	private Cursor crossHair = new Cursor(Cursor.CROSSHAIR_CURSOR);
 	private Cursor arrow = new Cursor(Cursor.HAND_CURSOR);
-	private Command ouvrir = Ouvrir.getInstance();
-	private Command sauvegarder = Save.getInstance();
-	private ActionsList actions = ActionsList.getinstance();
 	private double newX;
 	private double newY;
 	private double startX;
 	private double startY;
 	private double previousX;
 	private double previousY;
+	private double zoom;
 	private int nbVueCachee = 0;
 
 	private Controller(){}
@@ -92,11 +89,9 @@ public class Controller implements ControllerIF{
 
 		public void mouseClicked(MouseEvent event){
 			if(typeZoom == "in"){
-				zoomIn = new ZoomIn();
-				actions.storeAndExecute(zoomIn);
+				actions.storeAndExecute(CommandFactory.createCommand("ZoomIn"));
 			}else if(typeZoom == "out"){
-				zoomOut = new ZoomOut();
-				actions.storeAndExecute(zoomOut);
+				actions.storeAndExecute(CommandFactory.createCommand("ZoomOut"));
 			}else{
 				typeZoom = "";
 			}
@@ -111,7 +106,8 @@ public class Controller implements ControllerIF{
 
 		public void mouseReleased(MouseEvent event){
 			if(isDragging){
-				actions.store(getDrag(startX, startY, event));
+				getNewPoint(startX, startY, event);
+				actions.store(CommandFactory.createCommand("Drag"));
 				isDragging = false;
 			}
 		}
@@ -121,11 +117,9 @@ public class Controller implements ControllerIF{
 			if(event.isControlDown()){
 				if(event.getWheelRotation()>-1)
 				{
-					zoomOut = new ZoomOut();
-					actions.storeAndExecute(zoomOut);
+					actions.storeAndExecute(CommandFactory.createCommand("ZoomOut"));
 				}else{
-					zoomIn = new ZoomIn();
-					actions.storeAndExecute(zoomIn);
+					actions.storeAndExecute(CommandFactory.createCommand("ZoomIn"));
 				}
 			}else
 				//On renvoie l'event au parent (on scroll en gros)
@@ -134,33 +128,10 @@ public class Controller implements ControllerIF{
 
 		public void mouseDragged(MouseEvent event){
 			isDragging = true;
-			actions.execute(getDrag(previousX, previousY, event));
+			getNewPoint(previousX, previousY, event);
+			actions.execute(CommandFactory.createCommand("Drag"));
 			previousX = event.getX();
 			previousY = event.getY();
-		}
-
-		public Drag getDrag(double panelX, double panelY, MouseEvent event){
-			Point2D adjPreviousPoint = getTranslatedPoint(panelX, panelY);
-			Point2D adjNewPoint = getTranslatedPoint(event.getX(), event.getY());
-
-			newX = adjNewPoint.getX() - adjPreviousPoint.getX();
-			newY = adjNewPoint.getY() - adjPreviousPoint.getY();
-
-			return new Drag(newX, newY);
-		}
-
-		// Convert the panel coordinates into the cooresponding coordinates on the translated image.
-		public Point2D getTranslatedPoint(double panelX, double panelY) {
-			VueImage vueImage = (VueImage)(vue.get(0));
-			AffineTransform affineTransform = vueImage.getCurrentTransform();
-
-			Point2D point2d = new Point2D.Double(panelX, panelY);
-			try {
-				return affineTransform.inverseTransform(point2d, null);
-			} catch (NoninvertibleTransformException ex) {
-				ex.printStackTrace();
-				return null;
-			}
 		}
 	}
 
@@ -177,12 +148,12 @@ public class Controller implements ControllerIF{
 
 				//L'utilisateur a appuyé sur Ouvrir imag
 				if(event.getActionCommand().equals("Ouvrir image")){
-					actions.execute(ouvrir);
+					actions.execute(CommandFactory.createCommand("Ouvrir"));
 					actions.clearRecord();
 
 					//L'utilisateur a appuyé sur Sauvegarder
 				}else if(event.getActionCommand().equals("Sauvegarder")){
-					actions.execute(sauvegarder);
+					actions.execute(CommandFactory.createCommand("Save"));
 					actions.clearRecord();
 
 					//L'utilisateur a appuyé sur Annuler
@@ -220,5 +191,46 @@ public class Controller implements ControllerIF{
 		VueDonnees vueDonnees = (VueDonnees)vue.get(1);
 		vueDonnees.setIndex(index);
 		vueDonnees.setnbCommand(recordSize);
+	}
+	
+	public void getNewPoint(double panelX, double panelY, MouseEvent event){
+		Point2D adjPreviousPoint = getTranslatedPoint(panelX, panelY);
+		Point2D adjNewPoint = getTranslatedPoint(event.getX(), event.getY());
+
+		newX = adjNewPoint.getX() - adjPreviousPoint.getX();
+		newY = adjNewPoint.getY() - adjPreviousPoint.getY();
+	}
+
+	// Convert the panel coordinates into the cooresponding coordinates on the translated image.
+	public Point2D getTranslatedPoint(double panelX, double panelY) {
+		VueImage vueImage = (VueImage)(vue.get(0));
+		AffineTransform affineTransform = vueImage.getCurrentTransform();
+
+		Point2D point2d = new Point2D.Double(panelX, panelY);
+		try {
+			return affineTransform.inverseTransform(point2d, null);
+		} catch (NoninvertibleTransformException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+
+	public void setZoom(double zoom) {
+		this.zoom = zoom;
+	}
+
+	@Override
+	public double getZoom() {
+		return zoom;
+	}
+
+	@Override
+	public double getNewX() {
+		return newX;
+	}
+
+	@Override
+	public double getNewY() {
+		return newY;
 	}
 }
