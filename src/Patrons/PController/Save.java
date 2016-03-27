@@ -39,7 +39,11 @@ public class Save implements Command{
 	public void Serialize(ModelImage model) throws IOException
 	{
 		//On cree un datapacket a partir du model.
+<<<<<<< HEAD
 		DataPacket dataPacket = DataPacketFactory.createFrom(model);
+=======
+		DataPacket dataPacket = DataPacketFactory.CreateFrom(model);
+>>>>>>> refs/remotes/origin/master
 		
 
 		FileOutputStream fileOut = new FileOutputStream(workingDirectory.toString() + File.separator

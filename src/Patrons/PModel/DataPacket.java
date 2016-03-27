@@ -14,7 +14,12 @@ public class DataPacket implements Serializable{
 	private byte[] imageInByte;
 	private String imageName;
 	
+<<<<<<< HEAD
 	public DataPacket(){}
+=======
+	public DataPacket(){
+	}
+>>>>>>> refs/remotes/origin/master
 
 	public byte[] getImageInByte() {
 		return imageInByte;
