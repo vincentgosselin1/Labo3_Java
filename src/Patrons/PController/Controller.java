@@ -18,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
+import Patrons.Command.ActionsList;
+import Patrons.Command.CommandFactory;
 import Patrons.PVue.Vue;
 import Patrons.PVue.VueDonnees;
 import Patrons.PVue.VueImage;

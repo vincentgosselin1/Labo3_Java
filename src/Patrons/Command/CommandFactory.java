@@ -1,4 +1,7 @@
-package Patrons.PController;
+package Patrons.Command;
+
+import Patrons.PController.Controller;
+import Patrons.PController.InformationNeeded;
 
 public class CommandFactory {
 
