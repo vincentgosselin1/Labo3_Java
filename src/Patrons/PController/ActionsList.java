@@ -29,7 +29,7 @@ public class ActionsList {
 			setIndex(getIndex() + 1);
 			record.add(command);
 			if(notified == null)
-				notified = Controller.getInstance();
+				//notified = Controller.getInstance();
 			notified.notifyRecordSize(index, record.size());
 		}
 	}

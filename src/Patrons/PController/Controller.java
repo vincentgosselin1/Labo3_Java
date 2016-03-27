@@ -22,7 +22,7 @@ import Patrons.PVue.Vue;
 import Patrons.PVue.VueDonnees;
 import Patrons.PVue.VueImage;
 
-public class Controller implements ControllerIF{
+public class Controller{
 	private static Controller instance = new Controller();
 	private static List<Vue> vue = new ArrayList<Vue>();
 	private String typeZoom = "";
@@ -214,7 +214,7 @@ public class Controller implements ControllerIF{
 		}
 	}
 
-	@Override
+	
 	public void notifyRecordSize(int index, int recordSize) {
 		VueDonnees vueDonnees = (VueDonnees)vue.get(1);
 		vueDonnees.setIndex(index);
