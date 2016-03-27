@@ -39,8 +39,7 @@ public class Save implements Command{
 	public void Serialize(ModelImage model) throws IOException
 	{
 		//On cree un datapacket a partir du model.
-		DataPacket dataPacket = DataPacketFactory.CreateFrom(model);
-		
+		DataPacket dataPacket = DataPacketFactory.createFrom(model);
 
 		FileOutputStream fileOut = new FileOutputStream(workingDirectory.toString() + File.separator
 														+ "Images" + File.separator + dataPacket.getImageName() + ".ser");

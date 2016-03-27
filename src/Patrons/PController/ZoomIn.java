@@ -1,7 +1,5 @@
 package Patrons.PController;
 
-import java.awt.Point;
-
 public class ZoomIn implements Command {
 	private double zoomValue;
 	private double nZoom;
@@ -12,7 +10,7 @@ public class ZoomIn implements Command {
 		setZoomValue(zoomValue);
 	}
 
-	public ZoomIn(Point point) {
+	public ZoomIn() {
 		setZoomValue(DEFAULT_ZOOM);
 	}
 
