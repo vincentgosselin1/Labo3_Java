@@ -13,7 +13,6 @@ public class DataPacket implements Serializable{
 	private double dragY;
 	private byte[] imageInByte;
 	private String imageName;
-	//New stuffff
 	
 	public DataPacket(){
 	}
