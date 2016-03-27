@@ -9,11 +9,7 @@ import javax.imageio.ImageIO;
 
 public class DataPacketFactory {
 
-<<<<<<< HEAD
 	public static DataPacket createFrom(ModelImage model) throws IOException
-=======
-	public static DataPacket CreateFrom(ModelImage model) throws IOException
->>>>>>> refs/remotes/origin/master
 	{
 		//Cree le DataPacket
 		DataPacket newDataPacket = new DataPacket();
