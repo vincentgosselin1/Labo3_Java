@@ -47,7 +47,8 @@ public abstract class Vue extends JFrame implements ObserverIF {
 			ToggleVueImage = new JMenuItem("Toggle la vue de l'image"),
 			ToggleVueDonnees = new JMenuItem("Toggle la vue des donn�es"),
 			ZoomIn	   = new JMenuItem("Zoom in"),
-			ZoomOut	   = new JMenuItem("Zoom out");
+			ZoomOut	   = new JMenuItem("Zoom out"),
+			CouleurChange = new JMenuItem("Change les couleurs!");
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
 	 * initialise tout notre fen�tre.
@@ -59,6 +60,8 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		ReDo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
 		ToggleVueImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
 		ToggleVueDonnees.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
+		//A rajouter pour bouton Couleur.,
+		
 		Fichier.add(Ouvrir);
 		Fichier.add(Save);
 		Edition.add(UnDo);
@@ -67,12 +70,12 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		Zoom.add(ZoomOut);
 		Affichage.add(ToggleVueDonnees);
 		Affichage.add(ToggleVueImage);
+		Couleur.add(CouleurChange);
 
 		menuBar.add(Fichier);
 		menuBar.add(Edition);
 		menuBar.add(Affichage);
-		Zoom.add(ZoomIn);
-		Zoom.add(ZoomOut);
+
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		model.addObserver(this);
 	}
@@ -86,6 +89,7 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		ZoomOut.addActionListener(listenerButton);
 		ToggleVueImage.addActionListener(listenerButton);
 		ToggleVueDonnees.addActionListener(listenerButton);
+		CouleurChange.addActionListener(listenerButton);
 		addButtonListenerOnChildren(listenerButton);
 	}
 	
