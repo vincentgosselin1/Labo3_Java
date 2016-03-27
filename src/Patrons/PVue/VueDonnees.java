@@ -20,13 +20,16 @@ public class VueDonnees extends Vue {
 	private JTextField tDragX = new JTextField();
 	private JTextField tDragY = new JTextField();
 	private JTextField tCommand = new JTextField();
+	private JTextField tIndex = new JTextField();
 	private JLabel lImageName = new JLabel("Image name :");
 	private JLabel lZoom = new JLabel("Zoom :");
 	private JLabel lDragX = new JLabel("Drag selon x :");
 	private JLabel lDragY = new JLabel("Drag selon y :");
-	private JLabel lCommand = new JLabel("Command count :");
-	//Le Panel.
-	private JPanel panel;
+	private JLabel lCommand = new JLabel("Command count: ");
+	private JLabel lIndex = new JLabel("List index :");
+
+	private int nbCommand = 0;
+	private int index = -1;
 
 	public VueDonnees(){
 		super();
@@ -42,6 +45,9 @@ public class VueDonnees extends Vue {
 		//Le layout de la VueDonnee.
 		// Create a sequential group for the horizontal axis.
 
+		tCommand.setEditable(false);
+		tIndex.setEditable(false);
+
 		GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
 
 		// The sequential group in turn contains two parallel groups.
@@ -51,10 +57,10 @@ public class VueDonnees extends Vue {
 		//
 		// Variable indentation is used to reinforce the level of grouping.
 		hGroup.addGroup(layout.createParallelGroup().addComponent(lImageName).
-						addComponent(lZoom).addComponent(lDragX).addComponent(lDragY).
-						addComponent(lCommand));
+				addComponent(lZoom).addComponent(lDragX).addComponent(lDragY).
+				addComponent(lCommand).addComponent(lIndex));
 		hGroup.addGroup(layout.createParallelGroup().addComponent(tImage).addComponent(tZoom).
-						addComponent(tDragX).addComponent(tDragY).addComponent(tCommand));
+				addComponent(tDragX).addComponent(tDragY).addComponent(tCommand).addComponent(tIndex));
 		layout.setHorizontalGroup(hGroup);
 
 		// Create a sequential group for the vertical axis.
@@ -75,21 +81,22 @@ public class VueDonnees extends Vue {
 				addComponent(lDragY).addComponent(tDragY));
 		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
 				addComponent(lCommand).addComponent(tCommand));
+		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE).
+				addComponent(lIndex).addComponent(tIndex));
 		layout.setVerticalGroup(vGroup);
 
 		scroll = new JScrollPane(panel);	
-        add(scroll, BorderLayout.CENTER);
-		add(scroll);
+		add(scroll, BorderLayout.CENTER);
 		setLocation(700, 0);
 		setTitle("Vue des données");
-		setSize(400, 220);
+		setSize(400, 240);
 	}
 
 	@Override
 	public void update() {
 		repaint();
 	}
-	
+
 	@Override
 	public void addButtonListenerOnChildren(ActionListener listenerButton) {
 		tImage.addActionListener(listenerButton);
@@ -97,10 +104,26 @@ public class VueDonnees extends Vue {
 		tDragX.addActionListener(listenerButton);
 		tDragY.addActionListener(listenerButton);
 	}
-	
+
 	@Override
 	public void addMouseListeners(MouseAdapter mouseAdapter) {
 		// Do nothing, no mouse action used here
+	}
+
+	public int getnbCommand() {
+		return nbCommand;
+	}
+
+	public void setnbCommand(int nbCommand) {
+		this.nbCommand = nbCommand;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 	public class PanelDonnees extends JPanel{
@@ -110,8 +133,8 @@ public class VueDonnees extends Vue {
 			tZoom.setText(String.valueOf(model.getZoom()));
 			tDragX.setText(String.valueOf(model.getDragX()));
 			tDragY.setText(String.valueOf(model.getDragY()));
-			
-			//tCommand.setText(t);
+			tCommand.setText(String.valueOf(nbCommand));
+			tIndex.setText(String.valueOf(index));
 		}
 	}
 
