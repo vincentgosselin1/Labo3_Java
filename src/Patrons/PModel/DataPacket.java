@@ -8,12 +8,57 @@ public class DataPacket implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public double zoom=0;//
-	public double X;
-	public double Y;
-	public byte[] imageInByte;
-	public String imageName;
+	private double zoom = 0;//
+	private double dragX;
+	private double dragY;
+	private byte[] imageInByte;
+	private String imageName;
 	//New stuffff
 	
-	public DataPacket(){}
+	public DataPacket(ModelImage model){
+		this.setZoom(model.getZoom());
+		this.setDragX(model.getDragX());
+		this.setDragY(model.getDragY());
+		this.setImageName(model.getImageName());
+	}
+
+	public byte[] getImageInByte() {
+		return imageInByte;
+	}
+
+	public void setImageInByte(byte[] imageInByte) {
+		this.imageInByte = imageInByte;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+
+	public double getDragY() {
+		return dragY;
+	}
+
+	public void setDragY(double dragY) {
+		this.dragY = dragY;
+	}
+
+	public double getDragX() {
+		return dragX;
+	}
+
+	public void setDragX(double dragX) {
+		this.dragX = dragX;
+	}
+
+	public double getZoom() {
+		return zoom;
+	}
+
+	public void setZoom(double zoom) {
+		this.zoom = zoom;
+	}
 }
