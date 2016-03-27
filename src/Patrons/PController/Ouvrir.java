@@ -30,21 +30,18 @@ public class Ouvrir implements Command{
 	@Override
 	public boolean execute() {
 		JFileChooser chooser = new JFileChooser(new File(workingDirectory.toString()) + File.separator + "Images");
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Extensions", "jpg", "png", "bmp");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Extensions", "ser", "jpg", "png", "bmp");
 		chooser.setFileFilter(filter);
 
 		int returnVal = chooser.showOpenDialog(null);
 
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
 			try {
-
-
 				if(chooser.getSelectedFile().getPath().contains(".ser"))
 				{
 					try {
 						DeSerialize(chooser.getSelectedFile(),ModelImage.getInstance());
 					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 						return false;
 					}
@@ -56,13 +53,14 @@ public class Ouvrir implements Command{
 				}
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
+				return false;
 			}
-
-
+		
+			return true;
 		}else{
-
+			return true;
 		}
-		return true;
+		
 	}
 	public void DeSerialize(File file,ModelImage model) throws IOException, ClassNotFoundException{
 		FileInputStream fileIn = new FileInputStream(file);

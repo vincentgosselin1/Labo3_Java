@@ -19,7 +19,10 @@ public class DataPacket implements Serializable{
 		this.setZoom(model.getZoom());
 		this.setDragX(model.getDragX());
 		this.setDragY(model.getDragY());
-		this.setImageName(model.getImageName());
+		
+		String[] imageNameWithOutExt = model.getImageName().split("[.]");
+		
+		this.setImageName(imageNameWithOutExt[0]);
 	}
 
 	public byte[] getImageInByte() {
