@@ -2,13 +2,11 @@ package Patrons.PController;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
 
 import Patrons.PModel.DataPacket;
 import Patrons.PModel.ModelImage;
