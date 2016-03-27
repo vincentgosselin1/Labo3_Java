@@ -15,14 +15,7 @@ public class DataPacket implements Serializable{
 	private String imageName;
 	//New stuffff
 	
-	public DataPacket(ModelImage model){
-		this.setZoom(model.getZoom());
-		this.setDragX(model.getDragX());
-		this.setDragY(model.getDragY());
-		
-		String[] imageNameWithOutExt = model.getImageName().split("[.]");
-		
-		this.setImageName(imageNameWithOutExt[0]);
+	public DataPacket(){
 	}
 
 	public byte[] getImageInByte() {
