@@ -7,8 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -19,7 +17,6 @@ import Patrons.PModel.ModelImage;
 
 public class Ouvrir implements Command{
 
-	private Path workingDirectory = Paths.get("").toAbsolutePath();
 	private BufferedImage image;
 
 	private static Ouvrir instance = new Ouvrir();
@@ -74,14 +71,14 @@ public class Ouvrir implements Command{
 		in.close();
 		fileIn.close();
 		//Verification des donnees du packet.
-		System.out.println(dataPacket.X);
-		System.out.println(dataPacket.Y);
-		System.out.println(dataPacket.zoom);
-		System.out.println(dataPacket.imageName);
+		System.out.println(dataPacket.getDragX());
+		System.out.println(dataPacket.getDragY());
+		System.out.println(dataPacket.getZoom());
+		System.out.println(dataPacket.getImageName());
 		// convert byte array back to BufferedImage
-		InputStream image = new ByteArrayInputStream(dataPacket.imageInByte);
+		InputStream image = new ByteArrayInputStream(dataPacket.getImageInByte());
 		BufferedImage bImageFromConvert = ImageIO.read(image);
-		model.setModelImage(bImageFromConvert, dataPacket.imageName, dataPacket.zoom, dataPacket.X, dataPacket.Y);
+		model.setModelImage(bImageFromConvert, dataPacket.getImageName(), dataPacket.getZoom(), dataPacket.getDragX(), dataPacket.getDragY());
 
 	}
 	@Override

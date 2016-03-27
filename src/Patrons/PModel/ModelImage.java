@@ -28,7 +28,6 @@ public class ModelImage implements Observable, Commandable{
 
 	public BufferedImage getImage(){
 		return image;
-
 	}
 
 	public void setImageName(String imageName){
