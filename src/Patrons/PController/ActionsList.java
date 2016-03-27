@@ -15,6 +15,7 @@ public class ActionsList {
 
 	private List<Command> record = new ArrayList<Command>();
 	private int index = -1;
+	private ControllerIF notified;
 
 	public List<Command> getRecord(){
 		return this.record;
@@ -27,6 +28,9 @@ public class ActionsList {
 		if(command.execute()){
 			setIndex(getIndex() + 1);
 			record.add(command);
+			if(notified == null)
+				notified = Controller.getInstance();
+			notified.notifyRecordSize(index, record.size());
 		}
 	}
 
@@ -71,6 +75,7 @@ public class ActionsList {
 		if(canReDo()){	
 			setIndex(getIndex() + 1);
 			record.get(index).reDo();
+			notified.notifyRecordSize(index, record.size());
 		}
 	}
 
@@ -78,6 +83,7 @@ public class ActionsList {
 		if(canUnDo()){
 			record.get(index).unDo();
 			setIndex(getIndex() - 1);
+			notified.notifyRecordSize(index, record.size());
 		}
 	}
 }
