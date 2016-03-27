@@ -3,7 +3,6 @@ package Patrons.PController;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -213,10 +212,6 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 			ex.printStackTrace();
 			return null;
 		}
-	}
-
-	public void setZoom(double zoom) {
-		this.zoom = zoom;
 	}
 
 	@Override
