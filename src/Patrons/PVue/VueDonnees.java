@@ -15,10 +15,30 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class VueDonnees extends Vue {
 	//JTextField + JLabel.
-	private JTextField tImage = new JTextField();
-	private JTextField tZoom = new JTextField();
-	private JTextField tDragX = new JTextField();
-	private JTextField tDragY = new JTextField();
+	private JTextField tImage = new JTextField(){
+		@Override
+		public String toString(){
+			return "tImage";
+		}
+	};
+	public JTextField tZoom = new JTextField(){
+		@Override
+		public String toString(){
+			return "tZoom";
+		}
+	};
+	private JTextField tDragX = new JTextField(){
+		@Override
+		public String toString(){
+			return "tDragX";
+		}
+	};
+	private JTextField tDragY = new JTextField(){
+		@Override
+		public String toString(){
+			return "tDragY";
+		}
+	};
 	private JTextField tCommand = new JTextField();
 	private JTextField tIndex = new JTextField();
 	private JLabel lImageName = new JLabel("Image name :");
@@ -30,6 +50,7 @@ public class VueDonnees extends Vue {
 
 	private int nbCommand = 0;
 	private int index = -1;
+	private PanelDonnees panel;
 
 	public VueDonnees(){
 		super();
@@ -88,7 +109,7 @@ public class VueDonnees extends Vue {
 		scroll = new JScrollPane(panel);	
 		add(scroll, BorderLayout.CENTER);
 		setLocation(700, 0);
-		setTitle("Vue des donnï¿½es");
+		setTitle("Vue des données");
 		setSize(400, 270);
 	}
 
@@ -131,8 +152,8 @@ public class VueDonnees extends Vue {
 			super.paintComponent(g);
 			tImage.setText(model.getImageName());
 			tZoom.setText(String.valueOf(model.getZoom()));
-			tDragX.setText(String.valueOf(model.getDragX()));
-			tDragY.setText(String.valueOf(model.getDragY()));
+			tDragX.setText(String.valueOf(Math.round(model.getDragX())));
+			tDragY.setText(String.valueOf(Math.round(model.getDragY())));
 			tCommand.setText(String.valueOf(nbCommand));
 			tIndex.setText(String.valueOf(index));
 		}

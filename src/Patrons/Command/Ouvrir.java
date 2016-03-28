@@ -12,57 +12,61 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Patrons.PModel.Commandable;
 import Patrons.PModel.DataPacket;
-import Patrons.PModel.ModelImage;
 
 public class Ouvrir implements Command{
 
 	private BufferedImage image;
-
-	private static Ouvrir instance = new Ouvrir();
+	private String imageName;
 
 	public Ouvrir(){}
 
-	public static Ouvrir getInstance(){
-		return instance;
+	public Ouvrir(String imageName){
+		this.imageName = imageName;
 	}
 
 	@Override
 	public boolean execute() {
-		JFileChooser chooser = new JFileChooser(new File(workingDirectory.toString()) + File.separator + "Images");
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Extensions", "ser", "jpg", "png", "bmp");
-		chooser.setFileFilter(filter);
+		if(imageName == null){
+			JFileChooser chooser = new JFileChooser(new File(workingDirectory.toString() + File.separator + "Images"));
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Extensions", "ser", "jpg", "png", "bmp");
+			chooser.setFileFilter(filter);
 
-		int returnVal = chooser.showOpenDialog(null);
+			int returnVal = chooser.showOpenDialog(null);
 
-		if(returnVal == JFileChooser.APPROVE_OPTION) {
-			try {
-				if(chooser.getSelectedFile().getPath().contains(".ser"))
-				{
-					try {
-						DeSerialize(chooser.getSelectedFile(),ModelImage.getInstance());
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
-						return false;
-					}
-				}
-				//On ouvre un JPG normal.
-				else{
-					image = ImageIO.read(chooser.getSelectedFile());
-					model.setModelImage(image, chooser.getSelectedFile().getName(), 1.0, 0, 0);
-				}
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
+			if(returnVal == JFileChooser.APPROVE_OPTION) {
+				imageName=chooser.getSelectedFile().getName();
+				return ouvrir(chooser.getSelectedFile());
+			}else{
 				return false;
 			}
-		
-			return true;
 		}else{
-			return true;
+			return ouvrir(new File(workingDirectory.toString() + File.separator + "Images" + File.separator + imageName));
 		}
-		
+
 	}
-	public void DeSerialize(File file,ModelImage model) throws IOException, ClassNotFoundException{
+
+	public boolean ouvrir(File file){
+		try {
+			if(imageName.contains(".ser"))
+			{
+				DeSerialize(file, model);
+			}
+			//On ouvre un JPG normal.
+			else{
+				image = ImageIO.read(file);
+				model.setModelImage(image, imageName, 1.0, 0, 0);
+			}
+
+			return true;
+		}catch (IOException | ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+
+	public void DeSerialize(File file,Commandable model) throws IOException, ClassNotFoundException{
 		FileInputStream fileIn = new FileInputStream(file);
 		ObjectInputStream in = new ObjectInputStream(fileIn);
 		DataPacket dataPacket = (DataPacket) in.readObject();
@@ -76,8 +80,7 @@ public class Ouvrir implements Command{
 		// convert byte array back to BufferedImage
 		InputStream image = new ByteArrayInputStream(dataPacket.getImageInByte());
 		BufferedImage bImageFromConvert = ImageIO.read(image);
-		model.setModelImage(bImageFromConvert, dataPacket.getImageName(), dataPacket.getZoom(), dataPacket.getDragX(), dataPacket.getDragY());
-
+		model.setModelImage(bImageFromConvert, dataPacket.getImageName() + ".ser", dataPacket.getZoom(), dataPacket.getDragX(), dataPacket.getDragY());
 	}
 	@Override
 	public void reDo() {

@@ -20,6 +20,8 @@ import javax.swing.JTextField;
 
 import Patrons.Command.ActionsList;
 import Patrons.Command.CommandFactory;
+import Patrons.PModel.ModelImage;
+import Patrons.PModel.Observable;
 import Patrons.PVue.Vue;
 import Patrons.PVue.VueDonnees;
 import Patrons.PVue.VueImage;
@@ -31,6 +33,9 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private String typeZoom = "";
 	private Cursor crossHair = new Cursor(Cursor.CROSSHAIR_CURSOR);
 	private Cursor arrow = new Cursor(Cursor.HAND_CURSOR);
+	private Observable model = ModelImage.getInstance();
+	private double trueX;
+	private double trueY;
 	private double newX;
 	private double newY;
 	private double startX;
@@ -38,6 +43,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private double previousX;
 	private double previousY;
 	private double zoom;
+	private String imageName;
 	private int nbVueCachee = 0;
 
 	private Controller(){}
@@ -99,17 +105,25 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		}
 
 		public void mousePressed(MouseEvent event){
+			//			if(model.getImage() != null)
+			//				if(trueX < event.getX() && event.getX() < trueX + model.getImage().getWidth()*model.getZoom() 
+			//				&& trueY < event.getY() && event.getY() < trueY + model.getImage().getHeight()*model.getZoom()){
 			startX = event.getX();
 			startY = event.getY();
 			previousX = event.getX();
 			previousY = event.getY();
+			isDragging = true;
+			//				}
 		}
+
 
 		public void mouseReleased(MouseEvent event){
 			if(isDragging){
 				getNewPoint(startX, startY, event);
 				actions.store(CommandFactory.createCommand("Drag"));
 				isDragging = false;
+				trueX = newX;
+				trueY = newY;
 			}
 		}
 
@@ -128,11 +142,12 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		}
 
 		public void mouseDragged(MouseEvent event){
-			isDragging = true;
-			getNewPoint(previousX, previousY, event);
-			actions.execute(CommandFactory.createCommand("Drag"));
-			previousX = event.getX();
-			previousY = event.getY();
+			if(isDragging){
+				getNewPoint(previousX, previousY, event);
+				actions.execute(CommandFactory.createCommand("Drag"));
+				previousX = event.getX();
+				previousY = event.getY();
+			}
 		}
 	}
 
@@ -183,7 +198,32 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 				}
 			}else if(event.getSource() instanceof JTextField){
 				System.out.println(event.getSource().toString());
+				JTextField textField = (JTextField)event.getSource();
+
+				if(validNumber(textField.getText()) && model.getImage() != null){
+					switch(textField.toString()){
+					case "tZoom" 	: zoom = Double.valueOf(textField.getText());
+									  actions.storeAndExecute(CommandFactory.createCommand("ZoomInFromVueDonnees"));	break;
+					case "tDragX" 	: newX += Double.valueOf(textField.getText());
+									  actions.storeAndExecute(CommandFactory.createCommand("Drag"));					break;
+					case "tDragY" 	: newY += Double.valueOf(textField.getText());
+					  				  actions.storeAndExecute(CommandFactory.createCommand("Drag"));					break;
+					}
+				}else if(textField.toString() == "tImage"){
+					imageName = textField.getText();
+	  				actions.storeAndExecute(CommandFactory.createCommand("OuvrirSpecial"));
+	  				actions.clearRecord();
+				}
 			}
+		}
+	}
+
+	public boolean validNumber(String text){
+		try{
+			Double.parseDouble(text);
+			return true;
+		}catch (NumberFormatException e) {
+			return false;
 		}
 	}
 
@@ -193,11 +233,11 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		vueDonnees.setIndex(index);
 		vueDonnees.setnbCommand(recordSize);
 	}
-	
+
 	public void getNewPoint(double panelX, double panelY, MouseEvent event){
 		Point2D adjPreviousPoint = getTranslatedPoint(panelX, panelY);
 		Point2D adjNewPoint = getTranslatedPoint(event.getX(), event.getY());
-
+		
 		newX = adjNewPoint.getX() - adjPreviousPoint.getX();
 		newY = adjNewPoint.getY() - adjPreviousPoint.getY();
 	}
@@ -229,5 +269,9 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	@Override
 	public double getNewY() {
 		return newY;
+	}
+
+	public String getImageName() {
+		return imageName;
 	}
 }

@@ -11,7 +11,8 @@ public class CommandFactory {
 		Command nCommand = null;
 
 		switch(commandName){
-		case "Ouvrir" 				: nCommand = Ouvrir.getInstance();									break;
+		case "Ouvrir" 				: nCommand = new Ouvrir();									break;
+		case "OuvrirSpecial" 		: nCommand = new Ouvrir(controller.getImageName());									break;
 		case "Save" 				: nCommand = Save.getInstance(); 									break;
 		case "ZoomInFromVueDonnees" : nCommand = new ZoomIn(controller.getZoom());						break;
 		case "ZoomOutFromVueDonnees": nCommand = new ZoomOut(controller.getZoom());						break;
