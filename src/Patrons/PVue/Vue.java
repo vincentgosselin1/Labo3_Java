@@ -1,7 +1,6 @@
 package Patrons.PVue;
 
 
-import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -10,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
@@ -29,7 +27,6 @@ public abstract class Vue extends JFrame implements ObserverIF {
 	//Objets nécessaires à l'affichage
 	protected Observable model = ModelImage.getInstance();
 	protected JScrollPane scroll;
-	protected JPanel panel;
 	protected JMenuBar menuBar = new JMenuBar();
 
 	//s principaux du menu
@@ -94,13 +91,5 @@ public abstract class Vue extends JFrame implements ObserverIF {
 
 	@Override
 	public abstract void update();
-
-	public void setCursor(Cursor cursor){
-		panel.setCursor(cursor);
-	}
-
-	public void closing(){
-		model.deleteObserver(this);
-	}
 }
 

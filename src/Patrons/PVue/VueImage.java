@@ -2,6 +2,7 @@ package Patrons.PVue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class VueImage extends Vue{
+	private PanelImage panel;
 
 	public VueImage(){
 		super();
@@ -37,7 +39,6 @@ public class VueImage extends Vue{
 		affineTransform.translate(model.getDragX(), model.getDragY());
 
 		return affineTransform;
-
 	}
 	
 	@Override
@@ -57,17 +58,26 @@ public class VueImage extends Vue{
 		panel.addMouseWheelListener(mouseAdapter);
 	}
 	
-	private class PanelImage extends JPanel{
-
+	public PanelImage getPanel(){
+		return panel;
+	}
+	
+	public void setCursor(Cursor cursor){
+		panel.setCursor(cursor);
+	}
+	
+	public class PanelImage extends JPanel{
+		
 		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			if (model.getImage() != null) {
 				Graphics2D g2d = (Graphics2D) g.create();
 				AffineTransform affineTransform = getCurrentTransform();
-				g2d.drawImage(model.getImage(),  affineTransform, this);
+				g2d.drawImage(model.getImage(),  affineTransform, null);
 				g2d.dispose();
-				setPreferredSize(new Dimension((int)(model.getImage().getHeight()*model.getZoom()),(int)(model.getImage().getWidth()*model.getZoom())));
+//				panel
+				panel.setPreferredSize(new Dimension((int)(model.getImage().getHeight()*model.getZoom()),(int)(model.getImage().getWidth()*model.getZoom())));
 				revalidate();
 			}
 		}

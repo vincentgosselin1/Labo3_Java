@@ -40,7 +40,7 @@ public class ActionsList {
 	public void store(Command command) {
 		if(haveToClear())
 			clearRecord();
-		
+
 		setIndex(getIndex() + 1);
 		record.add(command);
 		if(notified == null)
