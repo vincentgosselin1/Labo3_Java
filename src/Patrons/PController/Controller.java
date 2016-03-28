@@ -18,10 +18,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
-import Patrons.Command.CouleurChange;
-
+import Patrons.Command.CouleurMemento;
+import Patrons.Command.CouleurOriginator;
 import Patrons.Command.ActionsList;
 import Patrons.Command.CommandFactory;
+import Patrons.Command.CouleurCaretaker;
+import Patrons.Command.CouleurChange;
 import Patrons.PModel.ModelImage;
 import Patrons.PModel.Observable;
 import Patrons.PVue.Vue;
@@ -47,6 +49,10 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private double zoom;
 	private String imageName;
 	private int nbVueCachee = 0;
+	
+	//Les composantes du Memento
+	private CouleurCaretaker caretaker = new CouleurCaretaker();
+	private CouleurOriginator originator = new CouleurOriginator();
 
 	private Controller(){}
 
@@ -168,6 +174,10 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 				if(event.getActionCommand().equals("Ouvrir image")){
 					actions.execute(CommandFactory.createCommand("Ouvrir"));
 					actions.clearRecord();
+					
+					//Creation d'un CouleurMemento avec Image originale.
+					originator.set(model.getImage());
+					caretaker.addMemento(originator.storeInMememto());//Cree le memento et on le met dans la liste.
 
 					//L'utilisateur a appuy� sur Sauvegarder
 				}else if(event.getActionCommand().equals("Sauvegarder")){
@@ -199,9 +209,9 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 					displaying("Vue des donn�es");
 				}else if(event.getActionCommand().equals("Change les couleurs!")){
 					System.out.println("Almost there!");
-					CouleurChange couleurChange = new CouleurChange();
+					CouleurChange couleurChange = new CouleurChange(caretaker,originator);
 					couleurChange.execute();
-					//Color Change!
+					
 					
 				}
 			}else if(event.getSource() instanceof JTextField){
