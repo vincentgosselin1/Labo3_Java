@@ -7,7 +7,7 @@ public class ZoomIn implements Command {
 	private double oDragY;
 
 	public ZoomIn (double zoomValue){
-		setZoomValue(zoomValue);
+		setZoomValue(zoomValue-model.getZoom());
 	}
 
 	public ZoomIn() {
