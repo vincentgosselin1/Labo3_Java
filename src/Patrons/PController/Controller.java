@@ -18,14 +18,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
+import Patrons.Command.CouleurChange;
+
 import Patrons.Command.ActionsList;
 import Patrons.Command.CommandFactory;
-<<<<<<< HEAD
-import Patrons.Command.CouleurChange;
-=======
 import Patrons.PModel.ModelImage;
 import Patrons.PModel.Observable;
->>>>>>> master
 import Patrons.PVue.Vue;
 import Patrons.PVue.VueDonnees;
 import Patrons.PVue.VueImage;
