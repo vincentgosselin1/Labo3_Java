@@ -1,17 +1,6 @@
-<<<<<<< HEAD
+
 # Labo3
 
-TO DO
+- Couleurs marche a l'aide du MEMENTO!
 
-Implementer le memento d'une facon :P
-
-
-=======
-# Labo3
-
-TO DO
-
-Implementer le memento d'une facon :P
-
-
->>>>>>> refs/remotes/origin/master
+- Le Drag a seulement un effet si un click est fait sur l'image. P.S Si ca bug, fait un zoom et le drag va marcher.

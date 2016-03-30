@@ -20,20 +20,21 @@ import Patrons.PModel.Observable;
  * Classe <b><i>Vue</i></b> <br><br>
  * 
  * Affichage est une classe qui permet d'afficher le contenu d'un fichier XML
- * dans une fenêtre selon une certaine mise en page. 
+ * dans une fenï¿½tre selon une certaine mise en page. 
  */
 @SuppressWarnings("serial")
 public abstract class Vue extends JFrame implements ObserverIF {
-	//Objets nécessaires à l'affichage
+	//Objets nï¿½cessaires ï¿½ l'affichage
 	protected Observable model = ModelImage.getInstance();
 	protected JScrollPane scroll;
 	protected JMenuBar menuBar = new JMenuBar();
 
 	//s principaux du menu
 	protected JMenu Fichier = new JMenu("Fichier"), 
-			Edition = new JMenu("Édition"),
+			Edition = new JMenu("ï¿½dition"),
 			Affichage = new JMenu("Affichage"),
-			Zoom	  = new JMenu("Zoom");
+			Zoom	  = new JMenu("Zoom"),
+			Couleur = new JMenu("Couleur");
 
 	//Sous-s du menu
 	protected JMenuItem Ouvrir = new JMenuItem("Ouvrir image"), 
@@ -41,12 +42,13 @@ public abstract class Vue extends JFrame implements ObserverIF {
 			UnDo   = new JMenuItem("Annuler"),
 			ReDo   = new JMenuItem("Restaurer"),
 			ToggleVueImage = new JMenuItem("Toggle la vue de l'image"),
-			ToggleVueDonnees = new JMenuItem("Toggle la vue des données"),
+			ToggleVueDonnees = new JMenuItem("Toggle la vue des donnï¿½es"),
 			ZoomIn	   = new JMenuItem("Zoom in"),
-			ZoomOut	   = new JMenuItem("Zoom out");
+			ZoomOut	   = new JMenuItem("Zoom out"),
+			CouleurChange = new JMenuItem("Change les couleurs!");
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
-	 * initialise tout notre fenêtre.
+	 * initialise tout notre fenï¿½tre.
 	 */
 	public Vue(){	
 		Ouvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
@@ -55,6 +57,8 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		ReDo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
 		ToggleVueImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
 		ToggleVueDonnees.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
+		//A rajouter pour bouton Couleur.,
+		
 		Fichier.add(Ouvrir);
 		Fichier.add(Save);
 		Edition.add(UnDo);
@@ -63,12 +67,12 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		Zoom.add(ZoomOut);
 		Affichage.add(ToggleVueDonnees);
 		Affichage.add(ToggleVueImage);
+		Couleur.add(CouleurChange);
 
 		menuBar.add(Fichier);
 		menuBar.add(Edition);
 		menuBar.add(Affichage);
-		Zoom.add(ZoomIn);
-		Zoom.add(ZoomOut);
+
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		model.addObserver(this);
 	}
@@ -82,6 +86,7 @@ public abstract class Vue extends JFrame implements ObserverIF {
 		ZoomOut.addActionListener(listenerButton);
 		ToggleVueImage.addActionListener(listenerButton);
 		ToggleVueDonnees.addActionListener(listenerButton);
+		CouleurChange.addActionListener(listenerButton);
 		addButtonListenerOnChildren(listenerButton);
 	}
 	

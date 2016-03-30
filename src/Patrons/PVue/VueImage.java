@@ -21,6 +21,7 @@ public class VueImage extends Vue{
 	public VueImage(){
 		super();
 		menuBar.add(Zoom);
+		menuBar.add(Couleur);
 		setJMenuBar(menuBar);
 		setLocation(0, 0);
 		panel = new PanelImage();
@@ -76,7 +77,6 @@ public class VueImage extends Vue{
 				AffineTransform affineTransform = getCurrentTransform();
 				g2d.drawImage(model.getImage(),  affineTransform, null);
 				g2d.dispose();
-//				panel
 				panel.setPreferredSize(new Dimension((int)(model.getImage().getHeight()*model.getZoom()),(int)(model.getImage().getWidth()*model.getZoom())));
 				revalidate();
 			}
