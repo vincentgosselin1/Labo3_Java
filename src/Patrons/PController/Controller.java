@@ -118,14 +118,14 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 			startY = event.getY();
 			previousX = event.getX();
 			previousY = event.getY();
-			//Si a l'interieur de cadre de la photo.
-			if(event.getX() <= newX + model.getImage().getHeight() &&
-					event.getX() >= newX && event.getY() <= model.getImage().getWidth() &&
-					event.getY() >= newY)
-			{
+//			//Si a l'interieur de cadre de la photo.
+//			if(event.getX() <= newX + model.getImage().getHeight() &&
+//					event.getX() >= newX && event.getY() <= model.getImage().getWidth() &&
+//					event.getY() >= newY)
+//			{
 			isDragging = true;
-			}
-			else isDragging = false;
+//			}
+//			else isDragging = false;
 		}
 
 
