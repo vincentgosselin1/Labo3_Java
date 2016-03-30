@@ -20,7 +20,7 @@ public class VueImage extends Vue{
 
 	public VueImage(){
 		super();
-		menuBar.add(Zoom);
+		menuBar.add(zoom);
 		setJMenuBar(menuBar);
 		setLocation(0, 0);
 		panel = new PanelImage();
@@ -58,15 +58,11 @@ public class VueImage extends Vue{
 		panel.addMouseWheelListener(mouseAdapter);
 	}
 	
-	public PanelImage getPanel(){
-		return panel;
-	}
-	
 	public void setCursor(Cursor cursor){
 		panel.setCursor(cursor);
 	}
 	
-	public class PanelImage extends JPanel{
+	private class PanelImage extends JPanel{
 		
 		@Override
 		public void paintComponent(Graphics g) {

@@ -131,11 +131,11 @@ public class VueDonnees extends Vue {
 		// Do nothing, no mouse action used here
 	}
 
-	public int getnbCommand() {
+	public int getNbCommand() {
 		return nbCommand;
 	}
 
-	public void setnbCommand(int nbCommand) {
+	public void setNbCommand(int nbCommand) {
 		this.nbCommand = nbCommand;
 	}
 
@@ -147,7 +147,7 @@ public class VueDonnees extends Vue {
 		this.index = index;
 	}
 
-	public class PanelDonnees extends JPanel{
+	private class PanelDonnees extends JPanel{
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			tImage.setText(model.getImageName());
