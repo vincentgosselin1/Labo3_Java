@@ -113,15 +113,19 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		}
 
 		public void mousePressed(MouseEvent event){
-			//			if(model.getImage() != null)
-			//				if(trueX < event.getX() && event.getX() < trueX + model.getImage().getWidth()*model.getZoom() 
-			//				&& trueY < event.getY() && event.getY() < trueY + model.getImage().getHeight()*model.getZoom()){
+
 			startX = event.getX();
 			startY = event.getY();
 			previousX = event.getX();
 			previousY = event.getY();
+			//Si a l'interieur de cadre de la photo.
+			if(event.getX() <= newX + model.getImage().getHeight() &&
+					event.getX() >= newX && event.getY() <= model.getImage().getWidth() &&
+					event.getY() >= newY)
+			{
 			isDragging = true;
-			//				}
+			}
+			else isDragging = false;
 		}
 
 

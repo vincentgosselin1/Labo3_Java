@@ -103,7 +103,7 @@ public class CouleurChange implements Command{
 		}
 		
 		
-		
+		//Set le model
 		model.setModelImage(newMemento.getImageSaved(), model.getImageName(), model.getZoom(), model.getDragX(), model.getDragY());
 		
 		
