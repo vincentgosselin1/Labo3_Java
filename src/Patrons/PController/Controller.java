@@ -50,9 +50,9 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private String imageName;
 	private int nbVueCachee = 0;
 	
-	//Les composantes du Memento
 	private CouleurCaretaker caretaker = new CouleurCaretaker();
 	private CouleurOriginator originator = new CouleurOriginator();
+	private CouleurChange couleurChange = new CouleurChange(caretaker,originator);
 
 	private Controller(){}
 
@@ -174,10 +174,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 				if(event.getActionCommand().equals("Ouvrir image")){
 					actions.execute(CommandFactory.createCommand("Ouvrir"));
 					actions.clearRecord();
-					
-					//Creation d'un CouleurMemento avec Image originale.
-					originator.set(model.getImage());
-					caretaker.addMemento(originator.storeInMememto());//Cree le memento et on le met dans la liste.
+			
 
 					//L'utilisateur a appuy� sur Sauvegarder
 				}else if(event.getActionCommand().equals("Sauvegarder")){

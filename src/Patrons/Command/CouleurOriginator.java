@@ -2,23 +2,26 @@ package Patrons.Command;
 
 import java.awt.image.BufferedImage;
 
+
 public class CouleurOriginator {
 	
-	private BufferedImage image;
+	private BufferedImage newImage;
+	
 
 	public void set(BufferedImage newImage){
-		this.image=newImage;
+		this.newImage = new BufferedImage(newImage.getColorModel(),
+				newImage.copyData(null),newImage.isAlphaPremultiplied(),null);
 	}
 	
 	public CouleurMemento storeInMememto(){
 		System.out.println("From Originator : Saving to Memento");
-		return new CouleurMemento(image);
+		return new CouleurMemento(newImage);
 	}
 	
 	public BufferedImage restoreFromMemento(CouleurMemento memento)
 	{
-		image = memento.getImageSaved();
-		return image;
+		newImage = memento.getImageSaved();
+		return newImage;
 	}
 }
 

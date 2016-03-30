@@ -3,10 +3,6 @@ package Patrons.Command;
 import java.awt.image.BufferedImage;
 
 public class CouleurMemento{
-
-//	private BufferedImage image = model.getImage();
-//	private int width = image.getWidth();
-//	private int height = image.getHeight();
 	
 	private BufferedImage image;
 	
