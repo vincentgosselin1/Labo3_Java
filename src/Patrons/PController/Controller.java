@@ -20,8 +20,6 @@ import javax.swing.JTextField;
 
 import Patrons.Command.ActionsList;
 import Patrons.Command.CommandFactory;
-import Patrons.PModel.ModelImage;
-import Patrons.PModel.Observable;
 import Patrons.PVue.Vue;
 import Patrons.PVue.VueDonnees;
 import Patrons.PVue.VueImage;
@@ -33,9 +31,8 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private String typeZoom = "";
 	private Cursor crossHair = new Cursor(Cursor.CROSSHAIR_CURSOR);
 	private Cursor arrow = new Cursor(Cursor.HAND_CURSOR);
-	private Observable model = ModelImage.getInstance();
-	private double trueX;
-	private double trueY;
+//	private double trueX;
+//	private double trueY;
 	private double newX;
 	private double newY;
 	private double startX;
@@ -64,7 +61,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		}
 	}
 
-	public void displaying(String vueString){
+	private void displaying(String vueString){
 		for(Vue view : vue){
 			if(view.getTitle().equals(vueString)){
 				if(view.isVisible()){
@@ -85,8 +82,8 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private class ManageWindows extends WindowAdapter{
 
 		@Override
-		public void windowClosing(WindowEvent e) {
-			JFrame jFrame = (JFrame)(e.getSource());
+		public void windowClosing(WindowEvent event) {
+			JFrame jFrame = (JFrame)(event.getSource());
 			displaying(jFrame.getTitle());
 		}
 	}
@@ -122,8 +119,8 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 				getNewPoint(startX, startY, event);
 				actions.store(CommandFactory.createCommand("Drag"));
 				isDragging = false;
-				trueX = newX;
-				trueY = newY;
+//				trueX = newX;
+//				trueY = newY;
 			}
 		}
 
@@ -199,8 +196,10 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 			}else if(event.getSource() instanceof JTextField){
 				System.out.println(event.getSource().toString());
 				JTextField textField = (JTextField)event.getSource();
+				
 
-				if(validNumber(textField.getText()) && model.getImage() != null){
+				if(validNumber(textField.getText())){
+					resetDrag();
 					switch(textField.toString()){
 					case "tZoom" 	: zoom = Double.valueOf(textField.getText());
 									  actions.storeAndExecute(CommandFactory.createCommand("ZoomInFromVueDonnees"));	break;
@@ -218,6 +217,15 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		}
 	}
 
+	public void resetDrag(){
+		newX = 0;
+		newY = 0;
+		startX = 0;
+		startY = 0;
+		previousX = 0;
+		previousY = 0;
+	}
+	
 	public boolean validNumber(String text){
 		try{
 			Double.parseDouble(text);
@@ -231,7 +239,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	public void notifyRecordSize(int index, int recordSize) {
 		VueDonnees vueDonnees = (VueDonnees)vue.get(1);
 		vueDonnees.setIndex(index);
-		vueDonnees.setnbCommand(recordSize);
+		vueDonnees.setNbCommand(recordSize);
 	}
 
 	public void getNewPoint(double panelX, double panelY, MouseEvent event){

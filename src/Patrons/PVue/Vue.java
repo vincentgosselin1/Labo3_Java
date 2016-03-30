@@ -30,58 +30,56 @@ public abstract class Vue extends JFrame implements ObserverIF {
 	protected JMenuBar menuBar = new JMenuBar();
 
 	//s principaux du menu
-	protected JMenu Fichier = new JMenu("Fichier"), 
-			Edition = new JMenu("Édition"),
-			Affichage = new JMenu("Affichage"),
-			Zoom	  = new JMenu("Zoom");
+	protected JMenu fichier = new JMenu("Fichier"), 
+			edition = new JMenu("Édition"),
+			affichage = new JMenu("Affichage"),
+			zoom	  = new JMenu("Zoom");
 
 	//Sous-s du menu
-	protected JMenuItem Ouvrir = new JMenuItem("Ouvrir image"), 
-			Save   = new JMenuItem("Sauvegarder"), 
-			UnDo   = new JMenuItem("Annuler"),
-			ReDo   = new JMenuItem("Restaurer"),
-			ToggleVueImage = new JMenuItem("Toggle la vue de l'image"),
-			ToggleVueDonnees = new JMenuItem("Toggle la vue des données"),
-			ZoomIn	   = new JMenuItem("Zoom in"),
-			ZoomOut	   = new JMenuItem("Zoom out");
+	protected JMenuItem ouvrir = new JMenuItem("Ouvrir image"), 
+			save   = new JMenuItem("Sauvegarder"), 
+			unDo   = new JMenuItem("Annuler"),
+			reDo   = new JMenuItem("Restaurer"),
+			toggleVueImage = new JMenuItem("Toggle la vue de l'image"),
+			toggleVueDonnees = new JMenuItem("Toggle la vue des données"),
+			zoomIn	   = new JMenuItem("Zoom in"),
+			zoomOut	   = new JMenuItem("Zoom out");
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
 	 * initialise tout notre fenêtre.
 	 */
 	public Vue(){	
-		Ouvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
-		Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-		UnDo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
-		ReDo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
-		ToggleVueImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
-		ToggleVueDonnees.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
-		Fichier.add(Ouvrir);
-		Fichier.add(Save);
-		Edition.add(UnDo);
-		Edition.add(ReDo);
-		Zoom.add(ZoomIn);
-		Zoom.add(ZoomOut);
-		Affichage.add(ToggleVueDonnees);
-		Affichage.add(ToggleVueImage);
+		ouvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+		unDo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
+		reDo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
+		toggleVueImage.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
+		toggleVueDonnees.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
+		fichier.add(ouvrir);
+		fichier.add(save);
+		edition.add(unDo);
+		edition.add(reDo);
+		zoom.add(zoomIn);
+		zoom.add(zoomOut);
+		affichage.add(toggleVueDonnees);
+		affichage.add(toggleVueImage);
 
-		menuBar.add(Fichier);
-		menuBar.add(Edition);
-		menuBar.add(Affichage);
-		Zoom.add(ZoomIn);
-		Zoom.add(ZoomOut);
+		menuBar.add(fichier);
+		menuBar.add(edition);
+		menuBar.add(affichage);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		model.addObserver(this);
 	}
 
 	public void addButtonListener(ActionListener listenerButton){
-		Ouvrir.addActionListener(listenerButton);
-		Save.addActionListener(listenerButton);
-		UnDo.addActionListener(listenerButton);
-		ReDo.addActionListener(listenerButton);
-		ZoomIn.addActionListener(listenerButton);
-		ZoomOut.addActionListener(listenerButton);
-		ToggleVueImage.addActionListener(listenerButton);
-		ToggleVueDonnees.addActionListener(listenerButton);
+		ouvrir.addActionListener(listenerButton);
+		save.addActionListener(listenerButton);
+		unDo.addActionListener(listenerButton);
+		reDo.addActionListener(listenerButton);
+		zoomIn.addActionListener(listenerButton);
+		zoomOut.addActionListener(listenerButton);
+		toggleVueImage.addActionListener(listenerButton);
+		toggleVueDonnees.addActionListener(listenerButton);
 		addButtonListenerOnChildren(listenerButton);
 	}
 	
