@@ -51,7 +51,7 @@ public class Ouvrir implements Command{
 		try {
 			if(imageName.contains(".ser"))
 			{
-				DeSerialize(file, MODEL);
+				deSerialize(file);
 			}
 			//On ouvre un JPG normal.
 			else{
@@ -66,7 +66,7 @@ public class Ouvrir implements Command{
 		}
 	}
 
-	public void DeSerialize(File file,Commandable MODEL) throws IOException, ClassNotFoundException{
+	public void deSerialize(File file) throws IOException, ClassNotFoundException{
 		FileInputStream fileIn = new FileInputStream(file);
 		ObjectInputStream in = new ObjectInputStream(fileIn);
 		DataPacket dataPacket = (DataPacket) in.readObject();

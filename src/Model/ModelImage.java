@@ -108,7 +108,7 @@ public class ModelImage implements Observable, Commandable{
 		return observers;
 	}
 
-	public void notifyAllObservers(){
+	private void notifyAllObservers(){
 		for (ObserverIF observer : observers) {
 			observer.update();
 		}
