@@ -38,7 +38,6 @@ public class VueImage extends Vue{
 
 		affineTransform.scale(model.getZoom(),model.getZoom());
 		affineTransform.translate(model.getDragX(), model.getDragY());
-
 		return affineTransform;
 	}
 	
@@ -71,6 +70,7 @@ public class VueImage extends Vue{
 		
 		@Override
 		public void paintComponent(Graphics g) {
+			
 			super.paintComponent(g);
 			if (model.getImage() != null) {
 				Graphics2D g2d = (Graphics2D) g.create();
@@ -79,6 +79,7 @@ public class VueImage extends Vue{
 				g2d.dispose();
 				panel.setPreferredSize(new Dimension((int)(model.getImage().getHeight()*model.getZoom()),(int)(model.getImage().getWidth()*model.getZoom())));
 				revalidate();
+				
 			}
 		}
 	}

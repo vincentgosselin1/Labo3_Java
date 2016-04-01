@@ -20,8 +20,8 @@ public class ZoomIn implements Command {
 			nZoom = model.getZoom()+zoomValue;
 			oDragX = model.getDragX();
 			oDragY = model.getDragY();
-
-			return model.changeModelImage(nZoom, model.getDragX(), model.getDragY());
+			
+			return model.changeModelImage(nZoom, oDragX, oDragY);
 		}else{
 			return false;
 		}
