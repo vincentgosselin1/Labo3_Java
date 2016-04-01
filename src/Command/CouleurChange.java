@@ -23,7 +23,7 @@ public class CouleurChange implements Command{
 		for(int y=0; y< imageSaved.getWidth(); y++){
 			for(int x=0; x<imageSaved.getWidth();x++){
 				int p = imageSaved.getRGB(x, y);
-				int a =(p>>24)&0xff;
+				int a = (p>>24)&0xff;
 				int g = (p>>8)&0xff;
 				//Set new RGB
 				p = (a<<24) | (0<<16) | (g<<8) | 0;
@@ -73,12 +73,14 @@ public class CouleurChange implements Command{
 			caretaker.addMemento(newMemento1);
 			BufferedImage imageSaved1 = newMemento1.getImageSaved();//On prend le nouveau Memento cree et on soutire son image saved.
 			Vert(imageSaved1);
+			
 			//Memento 2 Bleu
 			originator.set(caretaker.getMemento(0).getImageSaved());
 			CouleurMemento newMemento2 = originator.storeInMememto();
 			caretaker.addMemento(newMemento2);
 			BufferedImage imageSaved2 = newMemento2.getImageSaved();
 			Bleu(imageSaved2);
+			
 			//Memento 3 Rouge
 			originator.set(caretaker.getMemento(0).getImageSaved());
 			CouleurMemento newMemento3 = originator.storeInMememto();
@@ -118,8 +120,7 @@ public class CouleurChange implements Command{
 		if(numberOfClicks>3)
 			numberOfClicks=0;
 		imageToModel = caretaker.getMemento(numberOfClicks).getImageSaved();
-		model.setModelImage(imageToModel, model.getImageName(), model.getZoom(), model.getDragX(), model.getDragY());
-
+		model.changeCouleurImage(imageToModel);
 	}
 
 	@Override
@@ -129,8 +130,7 @@ public class CouleurChange implements Command{
 		if(numberOfClicks<0)
 			numberOfClicks=3;
 		imageToModel = caretaker.getMemento(numberOfClicks).getImageSaved();
-		model.setModelImage(imageToModel, model.getImageName(), model.getZoom(), model.getDragX(), model.getDragY());
-
+		model.changeCouleurImage(imageToModel);
 	}
 }	
 

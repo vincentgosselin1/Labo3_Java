@@ -8,9 +8,8 @@ import javax.imageio.ImageIO;
 
 import Model.ModelImage;
 
-
 public class DataPacketFactory {
-
+	
 	public static DataPacket createFrom(ModelImage model) throws IOException
 	{
 		//Cree le DataPacket
