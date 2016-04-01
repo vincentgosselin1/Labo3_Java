@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import Patrons.PModel.ModelImage;
+import Model.ModelImage;
 
 
 public class DataPacketFactory {
