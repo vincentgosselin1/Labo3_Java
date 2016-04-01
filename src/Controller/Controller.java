@@ -31,12 +31,13 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private static Controller instance = new Controller();
 	private static List<Vue> vue = new ArrayList<Vue>();
 	private static ActionsList actions = ActionsList.getinstance();
-	private String typeZoom = "";
+	private Observable model = ModelImage.getInstance();
+	
 	private static final Cursor CROSS = new Cursor(Cursor.CROSSHAIR_CURSOR);
 	private static final Cursor HAND = new Cursor(Cursor.HAND_CURSOR);
 	private static final Cursor DEFAULT = new Cursor(Cursor.DEFAULT_CURSOR);
-	private Observable model = ModelImage.getInstance();
 
+	private String typeZoom = "";
 	private double newX;
 	private double newY;
 	private double startX;
@@ -65,7 +66,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		}
 	}
 
-	public void displaying(String vueString){
+	private void displaying(String vueString){
 		for(Vue view : vue){
 			if(view.getTitle().equals(vueString)){
 				if(view.isVisible()){
@@ -231,7 +232,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		}
 	}
 
-	public boolean validNumber(String text){
+	private boolean validNumber(String text){
 		try{
 			Double.parseDouble(text);
 			return true;
@@ -244,11 +245,11 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	public void notifyRecordSize(int index, int recordSize) {
 		VueDonnees vueDonnees = (VueDonnees)vue.get(1);
 		vueDonnees.setIndex(index);
-		vueDonnees.setnbCommand(recordSize);
+		vueDonnees.setNbCommand(recordSize);
 		vueDonnees.update();
 	}
 
-	public void getNewPoint(double panelX, double panelY, MouseEvent event){
+	private void getNewPoint(double panelX, double panelY, MouseEvent event){
 		Point2D adjPreviousPoint = getTranslatedPoint(panelX, panelY);
 		Point2D adjNewPoint = getTranslatedPoint(event.getX(), event.getY());
 
@@ -257,7 +258,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	}
 
 	// Convert the panel coordinates into the cooresponding coordinates on the translated image.
-	public Point2D getTranslatedPoint(double panelX, double panelY) {
+	private Point2D getTranslatedPoint(double panelX, double panelY) {
 		VueImage vueImage = (VueImage)(vue.get(0));
 		AffineTransform affineTransform = vueImage.getCurrentTransform();
 

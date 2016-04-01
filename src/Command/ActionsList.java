@@ -52,7 +52,7 @@ public class ActionsList {
 		command.execute();
 	}
 
-	public boolean haveToClear(){
+	private boolean haveToClear(){
 		return ((record.size() - getIndex()) > 1);
 	}
 
@@ -64,19 +64,19 @@ public class ActionsList {
 		notified.notifyRecordSize(getIndex(), record.size());
 	}
 
-	public int getIndex() {
+	private int getIndex() {
 		return index;
 	}
 
-	public void setIndex(int index) {
+	private void setIndex(int index) {
 		this.index = index;
 	}
 
-	public boolean canReDo(){
+	private boolean canReDo(){
 		return record.size() > index + 1;
 	}
 
-	public boolean canUnDo(){
+	private boolean canUnDo(){
 		return index + 1 > 0;
 	}
 

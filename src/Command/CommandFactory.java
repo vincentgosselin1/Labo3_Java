@@ -8,7 +8,6 @@ import Memento.CouleurOriginator;
 public class CommandFactory {
 
 	private static final InformationNeeded controller = Controller.getInstance();
-	
 	private static CouleurCaretaker caretaker = new CouleurCaretaker();
 	private static CouleurOriginator originator = new CouleurOriginator();
 

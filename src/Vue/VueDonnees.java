@@ -131,11 +131,11 @@ public class VueDonnees extends Vue {
 		// Do nothing, no mouse action used here
 	}
 
-	public int getnbCommand() {
+	public int getNbCommand() {
 		return nbCommand;
 	}
 
-	public void setnbCommand(int nbCommand) {
+	public void setNbCommand(int nbCommand) {
 		this.nbCommand = nbCommand;
 	}
 
