@@ -17,13 +17,10 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
-import Patrons.Command.CouleurMemento;
-import Patrons.Command.CouleurOriginator;
 import Patrons.Command.ActionsList;
 import Patrons.Command.CommandFactory;
-import Patrons.Command.CouleurCaretaker;
-import Patrons.Command.CouleurChange;
 import Patrons.PModel.ModelImage;
 import Patrons.PModel.Observable;
 import Patrons.PVue.Vue;
@@ -35,8 +32,9 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private static List<Vue> vue = new ArrayList<Vue>();
 	private static ActionsList actions = ActionsList.getinstance();
 	private String typeZoom = "";
-	private Cursor crossHair = new Cursor(Cursor.CROSSHAIR_CURSOR);
-	private Cursor arrow = new Cursor(Cursor.HAND_CURSOR);
+	private static final Cursor CROSS = new Cursor(Cursor.CROSSHAIR_CURSOR);
+	private static final Cursor HAND = new Cursor(Cursor.HAND_CURSOR);
+	private static final Cursor DEFAULT = new Cursor(Cursor.DEFAULT_CURSOR);
 	private Observable model = ModelImage.getInstance();
 
 	private double newX;
@@ -48,8 +46,6 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private double zoom;
 	private String imageName;
 	private int nbVueCachee = 0;
-	
-	
 
 	private Controller(){}
 
@@ -100,12 +96,17 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		private boolean isDragging = false;
 
 		public void mouseClicked(MouseEvent event){
-			if(typeZoom == "in"){
-				actions.storeAndExecute(CommandFactory.createCommand("ZoomIn"));
-			}else if(typeZoom == "out"){
-				actions.storeAndExecute(CommandFactory.createCommand("ZoomOut"));
-			}else{
+			if(SwingUtilities.isLeftMouseButton(event)){
+				if(typeZoom == "in"){
+					actions.storeAndExecute(CommandFactory.createCommand("ZoomIn"));
+				}else if(typeZoom == "out"){
+					actions.storeAndExecute(CommandFactory.createCommand("ZoomOut"));
+				}else{
+					typeZoom = "";
+				}
+			}else if(SwingUtilities.isRightMouseButton(event)){
 				typeZoom = "";
+				vue.get(0).setCursor(DEFAULT);
 			}
 		}
 
@@ -115,14 +116,14 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 			startY = event.getY();
 			previousX = event.getX();
 			previousY = event.getY();
-//			//Si a l'interieur de cadre de la photo.
-//			if(event.getX() <= newX + model.getImage().getHeight() &&
-//					event.getX() >= newX && event.getY() <= model.getImage().getWidth() &&
-//					event.getY() >= newY)
-//			{
-			isDragging = true;
-//			}
-//			else isDragging = false;
+			//			//Si a l'interieur de cadre de la photo.
+			//			if(event.getX() <= newX + model.getImage().getHeight() &&
+			//					event.getX() >= newX && event.getY() <= model.getImage().getWidth() &&
+			//					event.getY() >= newY)
+			//			{
+			//isDragging = true;
+			//			}
+			//			else isDragging = false;
 		}
 
 
@@ -149,66 +150,64 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		}
 
 		public void mouseDragged(MouseEvent event){
-			if(isDragging){
-				getNewPoint(previousX, previousY, event);
-				actions.execute(CommandFactory.createCommand("Drag"));
-				previousX = event.getX();
-				previousY = event.getY();
-			}
+			isDragging = true;
+			vue.get(0).setCursor(HAND);
+			getNewPoint(previousX, previousY, event);
+			actions.execute(CommandFactory.createCommand("Drag"));
+			previousX = event.getX();
+			previousY = event.getY();
 		}
 	}
 
 	private class ManageButtons implements ActionListener{
 		/**
 		 * <b><i>actionPerformed</i></b> 
-		 * permet de rï¿½cupï¿½rer l'action produite par l'utilisateur et la traiter.
+		 * permet de récupérer l'action produite par l'utilisateur et la traiter.
 		 * 
 		 * @param action l'action produite par l'utilisateur
 		 */
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() instanceof JMenuItem){
-				vue.get(0).setCursor(arrow);
+			vue.get(0).setCursor(DEFAULT);
+			typeZoom = "";
 
-				//L'utilisateur a appuyï¿½ sur Ouvrir imag
+			if(event.getSource() instanceof JMenuItem){
+				//L'utilisateur a appuyé sur Ouvrir imag
 				if(event.getActionCommand().equals("Ouvrir image")){
 					actions.execute(CommandFactory.createCommand("Ouvrir"));
 					actions.clearRecord();
-			
 
-					//L'utilisateur a appuyï¿½ sur Sauvegarder
+
+					//L'utilisateur a appuyé sur Sauvegarder
 				}else if(event.getActionCommand().equals("Sauvegarder")){
 					actions.execute(CommandFactory.createCommand("Save"));
 					actions.clearRecord();
 
-					//L'utilisateur a appuyï¿½ sur Annuler
+					//L'utilisateur a appuyé sur Annuler
 				}else if(event.getActionCommand().equals("Annuler")){
 					actions.unDo();
 
-					//L'utilisateur a appuyï¿½ sur Restaurer
+					//L'utilisateur a appuyé sur Restaurer
 				}else if(event.getActionCommand().equals("Restaurer")){
 					actions.reDo();	
 
-					//L'utilisateur a appuyï¿½ sur Zoom in
+					//L'utilisateur a appuyé sur Zoom in
 				}else if(event.getActionCommand().equals("Zoom in")){
 					typeZoom = "in";
-					vue.get(0).setCursor(crossHair);
+					vue.get(0).setCursor(CROSS);
 
-					//L'utilisateur a appuyï¿½ sur Zoom out
+					//L'utilisateur a appuyé sur Zoom out
 				}else if(event.getActionCommand().equals("Zoom out")){
 					typeZoom = "out";
-					vue.get(0).setCursor(crossHair);
+					vue.get(0).setCursor(CROSS);
 
 				}else if(event.getActionCommand().equals("Toggle la vue de l'image")){
 					displaying("Vue de l'image");
 
-				}else if(event.getActionCommand().equals("Toggle la vue des donnï¿½es")){
-					displaying("Vue des donnï¿½es");
+				}else if(event.getActionCommand().equals("Toggle la vue des données")){
+					displaying("Vue des données");
+
 				}else if(event.getActionCommand().equals("Change les couleurs!")){
-					System.out.println("Almost there!");
 					actions.storeAndExecute(CommandFactory.createCommand("CouleurChange"));
-					
-					
-					
 				}
 			}else if(event.getSource() instanceof JTextField){
 				System.out.println(event.getSource().toString());
@@ -217,16 +216,16 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 				if(validNumber(textField.getText()) && model.getImage() != null){
 					switch(textField.toString()){
 					case "tZoom" 	: zoom = Double.valueOf(textField.getText());
-									  actions.storeAndExecute(CommandFactory.createCommand("ZoomInFromVueDonnees"));	break;
+					actions.storeAndExecute(CommandFactory.createCommand("ZoomInFromVueDonnees"));	break;
 					case "tDragX" 	: newX += Double.valueOf(textField.getText());
-									  actions.storeAndExecute(CommandFactory.createCommand("Drag"));					break;
+					actions.storeAndExecute(CommandFactory.createCommand("Drag"));					break;
 					case "tDragY" 	: newY += Double.valueOf(textField.getText());
-					  				  actions.storeAndExecute(CommandFactory.createCommand("Drag"));					break;
+					actions.storeAndExecute(CommandFactory.createCommand("Drag"));					break;
 					}
 				}else if(textField.toString() == "tImage"){
 					imageName = textField.getText();
-	  				actions.storeAndExecute(CommandFactory.createCommand("OuvrirSpecial"));
-	  				actions.clearRecord();
+					actions.storeAndExecute(CommandFactory.createCommand("OuvrirSpecial"));
+					actions.clearRecord();
 				}
 			}
 		}
@@ -246,12 +245,13 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		VueDonnees vueDonnees = (VueDonnees)vue.get(1);
 		vueDonnees.setIndex(index);
 		vueDonnees.setnbCommand(recordSize);
+		vueDonnees.update();
 	}
 
 	public void getNewPoint(double panelX, double panelY, MouseEvent event){
 		Point2D adjPreviousPoint = getTranslatedPoint(panelX, panelY);
 		Point2D adjNewPoint = getTranslatedPoint(event.getX(), event.getY());
-		
+
 		newX = adjNewPoint.getX() - adjPreviousPoint.getX();
 		newY = adjNewPoint.getY() - adjPreviousPoint.getY();
 	}
@@ -285,6 +285,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		return newY;
 	}
 
+	@Override
 	public String getImageName() {
 		return imageName;
 	}

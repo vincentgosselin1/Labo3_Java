@@ -9,12 +9,9 @@ public class CommandFactory {
 	
 	private static CouleurCaretaker caretaker = new CouleurCaretaker();
 	private static CouleurOriginator originator = new CouleurOriginator();
-	
 
 	public static Command createCommand(String commandName){
 		Command nCommand = null;
-
-		
 		
 		switch(commandName){
 		case "Ouvrir" 				: nCommand = new Ouvrir();											break;

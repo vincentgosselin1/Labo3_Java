@@ -1,4 +1,4 @@
-package Patrons.PModel;
+package Patrons.Command;
 
 import java.io.Serializable;
 

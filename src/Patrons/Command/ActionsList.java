@@ -33,7 +33,7 @@ public class ActionsList {
 			record.add(command);
 			if(notified == null)
 				notified = Controller.getInstance();
-			notified.notifyRecordSize(index, record.size());
+			notified.notifyRecordSize(getIndex(), record.size());
 		}
 	}
 
@@ -45,7 +45,7 @@ public class ActionsList {
 		record.add(command);
 		if(notified == null)
 			notified = Controller.getInstance();
-		notified.notifyRecordSize(index, record.size());
+		notified.notifyRecordSize(getIndex(), record.size());
 	}
 
 	public void execute(Command command) {
@@ -53,12 +53,15 @@ public class ActionsList {
 	}
 
 	public boolean haveToClear(){
-		return ((record.size() - index) > 1);
+		return ((record.size() - getIndex()) > 1);
 	}
 
 	public void clearRecord(){
 		record.clear();
 		setIndex(-1);
+		if(notified == null)
+			notified = Controller.getInstance();
+		notified.notifyRecordSize(getIndex(), record.size());
 	}
 
 	public int getIndex() {

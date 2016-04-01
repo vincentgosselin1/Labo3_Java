@@ -33,11 +33,11 @@ public class ModelImage implements Observable, Commandable{
 	public void setImageName(String imageName){
 		this.imageName  = imageName;
 	}
-	
+
 	public	String getImageName(){
 		return imageName;
 	}
-	
+
 	public boolean setZoom(double zoom){
 		if(0 < zoom && zoom <= 3){
 			this.zoom = zoom;
@@ -49,23 +49,23 @@ public class ModelImage implements Observable, Commandable{
 	public double getZoom(){
 		return zoom;
 	}
-	
+
 	public void setDragX(double dragX) {
 		this.dragX = dragX;
 	}
-	
+
 	public double getDragX() {
 		return dragX;
 	}
-	
+
 	public void setDragY(double dragY) {
 		this.dragY = dragY;
 	}
-	
+
 	public double getDragY() {
 		return dragY;
 	}
-	
+
 	public boolean setModelImage(BufferedImage image, String imageName, double zoom, double x, double y){
 		if(setZoom(zoom)){
 			setImage(image);
@@ -78,7 +78,7 @@ public class ModelImage implements Observable, Commandable{
 			return false;
 		}
 	}
-	
+
 	public boolean changeModelImage(double zoom, double x, double y){
 		if(setZoom(zoom)){
 			setDragX(x);
@@ -88,6 +88,12 @@ public class ModelImage implements Observable, Commandable{
 		}else{
 			return false;
 		}
+	}
+
+	public boolean changeCouleurImage(BufferedImage image){
+		setImage(image);
+		notifyAllObservers();
+		return true;
 	}
 
 	public void addObserver(ObserverIF observer) {

@@ -1,10 +1,12 @@
-package Patrons.PModel;
+package Patrons.Command;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import Patrons.PModel.ModelImage;
 
 
 public class DataPacketFactory {

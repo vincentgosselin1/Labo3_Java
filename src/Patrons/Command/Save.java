@@ -5,10 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-
-
-import Patrons.PModel.DataPacket;
-import Patrons.PModel.DataPacketFactory;
 import Patrons.PModel.ModelImage;
 
 public class Save implements Command{

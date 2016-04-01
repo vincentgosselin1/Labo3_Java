@@ -6,12 +6,9 @@ public class CouleurChange implements Command{
 
 	private CouleurCaretaker caretaker;
 	private CouleurOriginator originator;
-	private static boolean firstTime = true;
-	
-	
+	private static boolean firstTime = true;	
 	private static int numberOfClicks=0;
 	
-
 	public CouleurChange(CouleurCaretaker caretaker,CouleurOriginator originator)
 	{
 		this.caretaker=caretaker;
@@ -19,56 +16,43 @@ public class CouleurChange implements Command{
 	}
 
 	private void Vert(BufferedImage imageSaved){
-		int height = imageSaved.getHeight();
-		int width = imageSaved.getWidth();
-		for(int y=0; y< height; y++)
-		{
-			for(int x=0; x<width;x++)
-			{
-				int pixel = imageSaved.getRGB(x, y);
-				int a =(pixel>>24)&0xff;
-				int g = (pixel>>8)&0xff;
+		for(int y=0; y< imageSaved.getWidth(); y++){
+			for(int x=0; x<imageSaved.getWidth();x++){
+				int p = imageSaved.getRGB(x, y);
+				int a =(p>>24)&0xff;
+				int g = (p>>8)&0xff;
 				//Set new RGB
-				pixel = (a<<24) | (0<<16) | (g<<8) | 0;
-				imageSaved.setRGB(x, y, pixel);
+				p = (a<<24) | (0<<16) | (g<<8) | 0;
+				imageSaved.setRGB(x, y, p);
 			}
 		}
 	}
+	
 	private void Rouge(BufferedImage imageSaved){
-		int height = imageSaved.getHeight();
-		int width = imageSaved.getWidth();
-		for(int y = 0; y < height; y++){
-			for(int x = 0; x < width; x++){
+		for(int y = 0; y < imageSaved.getHeight(); y++){
+			for(int x = 0; x < imageSaved.getWidth(); x++){
 				int p = imageSaved.getRGB(x,y);
-
 				int a = (p>>24)&0xff;
 				int r = (p>>16)&0xff;
-
 				//set new RGB
 				p = (a<<24) | (r<<16) | (0<<8) | 0;
-
 				imageSaved.setRGB(x, y, p);
 			}
 		}
 	}
+	
 	private void Bleu(BufferedImage imageSaved){
-		int height = imageSaved.getHeight();
-		int width = imageSaved.getWidth();
-		for(int y = 0; y < height; y++){
-			for(int x = 0; x < width; x++){
+		for(int y = 0; y < imageSaved.getHeight(); y++){
+			for(int x = 0; x < imageSaved.getWidth(); x++){
 				int p = imageSaved.getRGB(x,y);
-
 				int a = (p>>24)&0xff;
 				int b = p&0xff;
-
 				//set new RGB
 				p = (a<<24) | (0<<16) | (0<<8) | b;
-
 				imageSaved.setRGB(x, y, p);
 			}
 		}
 	}
-
 
 	@Override
 	public boolean execute() {
@@ -78,7 +62,7 @@ public class CouleurChange implements Command{
 			caretaker.addMemento(originator.storeInMememto());//Cree le memento et on le met dans la liste.
 			firstTime=false;//On a save l'image originale.
 			
-			//init de la liste des mementos au complets.
+			//init de la liste des mementos au complet.
 			//Memento 1 VERT
 			originator.set(caretaker.getMemento(0).getImageSaved());//On cree un nouveau memento A partir de l'image originale.
 			CouleurMemento newMemento1 = originator.storeInMememto();
@@ -98,7 +82,6 @@ public class CouleurChange implements Command{
 			BufferedImage imageSaved3 = newMemento3.getImageSaved();
 			Rouge(imageSaved3);
 		}
-
 		
 		BufferedImage imageToModel=null;
 		
@@ -110,10 +93,8 @@ public class CouleurChange implements Command{
 		case 3 : imageToModel = caretaker.getMemento(0).getImageSaved();	break; 
 		}
 		
-		
 		//Set le model
-		model.setModelImage(imageToModel, model.getImageName(), model.getZoom(), model.getDragX(), model.getDragY());
-		
+		model.changeCouleurImage(imageToModel);
 		
 		//On avance le click
 		numberOfClicks++;
@@ -130,7 +111,8 @@ public class CouleurChange implements Command{
 	public void reDo() {
 		BufferedImage imageToModel=null;
 		numberOfClicks = numberOfClicks+1;
-		if(numberOfClicks>3){numberOfClicks=0;}
+		if(numberOfClicks>3)
+			numberOfClicks=0;
 		imageToModel = caretaker.getMemento(numberOfClicks).getImageSaved();
 		model.setModelImage(imageToModel, model.getImageName(), model.getZoom(), model.getDragX(), model.getDragY());
 
@@ -140,7 +122,8 @@ public class CouleurChange implements Command{
 	public void unDo() {
 		BufferedImage imageToModel=null;
 		numberOfClicks = numberOfClicks-1;
-		if(numberOfClicks<0){numberOfClicks=3;}
+		if(numberOfClicks<0)
+			numberOfClicks=3;
 		imageToModel = caretaker.getMemento(numberOfClicks).getImageSaved();
 		model.setModelImage(imageToModel, model.getImageName(), model.getZoom(), model.getDragX(), model.getDragY());
 

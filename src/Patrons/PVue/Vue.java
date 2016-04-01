@@ -20,18 +20,18 @@ import Patrons.PModel.Observable;
  * Classe <b><i>Vue</i></b> <br><br>
  * 
  * Affichage est une classe qui permet d'afficher le contenu d'un fichier XML
- * dans une fenï¿½tre selon une certaine mise en page. 
+ * dans une fenétre selon une certaine mise en page. 
  */
 @SuppressWarnings("serial")
 public abstract class Vue extends JFrame implements ObserverIF {
-	//Objets nï¿½cessaires ï¿½ l'affichage
+	//Objets nécessaires é l'affichage
 	protected Observable model = ModelImage.getInstance();
 	protected JScrollPane scroll;
 	protected JMenuBar menuBar = new JMenuBar();
 
 	//s principaux du menu
 	protected JMenu Fichier = new JMenu("Fichier"), 
-			Edition = new JMenu("ï¿½dition"),
+			Edition = new JMenu("Édition"),
 			Affichage = new JMenu("Affichage"),
 			Zoom	  = new JMenu("Zoom"),
 			Couleur = new JMenu("Couleur");
@@ -42,13 +42,13 @@ public abstract class Vue extends JFrame implements ObserverIF {
 			UnDo   = new JMenuItem("Annuler"),
 			ReDo   = new JMenuItem("Restaurer"),
 			ToggleVueImage = new JMenuItem("Toggle la vue de l'image"),
-			ToggleVueDonnees = new JMenuItem("Toggle la vue des donnï¿½es"),
+			ToggleVueDonnees = new JMenuItem("Toggle la vue des données"),
 			ZoomIn	   = new JMenuItem("Zoom in"),
 			ZoomOut	   = new JMenuItem("Zoom out"),
 			CouleurChange = new JMenuItem("Change les couleurs!");
 	/**
 	 * Constructeur de la classe <b><i>Affichage</i></b> 
-	 * initialise tout notre fenï¿½tre.
+	 * initialise tout notre fenétre.
 	 */
 	public Vue(){	
 		Ouvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));

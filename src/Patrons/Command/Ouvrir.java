@@ -13,7 +13,6 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Patrons.PModel.Commandable;
-import Patrons.PModel.DataPacket;
 
 public class Ouvrir implements Command{
 
