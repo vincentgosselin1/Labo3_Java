@@ -1,7 +1,6 @@
 package Controller;
 
 import java.awt.Cursor;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -22,6 +21,7 @@ import javax.swing.SwingUtilities;
 
 import Command.ActionsList;
 import Command.CommandFactory;
+import Memento.CouleurCaretaker;
 import Model.ModelImage;
 import Model.Observable;
 import Vue.Vue;
@@ -115,19 +115,10 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		}
 
 		public void mousePressed(MouseEvent event){
-
 			startX = event.getX();
 			startY = event.getY();
 			previousX = event.getX();
 			previousY = event.getY();
-			//			//Si a l'interieur de cadre de la photo.
-			//			if(event.getX() <= newX + model.getImage().getHeight() &&
-			//					event.getX() >= newX && event.getY() <= model.getImage().getWidth() &&
-			//					event.getY() >= newY)
-			//			{
-			//isDragging = true;
-			//			}
-			//			else isDragging = false;
 		}
 
 
@@ -181,7 +172,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 				if(event.getActionCommand().equals("Ouvrir image")){
 					actions.execute(CommandFactory.createCommand("Ouvrir"));
 					actions.clearRecord();
-
+					CouleurCaretaker.delMementos();
 
 					//L'utilisateur a appuyé sur Sauvegarder
 				}else if(event.getActionCommand().equals("Sauvegarder")){

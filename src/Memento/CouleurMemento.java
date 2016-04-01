@@ -15,10 +15,4 @@ public class CouleurMemento{
 	{
 		return image;
 	}
-
-		
-		
-		
-	
-
 }

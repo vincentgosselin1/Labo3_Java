@@ -8,14 +8,13 @@ import Memento.CouleurOriginator;
 
 public class CouleurChange implements Command{
 
-	private CouleurCaretaker caretaker;
+	private CouleurCaretaker careTaker;
 	private CouleurOriginator originator;
-	private static boolean firstTime = true;	
 	private static int numberOfClicks=0;
 	
-	public CouleurChange(CouleurCaretaker caretaker,CouleurOriginator originator)
+	public CouleurChange(CouleurCaretaker careTaker,CouleurOriginator originator)
 	{
-		this.caretaker=caretaker;
+		this.careTaker=careTaker;
 		this.originator=originator;
 	}
 
@@ -60,31 +59,30 @@ public class CouleurChange implements Command{
 
 	@Override
 	public boolean execute() {
-		if(firstTime)
+		if(careTaker.getMementoList().isEmpty())
 		{
 			originator.set(model.getImage());
-			caretaker.addMemento(originator.storeInMememto());//Cree le memento et on le met dans la liste.
-			firstTime=false;//On a save l'image originale.
+			careTaker.addMemento(originator.storeInMememto());//Cree le memento et on le met dans la liste.
 			
 			//init de la liste des mementos au complet.
 			//Memento 1 VERT
-			originator.set(caretaker.getMemento(0).getImageSaved());//On cree un nouveau memento A partir de l'image originale.
+			originator.set(careTaker.getMemento(0).getImageSaved());//On cree un nouveau memento A partir de l'image originale.
 			CouleurMemento newMemento1 = originator.storeInMememto();
-			caretaker.addMemento(newMemento1);
+			careTaker.addMemento(newMemento1);
 			BufferedImage imageSaved1 = newMemento1.getImageSaved();//On prend le nouveau Memento cree et on soutire son image saved.
 			Vert(imageSaved1);
 			
 			//Memento 2 Bleu
-			originator.set(caretaker.getMemento(0).getImageSaved());
+			originator.set(careTaker.getMemento(0).getImageSaved());
 			CouleurMemento newMemento2 = originator.storeInMememto();
-			caretaker.addMemento(newMemento2);
+			careTaker.addMemento(newMemento2);
 			BufferedImage imageSaved2 = newMemento2.getImageSaved();
 			Bleu(imageSaved2);
 			
 			//Memento 3 Rouge
-			originator.set(caretaker.getMemento(0).getImageSaved());
+			originator.set(careTaker.getMemento(0).getImageSaved());
 			CouleurMemento newMemento3 = originator.storeInMememto();
-			caretaker.addMemento(newMemento3);
+			careTaker.addMemento(newMemento3);
 			BufferedImage imageSaved3 = newMemento3.getImageSaved();
 			Rouge(imageSaved3);
 		}
@@ -93,10 +91,10 @@ public class CouleurChange implements Command{
 		
 		switch(numberOfClicks)
 		{
-		case 0 : imageToModel = caretaker.getMemento(1).getImageSaved();	break;
-		case 1 : imageToModel = caretaker.getMemento(2).getImageSaved();	break;
-		case 2 : imageToModel = caretaker.getMemento(3).getImageSaved();	break;
-		case 3 : imageToModel = caretaker.getMemento(0).getImageSaved();	break; 
+		case 0 : imageToModel = careTaker.getMemento(1).getImageSaved();	break;
+		case 1 : imageToModel = careTaker.getMemento(2).getImageSaved();	break;
+		case 2 : imageToModel = careTaker.getMemento(3).getImageSaved();	break;
+		case 3 : imageToModel = careTaker.getMemento(0).getImageSaved();	break; 
 		}
 		
 		//Set le model
@@ -119,7 +117,7 @@ public class CouleurChange implements Command{
 		numberOfClicks = numberOfClicks+1;
 		if(numberOfClicks>3)
 			numberOfClicks=0;
-		imageToModel = caretaker.getMemento(numberOfClicks).getImageSaved();
+		imageToModel = careTaker.getMemento(numberOfClicks).getImageSaved();
 		model.changeCouleurImage(imageToModel);
 	}
 
@@ -129,7 +127,7 @@ public class CouleurChange implements Command{
 		numberOfClicks = numberOfClicks-1;
 		if(numberOfClicks<0)
 			numberOfClicks=3;
-		imageToModel = caretaker.getMemento(numberOfClicks).getImageSaved();
+		imageToModel = careTaker.getMemento(numberOfClicks).getImageSaved();
 		model.changeCouleurImage(imageToModel);
 	}
 }	

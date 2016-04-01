@@ -7,7 +7,6 @@ public class CouleurOriginator {
 	
 	private BufferedImage newImage;
 	
-
 	public void set(BufferedImage newImage){
 		this.newImage = new BufferedImage(newImage.getColorModel(),
 				newImage.copyData(null),newImage.isAlphaPremultiplied(),null);
