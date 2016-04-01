@@ -1,4 +1,4 @@
-package Patrons.Command;
+package Serialization;
 
 import java.io.Serializable;
 

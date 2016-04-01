@@ -2,6 +2,10 @@ package Patrons.Command;
 
 import java.awt.image.BufferedImage;
 
+import Memento.CouleurCaretaker;
+import Memento.CouleurMemento;
+import Memento.CouleurOriginator;
+
 public class CouleurChange implements Command{
 
 	private CouleurCaretaker caretaker;

@@ -1,5 +1,7 @@
 package Patrons.Command;
 
+import Memento.CouleurCaretaker;
+import Memento.CouleurOriginator;
 import Patrons.PController.Controller;
 import Patrons.PController.InformationNeeded;
 
