@@ -6,11 +6,11 @@ public class Drag implements Command {
 	private double oDragX;
 	private double oDragY;
 	
-	public Drag (double newX, double newY){
+	public Drag (double newX, double newY, double oDragX, double oDragY){
 		this.newX = newX;
 		this.newY = newY;
-		oDragX = model.getDragX() - newX;
-		oDragY = model.getDragY() - newY;
+		this.oDragX = oDragX;
+		this.oDragY = oDragY;
 	}
 
 	@Override

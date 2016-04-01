@@ -1,6 +1,7 @@
 package Controller;
 
 import java.awt.Cursor;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -31,7 +32,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private static Controller instance = new Controller();
 	private static List<Vue> vue = new ArrayList<Vue>();
 	private static ActionsList actions = ActionsList.getinstance();
-	private Observable model = ModelImage.getInstance();
+	private static Observable model = ModelImage.getInstance();
 	
 	private static final Cursor CROSS = new Cursor(Cursor.CROSSHAIR_CURSOR);
 	private static final Cursor HAND = new Cursor(Cursor.HAND_CURSOR);
@@ -44,6 +45,8 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private double startY;
 	private double previousX;
 	private double previousY;
+	private double oDragX;
+	private double oDragY;
 	private double zoom;
 	private String imageName;
 	private int nbVueCachee = 0;
@@ -130,7 +133,9 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 
 		public void mouseReleased(MouseEvent event){
 			if(isDragging){
-				getNewPoint(startX, startY, event);
+				getNewPoint(startX, startY, event.getX(), event.getY());
+				oDragX = model.getDragX() - newX;
+				oDragY = model.getDragY() - newY;
 				actions.store(CommandFactory.createCommand("Drag"));
 				isDragging = false;
 			}
@@ -153,7 +158,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		public void mouseDragged(MouseEvent event){
 			isDragging = true;
 			vue.get(0).setCursor(HAND);
-			getNewPoint(previousX, previousY, event);
+			getNewPoint(previousX, previousY, event.getX(), event.getY());
 			actions.execute(CommandFactory.createCommand("Drag"));
 			previousX = event.getX();
 			previousY = event.getY();
@@ -218,9 +223,15 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 					switch(textField.toString()){
 					case "tZoom" 	: zoom = Double.valueOf(textField.getText());
 					actions.storeAndExecute(CommandFactory.createCommand("ZoomInFromVueDonnees"));	break;
-					case "tDragX" 	: newX += Double.valueOf(textField.getText());
+					case "tDragX" 	: newX = (Double.valueOf(textField.getText()) - (model.getDragX()));
+					newY = 0;
+					oDragX = model.getDragX();
+					oDragY = model.getDragY();
 					actions.storeAndExecute(CommandFactory.createCommand("Drag"));					break;
-					case "tDragY" 	: newY += Double.valueOf(textField.getText());
+					case "tDragY" 	: newY = (Double.valueOf(textField.getText()) - (model.getDragY()));
+					newX = 0;
+					oDragX = model.getDragX();
+					oDragY = model.getDragY();
 					actions.storeAndExecute(CommandFactory.createCommand("Drag"));					break;
 					}
 				}else if(textField.toString() == "tImage"){
@@ -249,9 +260,9 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 		vueDonnees.update();
 	}
 
-	private void getNewPoint(double panelX, double panelY, MouseEvent event){
+	private void getNewPoint(double panelX, double panelY, double pointeurX, double pointeurY){
 		Point2D adjPreviousPoint = getTranslatedPoint(panelX, panelY);
-		Point2D adjNewPoint = getTranslatedPoint(event.getX(), event.getY());
+		Point2D adjNewPoint = getTranslatedPoint(pointeurX, pointeurY);
 
 		newX = adjNewPoint.getX() - adjPreviousPoint.getX();
 		newY = adjNewPoint.getY() - adjPreviousPoint.getY();
@@ -290,4 +301,15 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	public String getImageName() {
 		return imageName;
 	}
+	
+	@Override
+	public double getoDragX() {
+		return oDragX;
+	}
+	
+	@Override
+	public double getoDragY() {
+		return oDragY;
+	}
+
 }

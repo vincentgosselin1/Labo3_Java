@@ -22,7 +22,8 @@ public class CommandFactory {
 		case "ZoomOutFromVueDonnees": nCommand = new ZoomOut(controller.getZoom());						break;
 		case "ZoomIn" 				: nCommand = new ZoomIn();											break;
 		case "ZoomOut" 				: nCommand = new ZoomOut();											break;
-		case "Drag" 				: nCommand = new Drag(controller.getNewX(),controller.getNewY());	break;
+		case "Drag" 				: nCommand = new Drag(controller.getNewX(),controller.getNewY(), 
+													controller.getoDragX(), controller.getoDragY());	break;
 		case "CouleurChange"		: nCommand = new CouleurChange(caretaker,originator);				break;
 		}
 
