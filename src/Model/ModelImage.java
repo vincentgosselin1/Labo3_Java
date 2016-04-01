@@ -22,7 +22,7 @@ public class ModelImage implements Observable, Commandable{
 	private String imageName = "";
 	private List<ObserverIF> observers = new ArrayList<ObserverIF>();
 
-	public void setImage(BufferedImage image){
+	private void setImage(BufferedImage image){
 		this.image = image;
 	}
 
@@ -30,7 +30,7 @@ public class ModelImage implements Observable, Commandable{
 		return image;
 	}
 
-	public void setImageName(String imageName){
+	private void setImageName(String imageName){
 		this.imageName  = imageName;
 	}
 
@@ -38,7 +38,7 @@ public class ModelImage implements Observable, Commandable{
 		return imageName;
 	}
 
-	public boolean setZoom(double zoom){
+	private boolean setZoom(double zoom){
 		if(0 < zoom && zoom <= 3){
 			this.zoom = zoom;
 			return true;
@@ -50,7 +50,7 @@ public class ModelImage implements Observable, Commandable{
 		return zoom;
 	}
 
-	public void setDragX(double dragX) {
+	private void setDragX(double dragX) {
 		this.dragX = dragX;
 	}
 
@@ -58,7 +58,7 @@ public class ModelImage implements Observable, Commandable{
 		return dragX;
 	}
 
-	public void setDragY(double dragY) {
+	private void setDragY(double dragY) {
 		this.dragY = dragY;
 	}
 

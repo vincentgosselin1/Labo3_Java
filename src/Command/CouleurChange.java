@@ -61,7 +61,7 @@ public class CouleurChange implements Command{
 	public boolean execute() {
 		if(careTaker.getMementoList().isEmpty())
 		{
-			originator.set(model.getImage());
+			originator.set(MODEL.getImage());
 			careTaker.addMemento(originator.storeInMememto());//Cree le memento et on le met dans la liste.
 			
 			//init de la liste des mementos au complet.
@@ -97,8 +97,8 @@ public class CouleurChange implements Command{
 		case 3 : imageToModel = careTaker.getMemento(0).getImageSaved();	break; 
 		}
 		
-		//Set le model
-		model.changeCouleurImage(imageToModel);
+		//Set le MODEL
+		MODEL.changeCouleurImage(imageToModel);
 		
 		//On avance le click
 		numberOfClicks++;
@@ -118,7 +118,7 @@ public class CouleurChange implements Command{
 		if(numberOfClicks>3)
 			numberOfClicks=0;
 		imageToModel = careTaker.getMemento(numberOfClicks).getImageSaved();
-		model.changeCouleurImage(imageToModel);
+		MODEL.changeCouleurImage(imageToModel);
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class CouleurChange implements Command{
 		if(numberOfClicks<0)
 			numberOfClicks=3;
 		imageToModel = careTaker.getMemento(numberOfClicks).getImageSaved();
-		model.changeCouleurImage(imageToModel);
+		MODEL.changeCouleurImage(imageToModel);
 	}
 }	
 

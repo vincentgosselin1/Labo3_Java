@@ -51,12 +51,12 @@ public class Ouvrir implements Command{
 		try {
 			if(imageName.contains(".ser"))
 			{
-				DeSerialize(file, model);
+				DeSerialize(file, MODEL);
 			}
 			//On ouvre un JPG normal.
 			else{
 				image = ImageIO.read(file);
-				model.setModelImage(image, imageName, 1.0, 0, 0);
+				MODEL.setModelImage(image, imageName, 1.0, 0, 0);
 			}
 
 			return true;
@@ -66,7 +66,7 @@ public class Ouvrir implements Command{
 		}
 	}
 
-	public void DeSerialize(File file,Commandable model) throws IOException, ClassNotFoundException{
+	public void DeSerialize(File file,Commandable MODEL) throws IOException, ClassNotFoundException{
 		FileInputStream fileIn = new FileInputStream(file);
 		ObjectInputStream in = new ObjectInputStream(fileIn);
 		DataPacket dataPacket = (DataPacket) in.readObject();
@@ -80,7 +80,7 @@ public class Ouvrir implements Command{
 		// convert byte array back to BufferedImage
 		InputStream image = new ByteArrayInputStream(dataPacket.getImageInByte());
 		BufferedImage bImageFromConvert = ImageIO.read(image);
-		model.setModelImage(bImageFromConvert, dataPacket.getImageName() + ".ser", dataPacket.getZoom(), dataPacket.getDragX(), dataPacket.getDragY());
+		MODEL.setModelImage(bImageFromConvert, dataPacket.getImageName() + ".ser", dataPacket.getZoom(), dataPacket.getDragX(), dataPacket.getDragY());
 	}
 	@Override
 	public void reDo() {

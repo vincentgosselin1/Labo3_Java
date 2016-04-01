@@ -7,8 +7,8 @@ import Memento.CouleurOriginator;
 
 public class CommandFactory {
 
-	private static final InformationNeeded controller = Controller.getInstance();
-	private static CouleurCaretaker caretaker = new CouleurCaretaker();
+	private static final InformationNeeded CONTROLLER = Controller.getInstance();
+	private static CouleurCaretaker careTaker = new CouleurCaretaker();
 	private static CouleurOriginator originator = new CouleurOriginator();
 
 	public static Command createCommand(String commandName){
@@ -16,15 +16,15 @@ public class CommandFactory {
 		
 		switch(commandName){
 		case "Ouvrir" 				: nCommand = new Ouvrir();											break;
-		case "OuvrirSpecial" 		: nCommand = new Ouvrir(controller.getImageName());					break;
+		case "OuvrirSpecial" 		: nCommand = new Ouvrir(CONTROLLER.getImageName());					break;
 		case "Save" 				: nCommand = Save.getInstance(); 									break;
-		case "ZoomInFromVueDonnees" : nCommand = new ZoomIn(controller.getZoom());						break;
-		case "ZoomOutFromVueDonnees": nCommand = new ZoomOut(controller.getZoom());						break;
+		case "ZoomInFromVueDonnees" : nCommand = new ZoomIn(CONTROLLER.getZoom());						break;
+		case "ZoomOutFromVueDonnees": nCommand = new ZoomOut(CONTROLLER.getZoom());						break;
 		case "ZoomIn" 				: nCommand = new ZoomIn();											break;
 		case "ZoomOut" 				: nCommand = new ZoomOut();											break;
-		case "Drag" 				: nCommand = new Drag(controller.getNewX(),controller.getNewY(), 
-													controller.getoDragX(), controller.getoDragY());	break;
-		case "CouleurChange"		: nCommand = new CouleurChange(caretaker,originator);				break;
+		case "Drag" 				: nCommand = new Drag(CONTROLLER.getNewX(),CONTROLLER.getNewY(), 
+													CONTROLLER.getoDragX(), CONTROLLER.getoDragY());	break;
+		case "CouleurChange"		: nCommand = new CouleurChange(careTaker,originator);				break;
 		}
 
 		return nCommand;

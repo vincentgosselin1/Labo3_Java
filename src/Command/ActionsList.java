@@ -73,18 +73,18 @@ public class ActionsList {
 	}
 
 	private boolean canReDo(){
-		return record.size() > index + 1;
+		return record.size() > getIndex() + 1;
 	}
 
 	private boolean canUnDo(){
-		return index + 1 > 0;
+		return getIndex() + 1 > 0;
 	}
 
 	public void reDo(){
 		if(canReDo()){	
 			setIndex(getIndex() + 1);
 			record.get(index).reDo();
-			notified.notifyRecordSize(index, record.size());
+			notified.notifyRecordSize(getIndex(), record.size());
 		}
 	}
 
@@ -92,7 +92,7 @@ public class ActionsList {
 		if(canUnDo()){
 			record.get(index).unDo();
 			setIndex(getIndex() - 1);
-			notified.notifyRecordSize(index, record.size());
+			notified.notifyRecordSize(getIndex(), record.size());
 		}
 	}
 }

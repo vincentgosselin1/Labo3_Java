@@ -16,12 +16,12 @@ public class ZoomOut implements Command {
 
 	@Override
 	public boolean execute() {	
-		if(model.getImage() != null){
-			nZoom = model.getZoom()-zoomValue;
-			oDragX = model.getDragX();
-			oDragY = model.getDragY();
+		if(MODEL.getImage() != null){
+			nZoom = MODEL.getZoom()-zoomValue;
+			oDragX = MODEL.getDragX();
+			oDragY = MODEL.getDragY();
 
-			return model.changeModelImage(nZoom, model.getDragX(), model.getDragY());
+			return MODEL.changeModelImage(nZoom, MODEL.getDragX(), MODEL.getDragY());
 
 		}else{
 			return false;
@@ -35,9 +35,9 @@ public class ZoomOut implements Command {
 
 	@Override
 	public void unDo() {
-		nZoom = model.getZoom()+zoomValue;
-		model.changeModelImage(nZoom, 0, 0);
-		model.changeModelImage(model.getZoom(), oDragX, oDragY);
+		nZoom = MODEL.getZoom()+zoomValue;
+		MODEL.changeModelImage(nZoom, 0, 0);
+		MODEL.changeModelImage(MODEL.getZoom(), oDragX, oDragY);
 	}
 
 	public void setZoomValue(double zoomValue) {

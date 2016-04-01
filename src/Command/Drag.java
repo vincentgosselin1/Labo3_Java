@@ -15,8 +15,8 @@ public class Drag implements Command {
 
 	@Override
 	public boolean execute() {
-		if(model.getImage() != null)
-			return model.changeModelImage(model.getZoom(), model.getDragX() + newX, model.getDragY() + newY);
+		if(MODEL.getImage() != null)
+			return MODEL.changeModelImage(MODEL.getZoom(), MODEL.getDragX() + newX, MODEL.getDragY() + newY);
 		else
 			return false;
 	}
@@ -28,8 +28,8 @@ public class Drag implements Command {
 
 	@Override
 	public void unDo() {
-		model.changeModelImage(model.getZoom(), 0, 0);
-		model.changeModelImage(model.getZoom(), oDragX, oDragY);
+		MODEL.changeModelImage(MODEL.getZoom(), 0, 0);
+		MODEL.changeModelImage(MODEL.getZoom(), oDragX, oDragY);
 	}
 
 	public double getY() {
