@@ -1,10 +1,20 @@
 package Memento;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CouleurCaretaker {
+	
+	private static CouleurCaretaker instance = new CouleurCaretaker();
+
+	private CouleurCaretaker(){}
+
+	public static CouleurCaretaker getInstance(){
+		return instance;
+	}
+	
 	// Where all mementos are saved
-	private static ArrayList<CouleurMemento> savedImages = new ArrayList<CouleurMemento>();
+	private static List<CouleurMemento> savedImages = new ArrayList<CouleurMemento>();
 
 	public void addMemento(CouleurMemento m) { 
 		savedImages.add(m); 
@@ -14,7 +24,7 @@ public class CouleurCaretaker {
 		savedImages.clear();
 	}
 
-	public ArrayList<CouleurMemento> getMementoList(){
+	public List<CouleurMemento> getMementoList(){
 		return savedImages;
 	}
 

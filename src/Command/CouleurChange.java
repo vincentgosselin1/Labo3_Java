@@ -7,10 +7,24 @@ import Memento.CouleurMemento;
 import Memento.CouleurOriginator;
 
 public class CouleurChange implements Command{
+	
+	private static CouleurChange instance = new CouleurChange();
 
-	private static CouleurCaretaker careTaker = new CouleurCaretaker();
-	private static CouleurOriginator originator = new CouleurOriginator();
-	private static int numberOfClicks=0;
+	private CouleurChange(){}
+
+	public static CouleurChange getInstance(){
+		return instance;
+	}
+	
+	private static CouleurCaretaker careTaker = CouleurCaretaker.getInstance();
+	private static CouleurOriginator originator = CouleurOriginator.getInstance();
+	private static int numberOfClicks;
+	
+//	public CouleurChange(){
+//		careTaker = new CouleurCaretaker();
+//		originator = new CouleurOriginator();
+//		numberOfClicks=0;
+//	}
 
 	private void vert(BufferedImage imageSaved){
 		for(int y=0; y< imageSaved.getWidth(); y++){

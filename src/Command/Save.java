@@ -13,7 +13,7 @@ public class Save implements Command{
 
 	private static Save instance = new Save();
 
-	public Save(){}
+	private Save(){}
 
 	public static Save getInstance(){
 		return instance;

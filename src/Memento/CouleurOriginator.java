@@ -5,6 +5,14 @@ import java.awt.image.BufferedImage;
 
 public class CouleurOriginator {
 	
+	private static CouleurOriginator instance = new CouleurOriginator();
+
+	private CouleurOriginator(){}
+
+	public static CouleurOriginator getInstance(){
+		return instance;
+	}
+	
 	private BufferedImage newImage;
 	
 	public void set(BufferedImage newImage){
