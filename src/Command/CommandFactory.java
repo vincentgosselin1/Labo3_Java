@@ -2,14 +2,10 @@ package Command;
 
 import Controller.Controller;
 import Controller.InformationNeeded;
-import Memento.CouleurCaretaker;
-import Memento.CouleurOriginator;
 
 public class CommandFactory {
 
 	private static final InformationNeeded CONTROLLER = Controller.getInstance();
-	private static CouleurCaretaker careTaker = new CouleurCaretaker();
-	private static CouleurOriginator originator = new CouleurOriginator();
 
 	public static Command createCommand(String commandName){
 		Command nCommand = null;
@@ -24,7 +20,7 @@ public class CommandFactory {
 		case "ZoomOut" 				: nCommand = new ZoomOut();											break;
 		case "Drag" 				: nCommand = new Drag(CONTROLLER.getNewX(),CONTROLLER.getNewY(), 
 													CONTROLLER.getoDragX(), CONTROLLER.getoDragY());	break;
-		case "CouleurChange"		: nCommand = new CouleurChange(careTaker,originator);				break;
+		case "CouleurChange"		: nCommand = new CouleurChange();									break;
 		}
 
 		return nCommand;

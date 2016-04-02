@@ -6,11 +6,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import Model.ModelImage;
+import Model.Commandable;
 
 public class DataPacketFactory {
 	
-	public static DataPacket createFrom(ModelImage model) throws IOException
+	public static DataPacket createDataPacket(Commandable model) throws IOException
 	{
 		//Cree le DataPacket
 		DataPacket newDataPacket = new DataPacket();

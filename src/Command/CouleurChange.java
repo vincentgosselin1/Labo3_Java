@@ -8,17 +8,11 @@ import Memento.CouleurOriginator;
 
 public class CouleurChange implements Command{
 
-	private CouleurCaretaker careTaker;
-	private CouleurOriginator originator;
+	private static CouleurCaretaker careTaker = new CouleurCaretaker();
+	private static CouleurOriginator originator = new CouleurOriginator();
 	private static int numberOfClicks=0;
-	
-	public CouleurChange(CouleurCaretaker careTaker,CouleurOriginator originator)
-	{
-		this.careTaker=careTaker;
-		this.originator=originator;
-	}
 
-	private void Vert(BufferedImage imageSaved){
+	private void vert(BufferedImage imageSaved){
 		for(int y=0; y< imageSaved.getWidth(); y++){
 			for(int x=0; x<imageSaved.getWidth();x++){
 				int p = imageSaved.getRGB(x, y);
@@ -31,7 +25,7 @@ public class CouleurChange implements Command{
 		}
 	}
 	
-	private void Rouge(BufferedImage imageSaved){
+	private void rouge(BufferedImage imageSaved){
 		for(int y = 0; y < imageSaved.getHeight(); y++){
 			for(int x = 0; x < imageSaved.getWidth(); x++){
 				int p = imageSaved.getRGB(x,y);
@@ -44,7 +38,7 @@ public class CouleurChange implements Command{
 		}
 	}
 	
-	private void Bleu(BufferedImage imageSaved){
+	private void bleu(BufferedImage imageSaved){
 		for(int y = 0; y < imageSaved.getHeight(); y++){
 			for(int x = 0; x < imageSaved.getWidth(); x++){
 				int p = imageSaved.getRGB(x,y);
@@ -70,21 +64,21 @@ public class CouleurChange implements Command{
 			CouleurMemento newMemento1 = originator.storeInMememto();
 			careTaker.addMemento(newMemento1);
 			BufferedImage imageSaved1 = newMemento1.getImageSaved();//On prend le nouveau Memento cree et on soutire son image saved.
-			Vert(imageSaved1);
+			vert(imageSaved1);
 			
 			//Memento 2 Bleu
 			originator.set(careTaker.getMemento(0).getImageSaved());
 			CouleurMemento newMemento2 = originator.storeInMememto();
 			careTaker.addMemento(newMemento2);
 			BufferedImage imageSaved2 = newMemento2.getImageSaved();
-			Bleu(imageSaved2);
+			bleu(imageSaved2);
 			
 			//Memento 3 Rouge
 			originator.set(careTaker.getMemento(0).getImageSaved());
 			CouleurMemento newMemento3 = originator.storeInMememto();
 			careTaker.addMemento(newMemento3);
 			BufferedImage imageSaved3 = newMemento3.getImageSaved();
-			Rouge(imageSaved3);
+			rouge(imageSaved3);
 		}
 		
 		BufferedImage imageToModel=null;

@@ -31,23 +31,6 @@ public class Drag implements Command {
 		MODEL.changeModelImage(MODEL.getZoom(), 0, 0);
 		MODEL.changeModelImage(MODEL.getZoom(), oDragX, oDragY);
 	}
-
-	public double getY() {
-		return newY;
-	}
-
-	public void setY(double newY) {
-		this.newY = newY;
-	}
-
-
-	public double getX() {
-		return newX;
-	}
-
-	public void setX(double newX) {
-		this.newX = newX;
-	}
 }
 
 

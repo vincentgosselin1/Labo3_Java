@@ -7,11 +7,11 @@ public class ZoomIn implements Command {
 	private double oDragY;
 
 	public ZoomIn (double zoomValue){
-		setZoomValue(zoomValue-MODEL.getZoom());
+		this.zoomValue = zoomValue-MODEL.getZoom();
 	}
 
 	public ZoomIn() {
-		setZoomValue(DEFAULT_ZOOM);
+		this.zoomValue = DEFAULT_ZOOM;
 	}
 
 	@Override
@@ -37,10 +37,6 @@ public class ZoomIn implements Command {
 		nZoom = MODEL.getZoom()-zoomValue;
 		MODEL.changeModelImage(nZoom, 0, 0);
 		MODEL.changeModelImage(MODEL.getZoom(), oDragX, oDragY);
-	}
-
-	public void setZoomValue(double zoomValue) {
-		this.zoomValue = zoomValue;
 	}
 }
 

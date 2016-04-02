@@ -7,11 +7,11 @@ public class ZoomOut implements Command {
 	private double oDragY;
 
 	public ZoomOut(double zoomValue){
-		setZoomValue(zoomValue);
+		this.zoomValue = zoomValue;
 	}
 
 	public ZoomOut() {
-		setZoomValue(DEFAULT_ZOOM);
+		this.zoomValue = DEFAULT_ZOOM;
 	}
 
 	@Override
@@ -38,9 +38,5 @@ public class ZoomOut implements Command {
 		nZoom = MODEL.getZoom()+zoomValue;
 		MODEL.changeModelImage(nZoom, 0, 0);
 		MODEL.changeModelImage(MODEL.getZoom(), oDragX, oDragY);
-	}
-
-	public void setZoomValue(double zoomValue) {
-		this.zoomValue = zoomValue;
 	}
 }

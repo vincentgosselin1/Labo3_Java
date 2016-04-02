@@ -23,7 +23,7 @@ public class Save implements Command{
 	public boolean execute() {
 		if(MODEL.getImage() != null){
 			try {
-				Serialize(ModelImage.getInstance());
+				serialize(ModelImage.getInstance());
 				return true;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -34,10 +34,10 @@ public class Save implements Command{
 
 	}
 
-	public void Serialize(ModelImage MODEL) throws IOException
+	public void serialize(ModelImage MODEL) throws IOException
 	{
 		//On cree un datapacket a partir du MODEL.
-		DataPacket dataPacket = DataPacketFactory.createFrom(MODEL);
+		DataPacket dataPacket = DataPacketFactory.createDataPacket(MODEL);
 
 		FileOutputStream fileOut = new FileOutputStream(workingDirectory.toString() + File.separator
 														+ "Images" + File.separator + dataPacket.getImageName() + ".ser");

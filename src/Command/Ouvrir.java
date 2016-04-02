@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import Model.Commandable;
 import Serialization.DataPacket;
 
 public class Ouvrir implements Command{
