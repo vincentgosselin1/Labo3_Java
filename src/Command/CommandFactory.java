@@ -20,7 +20,7 @@ public class CommandFactory {
 		case "ZoomOut" 				: nCommand = new ZoomOut();											break;
 		case "Drag" 				: nCommand = new Drag(CONTROLLER.getNewX(),CONTROLLER.getNewY(), 
 													CONTROLLER.getoDragX(), CONTROLLER.getoDragY());	break;
-		case "CouleurChange"		: nCommand = new CouleurChange();									break;
+		case "CouleurChange"		: nCommand = CouleurChange.getInstance();									break;
 		}
 
 		return nCommand;
