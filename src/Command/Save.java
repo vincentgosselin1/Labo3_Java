@@ -18,6 +18,12 @@ public class Save implements Command{
 	public static Save getInstance(){
 		return instance;
 	}
+	
+	private String path= "";
+	
+	public String getPath() {
+		return path;
+	}
 
 	@Override
 	public boolean execute() {
@@ -31,22 +37,19 @@ public class Save implements Command{
 			}
 		}else
 			return false;
-
 	}
 
 	public void serialize(ModelImage MODEL) throws IOException
 	{
 		//On cree un datapacket a partir du MODEL.
 		DataPacket dataPacket = DataPacketFactory.createDataPacket(MODEL);
-
-		FileOutputStream fileOut = new FileOutputStream(workingDirectory.toString() + File.separator
-														+ "Images" + File.separator + dataPacket.getImageName() + ".ser");
+		path = workingDirectory.toString() + File.separator
+				+ "Images" + File.separator + dataPacket.getImageName() + ".ser";
+		FileOutputStream fileOut = new FileOutputStream(path);
 		ObjectOutputStream out = new ObjectOutputStream(fileOut);
 		out.writeObject(dataPacket);
 		out.close();
 		fileOut.close();
-		System.out.printf(workingDirectory.toString() + File.separator
-				+ "Images" + File.separator + dataPacket.getImageName() + ".ser");
 	}
 	@Override
 	public void reDo() {

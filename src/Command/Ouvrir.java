@@ -71,11 +71,7 @@ public class Ouvrir implements Command{
 		DataPacket dataPacket = (DataPacket) in.readObject();
 		in.close();
 		fileIn.close();
-		//Verification des donnees du packet.
-		System.out.println(dataPacket.getDragX());
-		System.out.println(dataPacket.getDragY());
-		System.out.println(dataPacket.getZoom());
-		System.out.println(dataPacket.getImageName());
+
 		// convert byte array back to BufferedImage
 		InputStream image = new ByteArrayInputStream(dataPacket.getImageInByte());
 		BufferedImage bImageFromConvert = ImageIO.read(image);

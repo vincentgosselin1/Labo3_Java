@@ -19,12 +19,6 @@ public class CouleurChange implements Command{
 	private static CouleurCaretaker careTaker = CouleurCaretaker.getInstance();
 	private static CouleurOriginator originator = CouleurOriginator.getInstance();
 	private static int numberOfClicks;
-	
-//	public CouleurChange(){
-//		careTaker = new CouleurCaretaker();
-//		originator = new CouleurOriginator();
-//		numberOfClicks=0;
-//	}
 
 	private void vert(BufferedImage imageSaved){
 		for(int y=0; y< imageSaved.getWidth(); y++){

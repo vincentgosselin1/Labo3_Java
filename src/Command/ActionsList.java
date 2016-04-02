@@ -48,8 +48,8 @@ public class ActionsList {
 		notified.notifyRecordSize(getIndex(), record.size());
 	}
 
-	public void execute(Command command) {
-		command.execute();
+	public boolean execute(Command command) {
+		return command.execute();
 	}
 
 	private boolean haveToClear(){

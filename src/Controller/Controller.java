@@ -16,11 +16,14 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import Command.ActionsList;
 import Command.CommandFactory;
+import Command.Save;
 import Memento.CouleurCaretaker;
 import Model.ModelImage;
 import Model.Observable;
@@ -33,7 +36,7 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	private static List<Vue> vue = new ArrayList<Vue>();
 	private static ActionsList actions = ActionsList.getinstance();
 	private static Observable model = ModelImage.getInstance();
-	
+
 	private static final Cursor CROSS = new Cursor(Cursor.CROSSHAIR_CURSOR);
 	private static final Cursor HAND = new Cursor(Cursor.HAND_CURSOR);
 	private static final Cursor DEFAULT = new Cursor(Cursor.DEFAULT_CURSOR);
@@ -176,8 +179,11 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 
 					//L'utilisateur a appuyé sur Sauvegarder
 				}else if(event.getActionCommand().equals("Sauvegarder")){
-					actions.execute(CommandFactory.createCommand("Save"));
-					actions.clearRecord();
+					if(actions.execute(CommandFactory.createCommand("Save"))){
+						JTextArea text = new JTextArea("L'image a été sauvegardée ici : " + Save.getInstance().getPath());
+						JOptionPane.showMessageDialog(vue.get(0), text, "Save", JOptionPane.INFORMATION_MESSAGE);
+						actions.clearRecord();
+					}
 
 					//L'utilisateur a appuyé sur Annuler
 				}else if(event.getActionCommand().equals("Annuler")){
@@ -292,12 +298,12 @@ public class Controller implements DownLoadDataFromList, InformationNeeded{
 	public String getImageName() {
 		return imageName;
 	}
-	
+
 	@Override
 	public double getoDragX() {
 		return oDragX;
 	}
-	
+
 	@Override
 	public double getoDragY() {
 		return oDragY;

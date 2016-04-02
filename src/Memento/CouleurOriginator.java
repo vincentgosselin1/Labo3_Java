@@ -21,7 +21,6 @@ public class CouleurOriginator {
 	}
 	
 	public CouleurMemento storeInMememto(){
-		System.out.println("From Originator : Saving to Memento");
 		return new CouleurMemento(newImage);
 	}
 	
