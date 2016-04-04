@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import Model.ModelImage;
 import Serialization.DataPacket;
 import Serialization.DataPacketFactory;
 
@@ -29,7 +28,7 @@ public class Save implements Command{
 	public boolean execute() {
 		if(MODEL.getImage() != null){
 			try {
-				serialize(ModelImage.getInstance());
+				serialize();
 				return true;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -39,7 +38,7 @@ public class Save implements Command{
 			return false;
 	}
 
-	public void serialize(ModelImage MODEL) throws IOException
+	public void serialize() throws IOException
 	{
 		//On cree un datapacket a partir du MODEL.
 		DataPacket dataPacket = DataPacketFactory.createDataPacket(MODEL);
