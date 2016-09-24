@@ -1,6 +1,6 @@
 #Laboratoire 3 pour le cours de ELE116, programmation JAVA
 
-Le programme consiste de deux fenetres qui donnent les informations sur l'image de droite.
+Le programme consiste de deux fenetres qui donnent les informations sur une image ouverte avec le file explorer.
 La vue Image permet de bouger l'image avec le click de la souris, de zoom in et out et ainsi de changer les couleurs de l'image selon le RGB. La vue donnee permet de voir les parametres actifs de l'image : taille du zoom, position X,Y, etc...
 
 Voici une image du programme:
